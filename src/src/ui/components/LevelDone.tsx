@@ -107,6 +107,7 @@ export default function LevelDone() {
       <footer className="mt-8 flex flex-col gap-4">
         {!isLast && (
           <button 
+            autoFocus
             onClick={() => navigate(`/level/${next}`)}
             className="w-full rounded-[1.5rem] bg-gradient-to-b from-accent to-[oklch(0.50_0.14_25)] px-8 py-4 font-display text-xl tracking-wide text-white shadow-[0_6px_0_oklch(0.40_0.14_25),0_10px_20px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_0_oklch(0.40_0.14_25),0_15px_25px_rgba(0,0,0,0.2)] active:translate-y-[6px] active:shadow-[0_0px_0_oklch(0.40_0.14_25),0_0px_0_rgba(0,0,0,0)]"
           >
@@ -114,6 +115,7 @@ export default function LevelDone() {
           </button>
         )}
         <button 
+          autoFocus={isLast}
           onClick={() => navigate('/menu')}
           className="w-full rounded-[1.5rem] bg-white border-2 border-border px-8 py-4 font-display text-xl tracking-wide text-text shadow-[0_6px_0_oklch(0.86_0.025_78)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_0_oklch(0.86_0.025_78)] active:translate-y-[6px] active:shadow-[0_0px_0_oklch(0.86_0.025_78)]"
         >

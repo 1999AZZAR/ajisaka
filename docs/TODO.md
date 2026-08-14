@@ -79,9 +79,10 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Suara gamelan ringan (Web Audio) (engine audio.ts selesai) — §12.2
 - [x] Transisi antarmuka & animasi UI (menggunakan animejs dgn bounce/stagger)
 - [x] Transisi slide sinopsis (Prolog.tsx) — FR-2.2
-- [ ] Modal congrats/fokus trap — §9.7
+- [x] Modal congrats/fokus trap — §9.7
 - [x] Audit a11y axe (P0 kritikal/serius = 0, kontras AA) — §16
 - [x] Skip-link + landmark announcement + `:focus-visible` penuh — §16
+- [x] Aksesibilitas (a11y) interaktif: Canvas memiliki `aria-label`/deskripsi, modal congrats focus-trapped — §9.7
 - [x] Suport keyboard (story slides, Enter/Space) — §16 (Selesai untuk Prolog, Practice, Phase2, LevelDone)
 - [ ] Alternatif aksesibel untuk canvas (deskripsi soal lengkap) — §16
 - [ ] Optimasi bundle ≤1,5 MB + font ≤600 KB (saat ini ±500 KB total precache) — §15

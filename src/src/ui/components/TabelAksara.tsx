@@ -67,6 +67,47 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
   const [activeTab, setActiveTab] = useState<AksaraType>('nglegena')
   const [selected, setSelected] = useState<AksaraGlyph | null>(null)
   const { t, i18n } = useTranslation()
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      } else if (e.key === 'Tab') {
+        if (!modalRef.current) return
+        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (focusableElements.length === 0) return
+        const firstElement = focusableElements[0]
+        const lastElement = focusableElements[focusableElements.length - 1]
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus()
+            e.preventDefault()
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus()
+            e.preventDefault()
+          }
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    // Auto focus the modal itself or the first element
+    setTimeout(() => {
+      const closeBtn = modalRef.current?.querySelector('button')
+      if (closeBtn) closeBtn.focus()
+    }, 10)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -79,11 +120,17 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
   const items = LIBRARY[activeTab]
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-paper/95 backdrop-blur-sm sm:items-center sm:justify-center">
+    <div 
+      className="fixed inset-0 z-50 flex flex-col bg-paper/95 backdrop-blur-sm sm:items-center sm:justify-center"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="kamus-title"
+      ref={modalRef}
+    >
       <div className="flex h-full w-full flex-col bg-paper sm:h-[85vh] sm:max-w-3xl sm:rounded-3xl sm:border-2 sm:border-border sm:shadow-2xl">
         <header className="flex items-center justify-between p-6 pb-2">
           <div>
-            <h1 className="font-display text-2xl text-text">{t('kamus_modal.title')}</h1>
+            <h1 id="kamus-title" className="font-display text-2xl text-text">{t('kamus_modal.title')}</h1>
           </div>
           <button
             onClick={onClose}
