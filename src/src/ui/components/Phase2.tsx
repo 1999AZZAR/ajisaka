@@ -36,7 +36,13 @@ const KEYBOARD = [
   { id: 'tarung', label: '+o', char: 'ꦺꦴ' },
   { id: 'cecak', label: '+ng', char: 'ꦁ' },
   { id: 'layar', label: '+r', char: 'ꦂ' },
-  { id: 'pangkon', label: 'mati', char: '꧀' }
+  { id: 'pangkon', label: 'mati', char: '꧀' },
+  // Rekan
+  { id: 'kha', label: 'kha', char: 'ꦏ꦳' },
+  { id: 'dza', label: 'dza', char: 'ꦢ꦳' },
+  { id: 'fa', label: 'fa', char: 'ꦥ꦳' },
+  { id: 'za', label: 'za', char: 'ꦗ꦳' },
+  { id: 'gha', label: 'gha', char: 'ꦒ꦳' }
 ]
 
 const QUESTIONS = [
@@ -46,12 +52,12 @@ const QUESTIONS = [
   { word: 'saka', target: 'ꦱꦏ', menu: 'Menu 1: Dasar' },
   { word: 'cara', target: 'ꦕꦫ', menu: 'Menu 1: Dasar' },
   { word: 'naga', target: 'ꦤꦒ', menu: 'Menu 1: Dasar' },
-  // Menu 2: Sandangan
-  { word: 'buku', target: 'ꦧꦸꦏꦸ', menu: 'Menu 2: Sandangan' },
-  { word: 'pari', target: 'ꦥꦫꦶ', menu: 'Menu 2: Sandangan' },
-  { word: 'soto', target: 'ꦱꦺꦴꦠꦺꦴ', menu: 'Menu 2: Sandangan' },
-  { word: 'lali', target: 'ꦭꦭꦶ', menu: 'Menu 2: Sandangan' },
-  { word: 'sepi', target: 'ꦱꦼꦥꦶ', menu: 'Menu 2: Sandangan' },
+  // Menu 2: Sandangan & Rekan
+  { word: 'buku', target: 'ꦧꦸꦏꦸ', menu: 'Menu 2: Sandangan & Rekan' },
+  { word: 'pari', target: 'ꦥꦫꦶ', menu: 'Menu 2: Sandangan & Rekan' },
+  { word: 'soto', target: 'ꦱꦺꦴꦠꦺꦴ', menu: 'Menu 2: Sandangan & Rekan' },
+  { word: 'faham', target: 'ꦥ꦳ꦲꦩ꧀', menu: 'Menu 2: Sandangan & Rekan' },
+  { word: 'zaman', target: 'ꦗ꦳ꦩꦤ꧀', menu: 'Menu 2: Sandangan & Rekan' },
   // Menu 3: Pasangan
   { word: 'sabtu', target: 'ꦱꦧ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
   { word: 'mandi', target: 'ꦩꦤ꧀ꦢꦶ', menu: 'Menu 3: Pasangan' },
