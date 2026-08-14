@@ -212,7 +212,7 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
                   {glyph.unicode}
                 </span>
                 <span className="font-display text-base text-text capitalize">
-                  {glyph.id.replace('.pas', '').replace('.ns', '')}
+                  {glyph.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
                 </span>
               </button>
             ))}
@@ -225,7 +225,7 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
         <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/40 p-6 backdrop-blur-sm" onClick={() => setSelected(null)}>
           <div className="flex w-full max-w-sm flex-col items-center gap-4 rounded-[2rem] border-4 border-white bg-paper p-8 text-center shadow-2xl" onClick={e => e.stopPropagation()}>
             <h2 className="font-display text-2xl text-text capitalize">
-              {selected.id.replace('.pas', '').replace('.ns', '')}
+              {selected.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
             </h2>
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
@@ -247,6 +247,10 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
               {selected.type === 'nglegena' && t('kamus_modal.desc_nglegena')}
               {selected.type === 'pasangan' && t('kamus_modal.desc_pasangan')}
               {selected.type === 'sandangan' && t('kamus_modal.desc_sandangan')}
+              {selected.type === 'rekan' && t('kamus_modal.desc_rekan')}
+              {selected.type === 'murda' && t('kamus_modal.desc_murda')}
+              {selected.type === 'swara' && t('kamus_modal.desc_swara')}
+              {selected.type === 'angka' && t('kamus_modal.desc_angka')}
             </p>
             
             <button
