@@ -1,0 +1,1681 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Petualangan Ajisaka - Technical Documentation},
+  pdfauthor={Azzar},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Petualangan Ajisaka - Technical Documentation}
+\author{Azzar}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{Petualangan Ajisaka --- Aplikasi Pembelajaran Menulis Aksara
+Jawa}\label{petualangan-ajisaka-aplikasi-pembelajaran-menulis-aksara-jawa}
+
+\textbf{Design \& Development Document}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Version} & 0.1 (draft) \\
+\textbf{Date} & 2026-08-12 \\
+\textbf{Status} & Design document --- pre-build \\
+\textbf{Delivery target} & Installable Progressive Web App (PWA) \\
+\textbf{Source material} & \texttt{projek\ Isif.pdf} --- \emph{Naskah
+Lengkap Aplikasi Petualangan Ajisaka} \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Overview}\label{overview}
+
+\textbf{Petualangan Ajisaka} is a gamified learning application that
+teaches children to read and write \textbf{Aksara Jawa} (the Javanese
+script) through a story-driven adventure. The player follows the
+legendary hero \textbf{Ajisaka} across three islands, unlocking relics
+and defeating enemies by completing on-screen handwriting practice
+challenges.
+
+The app runs entirely inside the browser and is packaged as an
+installable, \textbf{offline-capable PWA} so students on low-end tablets
+and school Chromebooks can play without connectivity.
+
+\subsubsection{1.1 What the product is}\label{what-the-product-is}
+
+\begin{itemize}
+\tightlist
+\item
+  A \emph{stroke-practice} game: the player literally writes Aksara Jawa
+  with a finger or stylus on a canvas, guided by animated arrow guides
+  (stroke order + direction).
+\item
+  A \emph{narrative adventure}: writing missions are framed as story
+  events (unlock a sword seal, answer a village elder's test, battle a
+  giant's envoys).
+\item
+  A \emph{progression system}: three levels (Pemula → Mahir → Master),
+  rewards (Pedang Pusaka, Perisai Sakti), followers joining the party
+  (Dora, the local villager), and a final exam + crowned-ending.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Goals \& Non-Goals}\label{goals-non-goals}
+
+\subsubsection{2.1 Goals}\label{goals}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\#
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Goal
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+G1 & Teach correct \textbf{stroke order and direction} for Aksara Jawa
+basics (Nglegena), Sandangan, and Pasangan. \\
+G2 & Keep learners motivated through narrative, rewards, and escalating
+difficulty. \\
+G3 & Work \textbf{offline} and be \textbf{installable} on Android
+tablets, iPads, and desktop browsers (PWA). \\
+G4 & Give immediate, friendly feedback on each stroke (truthy/dirty,
+live). \\
+G5 & Track progress locally per device (no account required for MVP). \\
+G6 & Provide a complete, reusable dataset of Aksara Jawa strokes and
+Unicode mappings for future features (transliteration, quizzes). \\
+\end{longtable}
+
+\subsubsection{2.2 Non-goals (MVP)}\label{non-goals-mvp}
+
+\begin{itemize}
+\tightlist
+\item
+  ✗ Server accounts, cloud sync, or leaderboards (future work).
+\item
+  ✗ Freehand recognition beyond the taught question set (no arbitrary
+  text input).
+\item
+  ✗ Audio instructions / speech synthesis (future; on-screen text only).
+\item
+  ✗ Multi-language UI beyond Indonesian + minimal English (future).
+\item
+  ✗ Native app stores (PWA only for now; TWA/APK wrapper considered
+  later).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Target Users \& Personas}\label{target-users-personas}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Persona
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Profile
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Needs
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Adi (9 y.o.)} & Primary: elementary student learning Aksara Jawa
+in class & Playful, guided practice, immediate feedback, feels like a
+game \\
+\textbf{Bu Sari (32 y.o.)} & Teacher & Assignable practice, clear level
+map, zero-install on classroom tablets \\
+\textbf{Pak Damar (40 y.o.)} & Parent helping at home & Simple install,
+offline, no account, safe kid UI \\
+\end{longtable}
+
+\textbf{Design consequence:} big touch targets (≥ 48px), high-contrast
+solid buttons, readable Indonesian copy, minimal typing, zero ads, zero
+tracking.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Narrative \& Content Spec (from source
+PDF)}\label{narrative-content-spec-from-source-pdf}
+
+\subsubsection{4.1 High-level arc}\label{high-level-arc}
+
+\begin{verbatim}
+Petualangan Ajisaka
+  ├─ Prolog ─ Mengenal Asal-usul Aksara Jawa (edukasi)
+  ├─ Level 1 ─ Pemula   · Pulau Sanjaya    → Pedang Pusaka    (+ Dora joins)
+  ├─ Level 2 ─ Mahir    · Pulau Adi Jaya   → Perisai Sakti    (+ warga lokal joins)
+  └─ Level 3 ─ Master   · Kerajaan Nusantara (2 fase) → Raksasa Hijau defeated → crowned King
+\end{verbatim}
+
+\subsubsection{4.2 Screen / menu breakdown}\label{screen-menu-breakdown}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2105}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2368}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4737}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\#
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Screen
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Content
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Writing mechanic
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & \textbf{Halaman Awal (Splash/Home)} & Media title + big
+\textbf{PLAY} button & --- \\
+1 & \textbf{Dashboard (Main Menu)} & 5 navigation menus: Prolog, Level
+1, Level 2, Level 3, \emph{Kembali ke Rumah} & --- \\
+2 & \textbf{Prolog} & Educational page: history \& origin of Aksara Jawa
+& --- \\
+3 & \textbf{Level 1 --- Pemula} (Pulau Sanjaya) & Sinopsis: unlock seal
++ take the sword. \textbf{Narasi sinopsis tidak diekstrak utuh dari PDF}
+→ open question §20 & Write \textbf{Aksara Dasar (Nglegena)} with
+\textbf{arrow stroke-guides} \\
+4 & \textbf{Level 1 End} & Reward: \textbf{Pedang Pusaka}; meeting
+\textbf{Dora} joins the party & --- \\
+5 & \textbf{Level 2 --- Mahir} (Pulau Adi Jaya) & Sinopsis: sail with
+Dora, find \textbf{Perisai Sakti}, a local villager sets a test &
+\textbf{11 soal} (per narrative) of Sandangan writing \\
+6 & \textbf{Level 2 End} & Reward: \textbf{Perisai Sakti}; villager
+joins party; \emph{Next Level} & --- \\
+7 & \textbf{Level 3 --- Master, Fase 1} (Penghadangan Dua Utusan) & Two
+Green Giant envoys intercept the ship at sea; defeat them by writing &
+\textbf{20 soal Aksara Pasangan} (stacked consonants: main letter +
+attached pasangan below/side), full stroke-guide \\
+8 & \textbf{Level 3 --- Master, Fase 2} (Penyegelan Raksasa Hijau) &
+Infiltrate Nusantara Kingdom; free it from the Green Giant & \textbf{3
+latihan menus × 5 soal = 15 soal}: (1) kalimat dgn Aksara Dasar, (2)
+kalimat dgn Sandangan, (3) kalimat dgn Pasangan \\
+9 & \textbf{Akhir Cerita} & Happy ending: Green Giant sealed away;
+player crowned \textbf{Raja Kerajaan Nusantara} & --- \\
+\end{longtable}
+
+\subsubsection{4.3 Numbers locked from the
+narrative}\label{numbers-locked-from-the-narrative}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Item & Count & Source \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Level 2 writing questions & \textbf{11} & ``ke-11 soal'' \\
+Level 3 Fase 1 questions & \textbf{20} (pasangan) & narrative \\
+Level 3 Fase 2 questions & \textbf{15} (3 × 5) & narrative \\
+Level 1 question count & \emph{unspecified} & \textbf{open question
+§20} \\
+\end{longtable}
+
+\subsubsection{4.4 Content gaps to confirm (from PDF
+anomalies)}\label{content-gaps-to-confirm-from-pdf-anomalies}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Level 1 synopsis text for Pulau Sanjaya (the ``unlock the seal'' beat
+  is present, but the full story paragraph was empty in extraction).
+\item
+  Whether Level 1 \emph{requires} Nglegena only, or includes a tutorial
+  sub-mode.
+\item
+  Reward naming convention + visual style (game-asset source or in-app
+  SVG?).
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Functional Requirements}\label{functional-requirements}
+
+\subsubsection{FR-1 · Home \& Navigation}\label{fr-1-home-navigation}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FR-1.1} Home screen shows the media title and a primary
+  \textbf{PLAY} button.
+\item
+  \textbf{FR-1.2} PLAY opens the dashboard; system back or ``Kembali ke
+  Rumah'' returns home.
+\item
+  \textbf{FR-1.3} Dashboard always lists \texttt{Prolog},
+  \texttt{Level\ 1}, \texttt{Level\ 2}, \texttt{Level\ 3},
+  \texttt{Kembali\ ke\ Rumah}.
+\item
+  \textbf{FR-1.4} Locked levels are visually locked and show a
+  ``complete previous level'' hint (do not hard-block navigation; allow
+  reading Prolog anytime).
+\end{itemize}
+
+\subsubsection{FR-2 · Story / Prolog}\label{fr-2-story-prolog}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FR-2.1} Prolog renders the origin story of Aksara Jawa as
+  illustrated scenes.
+\item
+  \textbf{FR-2.2} Supports tap-to-advance (like a slide deck); skippable
+  with confirmation.
+\end{itemize}
+
+\subsubsection{FR-3 · Writing Practice (core
+gameplay)}\label{fr-3-writing-practice-core-gameplay}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FR-3.1} Each question shows a reference glyph (rendered with
+  the Javanese font) + its romanization + Indonesian hint.
+\item
+  \textbf{FR-3.2} A canvas area captures freehand strokes (single
+  touch/stylus; multi-touch disabled).
+\item
+  \textbf{FR-3.3} Animated \textbf{stroke guide}: numbered arrow heads
+  showing direction and order, replayable on demand.
+\item
+  \textbf{FR-3.4} Live feedback: stroke match indicator (e.g., green =
+  good, amber = acceptable, red = wrong direction/order).
+\item
+  \textbf{FR-3.5} Between strokes, guide for the next sub-stroke
+  highlights; completed strokes stay visible.
+\item
+  \textbf{FR-3.6} \textbf{Undo / Clear} controls (big, kid-safe).
+\item
+  \textbf{FR-3.7} After a question completes: celebratory
+  micro-feedback, then auto-advance or ``Lanjut''.
+\item
+  \textbf{FR-3.8} A wrong-but-attempted answer can be retried (no
+  fail-state lock on MVP).
+\end{itemize}
+
+\subsubsection{FR-4 · Level Flow \&
+Rewards}\label{fr-4-level-flow-rewards}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FR-4.1} Level intro screen = story beat (sinopsis) → practice
+  session → outro beat.
+\item
+  \textbf{FR-4.2} On completion show reward item + story update (e.g.,
+  ``Dora bergabung!'').
+\item
+  \textbf{FR-4.3} ``Next Level'' button unlocks the following level.
+\item
+  \textbf{FR-4.4} Level 3 has two phases with a phase-transition
+  interstitial.
+\end{itemize}
+
+\subsubsection{FR-5 · Persistence}\label{fr-5-persistence}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FR-5.1} Persist: completed levels, per-question best score,
+  collected rewards, settings.
+\item
+  \textbf{FR-5.2} Resumable: closing mid-level returns to dashboard with
+  progress intact; continue begins from first unanswered question.
+\item
+  \textbf{FR-5.3} Storage: local-first (IndexedDB via
+  \texttt{localStorage} facade for MVP state; canvas data ephemeral).
+\end{itemize}
+
+\subsubsection{FR-6 · PWA}\label{fr-6-pwa}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FR-6.1} Installable (valid manifest + icons + service worker).
+\item
+  \textbf{FR-6.2} Official \textbf{offline-first}: full app shell +
+  asset (fonts, data, icons) precache; no network needed to play.
+\item
+  \textbf{FR-6.3} Updates: versioned SW with prompt-to-refresh when a
+  new release is cached.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Information Architecture \&
+Navigation}\label{information-architecture-navigation}
+
+\begin{verbatim}
+Home (Halaman Awal)
+  │  [PLAY]
+  ▼
+Dashboard ────────────────► (5 menu)
+  ├── Prolog ─────────────► Story slides ──► back
+  ├── Level 1 (Pemula) ───► [Intro sinopsis] ─► Practice L1 ─► [Reward: Pedang] ─► Next Level
+  ├── Level 2 (Mahir) ────► [Intro sinopsis] ─► Practice L2 (11) ─► [Reward: Perisai] ─► Next Level
+  ├── Level 3 (Master) ───► Fase 1: Practice Pasangan (20) ─► Fase 2: Lat.1 (5) Lat.2 (5) Lat.3 (5) ─► Ending
+  └── Kembali ke Rumah ───► Home
+\end{verbatim}
+
+\subsubsection{6.1 Navigational rules}\label{navigational-rules}
+
+\begin{itemize}
+\tightlist
+\item
+  Global, persistent \textbf{back} affordance on every non-dashboard
+  screen (system back + visible button).
+\item
+  Dashboard is the central hub; all level screens return to it.
+\item
+  \emph{Next Level} is the only forward gate; it appears only after a
+  level completes.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. User Flows}\label{user-flows}
+
+\subsubsection{7.1 First play through Level
+1}\label{first-play-through-level-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart TD}
+\NormalTok{  A[Home] {-}{-}\textgreater{}|PLAY| B[Dashboard]}
+\NormalTok{  B {-}{-}\textgreater{}|Level 1| C["Intro sinopsis: Pulau Sanjaya"]}
+\NormalTok{  C {-}{-}\textgreater{} D["Writing practice: Nglegena set"]}
+\NormalTok{  D {-}{-}\textgreater{}|question done| D}
+\NormalTok{  D {-}{-}\textgreater{}|all done| E["Outro: Pedang Pusaka + Dora joins"]}
+\NormalTok{  E {-}{-}\textgreater{}|Next Level| F[Dashboard {-} Level 2 unlocked]}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{7.2 Single-question writing
+loop}\label{single-question-writing-loop}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart TD}
+\NormalTok{  A[Show glyph + hint] {-}{-}\textgreater{} B[Replay stroke guide]}
+\NormalTok{  B {-}{-}\textgreater{} C[Player traces on canvas]}
+\NormalTok{  C {-}{-}\textgreater{} D\{Stroke match engine\}}
+\NormalTok{  D {-}{-}\textgreater{}|pass| E["Stroke locked green {-} next guide"]}
+\NormalTok{  D {-}{-}\textgreater{}|dirty {-} retry stroke| C}
+\NormalTok{  E {-}{-}\textgreater{} F\{All sub{-}strokes done?\}}
+\NormalTok{  F {-}{-}\textgreater{}|no| B}
+\NormalTok{  F {-}{-}\textgreater{}|yes| G["Celebration {-} record score"]}
+\NormalTok{  G {-}{-}\textgreater{} H\{More questions?\}}
+\NormalTok{  H {-}{-}\textgreater{}|yes| A}
+\NormalTok{  H {-}{-}\textgreater{}|no| I[Level outro + reward]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Screen Inventory (route
+map)}\label{screen-inventory-route-map}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Route
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Screen
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Key UI
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{/} & Home & Title, PLAY \\
+\texttt{/menu} & Dashboard & 5 level cards \\
+\texttt{/prolog} & Prolog story & Slides, skip \\
+\texttt{/level/1} & L1 flow & Intro / practice / outro \\
+\texttt{/level/2} & L2 flow & Intro / practice(11) / outro \\
+\texttt{/level/3} & L3 flow & Fase1 practice(20) → Fase2 3×latihan(15) →
+ending \\
+\texttt{/ending} & Happy ending & Crown ceremony \\
+\end{longtable}
+
+(Routes are client-side only; PWA serves the app shell for every path →
+use hash router or SW navigation fallback to \texttt{/}.)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Design System}\label{design-system}
+
+\subsubsection{9.1 Design language}\label{design-language}
+
+Three layers (per product guardrails):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Material You} --- interaction model: adaptive touch surfaces,
+  tonal surfaces, dynamic elevation, large padded buttons, rounded
+  corners.
+\item
+  \textbf{Minimalism} --- layout discipline: generous whitespace, clear
+  hierarchy, one primary action per screen, reduced visual noise so a
+  9-year-old isn't overwhelmed.
+\item
+  \textbf{Glassmorphism} --- only as an \emph{accent} on
+  story/interstitial screens (frosted panels over illustrated
+  backgrounds); not on gameplay surfaces (sketch canvases must stay
+  glare-free for writing).
+\end{enumerate}
+
+Genre: \textbf{playful} (post-Linear soft school: consumer, casual,
+children). Warm, pastel-dominant palette with deep ``keraton'' accents.
+Illustrations are the brand: hand-drawn Ajisaka line-art silhouettes
+(simple SVG), not photos.
+
+\subsubsection{9.2 Palette (Keraton theme)}\label{palette-keraton-theme}
+
+Derived from the playful \textbf{Carnival} token system, re-hued toward
+Javanese heritage colors (keraton indigo/red-gold + batik neutrals),
+pastel-first.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Token
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Value (OKLCH)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Use
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{-\/-color-paper} & \texttt{oklch(97\%\ 0.012\ 78)} & App
+background (batik cream) \\
+\texttt{-\/-color-paper-2} & \texttt{oklch(92\%\ 0.03\ 78)} & Card
+surfaces \\
+\texttt{-\/-color-paper-3} & \texttt{oklch(84\%\ 0.05\ 55)} &
+Hover/interactive surface \\
+\texttt{-\/-color-text} & \texttt{oklch(34\%\ 0.04\ 262)} & Primary text
+(deep indigo-black) \\
+\texttt{-\/-color-text-2} & \texttt{oklch(52\%\ 0.03\ 262)} & Muted
+text \\
+\texttt{-\/-color-accent} & \texttt{oklch(58\%\ 0.14\ 25)} & Primary
+action (keraton red / terracotta) \\
+\texttt{-\/-color-accent-2} & \texttt{oklch(70\%\ 0.13\ 80)} & Success /
+gold (pedang \& perisai rewards) \\
+\texttt{-\/-color-warn} & \texttt{oklch(66\%\ 0.14\ 60)} & Warning /
+retry stroke \\
+\texttt{-\/-color-error} & \texttt{oklch(52\%\ 0.16\ 27)} & Error /
+wrong stroke \\
+\texttt{-\/-color-border} & \texttt{oklch(86\%\ 0.025\ 78)} &
+Dividers \\
+\texttt{-\/-color-focus} & \texttt{oklch(60\%\ 0.16\ 262)} &
+\texttt{:focus-visible} ring (indigo) \\
+\texttt{-\/-color-glass} & \texttt{oklch(100\%\ 0\ 0\ /\ 0.55)} &
+Frosted overlay fill \\
+\end{longtable}
+
+Dark mode: derived automatically by inverting paper band (keep for
+classroom) via \texttt{@media\ (prefers-color-scheme:\ dark)} +
+\texttt{{[}data-theme=dark{]}}.
+
+\subsubsection{9.3 Typography}\label{typography}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Role
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Token
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Stack
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Display / game titles & \texttt{-\/-font-display} &
+\texttt{\textquotesingle{}Fredoka\ One\textquotesingle{},\ \textquotesingle{}Baloo\ 2\textquotesingle{},\ system-ui,\ sans-serif}
+(rounded, kid-friendly) \\
+Body / copy & \texttt{-\/-font-body} &
+\texttt{\textquotesingle{}Nunito\textquotesingle{},\ system-ui,\ sans-serif} \\
+Code / glyph data labels & \texttt{-\/-font-mono} &
+\texttt{\textquotesingle{}JetBrains\ Mono\textquotesingle{},\ monospace} \\
+\end{longtable}
+
+\textbf{Scale} (from token system): display
+\texttt{clamp(2.5rem,6vw,4.5rem)}, display-s
+\texttt{clamp(2rem,4vw,3rem)}, 2xl \texttt{1.75rem}, xl
+\texttt{1.25rem}, lg \texttt{1.125rem}, base \texttt{1rem}, sm
+\texttt{0.875rem}, xs \texttt{0.75rem}.
+
+\textbf{Rules:} headings always roman (no italic headings); italics only
+inside body copy for emphasis. Indonesian copy throughout; keep
+sentences short (≤ 12 words).
+
+\textbf{Javanese glyph font:} self-hosted \textbf{Noto Sans Javanese}
+(Unicode block U+A980--U+A9DF) for rendering reference glyphs. Fallback
+font-stack on canvas:
+\texttt{\textquotesingle{}Noto\ Sans\ Javanese\textquotesingle{},\ sans-serif}.
+(Earliest glyph loads are precached by the SW.)
+
+\subsubsection{9.4 Spacing, radius,
+elevation}\label{spacing-radius-elevation}
+
+\begin{itemize}
+\tightlist
+\item
+  Spacing: 4px base scale (xs 4, sm 8, md 12, lg 16, xl 24, 2xl 32, 3xl
+  48 \ldots).
+\item
+  Radius: sm 4 / md 8 / lg 16 --- reuse, never invent.
+\item
+  Elevation: Material tonal elevation --- cards = paper-2 on paper;
+  modals use \texttt{box-shadow} with glass blur (story interstitials
+  only).
+\item
+  Touch targets: \textbf{min 48×48px}, interactive gap ≥ 8px.
+\end{itemize}
+
+\subsubsection{9.5 Motion}\label{motion}
+
+\begin{itemize}
+\tightlist
+\item
+  Durations: fast 150ms (hover/micro), base 250ms, slow 400ms (screen
+  transitions).
+\item
+  Easings: \texttt{cubic-bezier(0.16,1,0.3,1)} enter /
+  \texttt{cubic-bezier(0.4,0,0.68,0.06)} exit.
+\item
+  All entrance/stagger/counter/loader animation through \textbf{anime.js
+  v4} snippets, each guarded by \texttt{prefers-reduced-motion}.
+\item
+  Story slides: crossfade + slight scale; gameplay feedback: quick
+  spring on stroke-lock.
+\item
+  \textbf{Game feel:} confetti-ish particle burst on question completion
+  and at level rewards (Web Canvas, keep under 60 particles).
+\end{itemize}
+
+\subsubsection{9.6 Iconography}\label{iconography}
+
+Font Awesome (free) per defaults; considered alternatives: Material
+Symbols, Lucide. Use spellings/visuals a child recognizes (shield,
+sword, home, arrow, question, star). All icon buttons carry
+\texttt{aria-label}.
+
+\subsubsection{9.7 Components (8-state
+discipline)}\label{components-8-state-discipline}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Component
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+States to style
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{Button} (primary/ghost/danger) & default, hover, focus-visible,
+active, disabled, loading, error, success \\
+\texttt{LevelCard} & default, hover, focus, active, locked, completed,
+current, disabled \\
+\texttt{PracticeCanvas} & idle, guiding, drawing, stroke-locked,
+feedback(ok/warn/error), cleared \\
+\texttt{IconButton} (back/undo/clear/replay) & all 8 states \\
+\texttt{Modal} (congrats, reset, update) & open/close anim + focus
+trap \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Domain Model \& Data}\label{domain-model-data}
+
+\subsubsection{\texorpdfstring{10.1 Aksara dataset
+(\texttt{src/data/aksara.ts})}{10.1 Aksara dataset (src/data/aksara.ts)}}\label{aksara-dataset-srcdataaksara.ts}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{type}\NormalTok{ AksaraType }\OperatorTok{=} \StringTok{\textquotesingle{}nglegena\textquotesingle{}} \OperatorTok{|} \StringTok{\textquotesingle{}sandangan\textquotesingle{}} \OperatorTok{|} \StringTok{\textquotesingle{}pasangan\textquotesingle{}}\OperatorTok{;}
+
+\KeywordTok{interface}\NormalTok{ AksaraGlyph \{}
+\NormalTok{  id}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}                    \CommentTok{// "ha", "na", "ca" ...}
+\NormalTok{  type}\OperatorTok{:}\NormalTok{ AksaraType}\OperatorTok{;}
+\NormalTok{  label}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}                 \CommentTok{// romanization}
+\NormalTok{  hintID}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}                \CommentTok{// Indonesian hint translation key}
+\NormalTok{  unicode}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}               \CommentTok{// e.g. "\textbackslash{}uA98F" (ha)}
+\NormalTok{  unicodePasangan}\OperatorTok{?:} \DataTypeTok{string}\OperatorTok{;}      \CommentTok{// pasangan glyph codepoint where applicable}
+  \CommentTok{/** Normalized vector strokes, in units of the write{-}box (0..1). */}
+\NormalTok{  strokes}\OperatorTok{:}\NormalTok{ Stroke[]}\OperatorTok{;}             \CommentTok{// ordered! = stroke{-}order/isomorphism}
+\NormalTok{  sound}\OperatorTok{?:} \DataTypeTok{string}\OperatorTok{;}                \CommentTok{// phoneme for future TTS}
+\NormalTok{\}}
+
+\KeywordTok{interface}\NormalTok{ Stroke \{}
+\NormalTok{  points}\OperatorTok{:} \BuiltInTok{Array}\OperatorTok{\textless{}}\NormalTok{\{ x}\OperatorTok{:} \DataTypeTok{number}\OperatorTok{;}\NormalTok{ y}\OperatorTok{:} \DataTypeTok{number}\NormalTok{ \}}\OperatorTok{\textgreater{};}  \CommentTok{// polyline, 0..1 box coords}
+\NormalTok{  tolerance}\OperatorTok{:} \DataTypeTok{number}\OperatorTok{;}                         \CommentTok{// per{-}stroke looseness (default 0.12)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{10.2 Level config}\label{level-config}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface}\NormalTok{ LevelConfig \{}
+\NormalTok{  id}\OperatorTok{:} \DataTypeTok{number}\OperatorTok{;}
+\NormalTok{  title}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}          \CommentTok{// "Level 1 · Pemula · Pulau Sanjaya"}
+\NormalTok{  questions}\OperatorTok{:}\NormalTok{ Question[]}\OperatorTok{;}
+\NormalTok{  reward}\OperatorTok{:}\NormalTok{ \{ id}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}\NormalTok{ name}\OperatorTok{:} \DataTypeTok{string}\NormalTok{ \}}\OperatorTok{;}   \CommentTok{// "Pedang Pusaka"}
+\NormalTok{  story}\OperatorTok{:}\NormalTok{ \{ intro}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}\NormalTok{ outro}\OperatorTok{:} \DataTypeTok{string}\NormalTok{ \}}\OperatorTok{;}
+\NormalTok{\}}
+
+\KeywordTok{interface}\NormalTok{ Question \{}
+\NormalTok{  id}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}
+\NormalTok{  glyphId}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}        \CommentTok{// → AksaraGlyph}
+\NormalTok{  prompt}\OperatorTok{:} \DataTypeTok{string}\OperatorTok{;}         \CommentTok{// "Tulis aksara: HA (dasar)"}
+\NormalTok{  sentence}\OperatorTok{?:} \DataTypeTok{string}\OperatorTok{;}      \CommentTok{// full Javanese sentence for Fase{-}2 questions}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{10.3 Seed content (proposed; volumes = open
+questions)}\label{seed-content-proposed-volumes-open-questions}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Set
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Count
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Nglegena (dasar) & 20 + optional variants & used in L1, L3-Fase2 menu
+1 \\
+Sandangan & 8 core (a→i,u,e,o, taling/tarung, pepet, cecak, etc.) & L2
+(11 soal incl.~combos), L3-F2 menu 2 \\
+Pasangan & pair of main + pasangan glyph & L3-F1 (20 soal), L3-F2 menu
+3 \\
+\end{longtable}
+
+Final counts per level confirmed in §4.3; question contents (which
+glyphs) are a \textbf{curriculum decision} --- propose defaults §20.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{11. Stroke Engine Design (core
+challenge)}\label{stroke-engine-design-core-challenge}
+
+\subsubsection{11.1 Capture}\label{capture}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\textless{}canvas\textgreater{}} full viewport of the
+  write-box; \textbf{Pointer Events} (\texttt{pointerdown/move/up})
+  unified for touch + stylus + mouse; \texttt{touch-action:\ none} to
+  stop scrolling.
+\item
+  Points downsampled (≥ 10px spacing) and normalized into the 0..1
+  write-box.
+\item
+  HiDPI: canvas sized to \texttt{devicePixelRatio}, CSS box fixed.
+\end{itemize}
+
+\subsubsection{11.2 Stroke-guide
+rendering}\label{stroke-guide-rendering}
+
+\begin{itemize}
+\tightlist
+\item
+  Draw each reference \texttt{Stroke} polyline as faint target guide.
+\item
+  Animated progress along the path = the classic ``arrow head'' tracer
+  (anime.js or requestAnimationFrame), replayable via \textbf{Replay}
+  button.
+\item
+  Next expected sub-stroke highlighted; completed strokes rendered solid
+  + check.
+\end{itemize}
+
+\subsubsection{11.3 Online matching (offline, deterministic,
+fast)}\label{online-matching-offline-deterministic-fast}
+
+Approach to keep 0 weight and run on-device: 1. \textbf{Normalize} the
+input stroke (resample to N=32 points, scale to 0..1, translate to
+center, keep proportional aspect). 2. \textbf{Direction signature:}
+per-segment angle buckets (e.g., 8 bins). 3. \textbf{Dynamic Time
+Warping (DTW)} distance to the reference normalized stroke (proxy: use
+multi-step/rough DTW on resampled polylines). 4. \textbf{Order = truth:}
+strokes must be completed in the reference order; a reversal triggers
+the ``wrong direction'' feedback even if the shape matches. 5. Score →
+\texttt{pass\ /\ warn\ /\ retry} via per-stroke tolerance.
+
+Optional future upgrade: a tiny \textbf{ONNX/TFLite} model
+(\texttt{12\ class\ output}, \textless{} 500 KB) trained on
+augmentations of the 32 reference glyphs, run via
+\texttt{@xenova/transformers} or plain TensorFlow.js --- swapped behind
+the same \texttt{StrokeMatcher} interface. \textbf{Not in MVP.}
+
+\subsubsection{11.4 Feedback mapping}\label{feedback-mapping}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Signal & Meaning & Color \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+pass & stroke matched shape+order & green (\texttt{accent-2}) \\
+warn & shape ok, slight drift & gold (\texttt{warn}) \\
+retry & wrong direction / order & red (\texttt{error}) \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{12. PWA \& Architecture}\label{pwa-architecture}
+
+\subsubsection{12.1 Recommended stack}\label{recommended-stack}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Concern
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Choice
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Language & \textbf{TypeScript (strict)} \\
+Build & \textbf{Vite} \\
+UI framework & \textbf{React 18} (or Svelte if a lighter runtime is
+preferred --- see §20) \\
+Styling & \textbf{Tailwind CSS v4} with CSS custom-property tokens
+(OKLCH) \\
+State & Zustand with \texttt{persist} middleware (localStorage) \\
+Routing & \texttt{react-router} + \textbf{hash routing}
+(offline-friendly, no server rewrites needed) \\
+PWA & \texttt{vite-plugin-pwa} (Workbox): manifest + SW precache +
+offline fallback \\
+Canvas/game & Native Canvas 2D + anime.js v4 (motion) \\
+Icons & Font Awesome (free) \\
+Data-local & JSON/TS dataset (§10) + \texttt{localStorage} for
+progress \\
+Tests & Vitest + Testing Library; Playwright (E2E, offline simulate) \\
+Lint/format & ESLint (flat) + Prettier (matches existing
+\texttt{.pre-commit-config.yaml}) \\
+Icons/app assets & inline SVG (kirik) so SW precache stays small \\
+\end{longtable}
+
+\subsubsection{12.2 Layered architecture}\label{layered-architecture}
+
+\begin{verbatim}
+┌───────────────────────────────────────────────┐
+│ UI Layer        React components, routes,      │
+│                 screens, story slides          │
+├───────────────────────────────────────────────┤
+│ Application     LevelFSM, Question session,    │
+│                 progress store, reward logic   │
+├───────────────────────────────────────────────┤
+│ Domain          aksara.ts dataset, Stroke      │
+│                 matcher interface, scoring     │
+├───────────────────────────────────────────────┤
+│ Infrastructure  CanvasEngine (capture+guide), │
+│                 DTW matcher, Zustand persist,  │
+│                 PWA/SW, audio (gamelan blips)  │
+└───────────────────────────────────────────────┘
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{12.3 State model (Zustand
+\texttt{useProgress})}{12.3 State model (Zustand useProgress)}}\label{state-model-zustand-useprogress}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface}\NormalTok{ ProgressState \{}
+\NormalTok{  completedLevels}\OperatorTok{:} \DataTypeTok{number}\NormalTok{[]}\OperatorTok{;}        \CommentTok{// [1,2,3]}
+\NormalTok{  rewards}\OperatorTok{:} \DataTypeTok{string}\NormalTok{[]}\OperatorTok{;}                \CommentTok{// [\textquotesingle{}pedang\textquotesingle{},\textquotesingle{}perisai\textquotesingle{}]}
+\NormalTok{  bestByQuestion}\OperatorTok{:} \BuiltInTok{Record}\OperatorTok{\textless{}}\DataTypeTok{string}\OperatorTok{,} \DataTypeTok{number}\OperatorTok{\textgreater{};} \CommentTok{// questionId {-}\textgreater{} percent score}
+\NormalTok{  currentLevel}\OperatorTok{?:} \DataTypeTok{number}\OperatorTok{;}            \CommentTok{// resume point}
+\NormalTok{  unfinished}\OperatorTok{:} \DataTypeTok{string}\NormalTok{[]}\OperatorTok{;}             \CommentTok{// unresolved question ids in current level}
+\NormalTok{  settings}\OperatorTok{:}\NormalTok{ \{ sound}\OperatorTok{:} \DataTypeTok{boolean}\OperatorTok{;}\NormalTok{ dark}\OperatorTok{:} \DataTypeTok{boolean}\NormalTok{ \}}\OperatorTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{12.4 Offline \& SW strategy}\label{offline-sw-strategy}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Precache (build-time, hashed):} HTML shell, JS/CSS chunks,
+  Javanese font (woff2), dataset, inline SVG icons --- the entire app
+  works with network off.
+\item
+  \textbf{Runtime cache:} none required for MVP (all local); precache
+  covers everything.
+\item
+  \textbf{Update flow:} \texttt{registerSW} + prompt-to-refresh banner
+  when \texttt{updatedready}.
+\item
+  \textbf{No backend:} zero API calls; CSP tightened; no analytics.
+\item
+  Manifest: name ``Petualangan Ajisaka'', \texttt{display:\ standalone},
+  \texttt{orientation:\ portrait} (writing optimised), theme color =
+  \texttt{-\/-color-paper}, icon set incl.~\texttt{512px} maskable.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{13. Proposed Project
+Structure}\label{proposed-project-structure}
+
+\begin{verbatim}
+javanese_learning_app/
+├─ public/
+│  ├─ icons/            (192, 512, maskable)
+│  └─ fonts/            (NotoSansJavanese woff2)
+├─ src/
+│  ├─ data/             aksara.ts, levels.ts, sentences.ts
+│  ├─ engine/           capture.ts, normalize.ts, dtw.ts, matcher.ts
+│  ├─ state/            progress.ts
+│  ├─ ui/               components/, screens/
+│  ├─ hooks/            useCanvas.ts, useStrokeSession.ts
+│  ├─ styles/           tokens.css, base.css
+│  ├─ App.tsx
+│  └─ main.tsx
+├─ vite.config.ts        (+ vite-plugin-pwa)
+├─ tsconfig.json
+├─ index.html
+└─ DESIGN_AND_DEV.md
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{14. Testing Strategy}\label{testing-strategy}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Unit:} \texttt{dtw.ts} (match/fail cases),
+  \texttt{normalize.ts}, progress-store transitions, question scoring,
+  level-unlock gating.
+\item
+  \textbf{Component:} practice screen states
+  (empty/guiding/warn/error/success), canvas button labels, modal focus
+  trap.
+\item
+  \textbf{E2E (Playwright):} flow Home→L1 completed→L2 unlocked; reload
+  mid-level resumes; \textbf{offline emulation} verifies full
+  playthrough with no network.
+\item
+  \textbf{Manual device matrix:} iPad, Android tablet (Chrome), desktop
+  (portrait mobile view).
+\item
+  \textbf{A11y:} axe-core scan in CI.
+\item
+  Pre-commit (existing hooks) keep running; add
+  \texttt{eslint}/\texttt{prettier}/\texttt{tsc\ -\/-noEmit} there.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{15. Performance Budget
+(offline-first)}\label{performance-budget-offline-first}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Metric
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Budget
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+First load (offline cache hit) & ≤ 1.5 MB JS + assets; font ≤ 600 KB
+woff2 \\
+TTI on mid-range tablet & ≤ 3 s \\
+SW precache total & ≤ 4--5 MB \\
+Canvas frame during tracing & 60 fps \\
+Recognition latency & \textless{} 50 ms (DTW on 32-pt resample) \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{16. Accessibility (WCAG 2.1
+AA)}\label{accessibility-wcag-2.1-aa}
+
+\begin{itemize}
+\tightlist
+\item
+  Color is never the only signal: pass/warn/error carry icons + text.
+\item
+  Focus-visible ring \texttt{-\/-color-focus},
+  \texttt{outline-offset:\ 2px}; skip-link; landmark tags.
+\item
+  Keyboard operable (arrows on story slides; Enter/Space on controls);
+  canvas has an accessible fallback description for each question.
+\item
+  \texttt{prefers-reduced-motion} disables stroke-guide animation,
+  particles, slide fx.
+\item
+  Contrast: body text ≥ 4.5:1; UI ≥ 3:1 (verify with WebAIM checker on
+  final hex).
+\item
+  All Indonesian copy short, plain; alt text on illustrated scenes.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{17. Security}\label{security}
+
+\begin{itemize}
+\tightlist
+\item
+  No user input is rendered as HTML (all content from bundled dataset).
+\item
+  CSP:
+  \texttt{default-src\ \textquotesingle{}self\textquotesingle{};\ script-src\ \textquotesingle{}self\textquotesingle{};\ font-src\ \textquotesingle{}self\textquotesingle{};\ img-src\ \textquotesingle{}self\textquotesingle{}\ data:;}
+  (no external CDNs at runtime --- everything precached).
+\item
+  No secrets/keys in client (none needed); no network traffic to leak.
+\item
+  Canvas input validated/ignored outside the write-box; multi-touch
+  suppresses stray strokes.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{18. Roadmap / Milestones}\label{roadmap-milestones}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Milestone
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Scope
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{M0 --- Seed \& shell} & Vite+TS app, tokens, routes, dashboard,
+manifest/SW, empty practice screen \\
+\textbf{M1 --- Stroke engine} & Canvas capture, guide animation, DTW
+matcher, feedback mapping \\
+\textbf{M2 --- Content} & Full dataset (Nglegena 20+ / Sandangan 8+ /
+Pasangan pairs), level configs, story copy in Indonesian \\
+\textbf{M3 --- Game flow} & Level FSM, rewards, Dora/villager joins,
+ending, progress persistence \\
+\textbf{M4 --- Polish QA} & Particles, sound, offline E2E, a11y scan,
+device matrix, update banner \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{19. Future Work (after MVP)}\label{future-work-after-mvp}
+
+\begin{itemize}
+\tightlist
+\item
+  Transliteration / text-to-Aksara input; pronunciation (gamelan + TTS).
+\item
+  Cloud sync \& teacher analytics (rename: ``Guru'' report).
+\item
+  Android APK via TWA; wider glyph set (Angka, Murda, Swara).
+\item
+  ML stroke classifier upgrade behind the matcher interface.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{20. Open Questions \&
+Assumptions}\label{open-questions-assumptions}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\#
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Question
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Proposed default / status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Level 1 question count & Propose \textbf{10--12} Nglegena; confirm
+with curriculum. \\
+2 & Exact question contents per set & Propose starter sets; finalize
+with teacher input. \\
+3 & Full Level-1 sinopsis paragraph & Missing from PDF extraction ---
+supply copy. \\
+4 & Reward/asset art source & Inline SVG illustrations; replaceable
+later. \\
+5 & UI framework & Recommend \textbf{React}; Svelte alternative if
+bundle size is critical. \\
+6 & Portrait-only PWA OK? & Yes (writing orientation); desktop shows
+rotated mock. \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{21. References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  Source narrative: \texttt{projek\ Isif.pdf} (Naskah Lengkap Aplikasi
+  Petualangan Ajisaka).
+\item
+  Font: Noto Sans Javanese (OFL) --- self-hosted.
+\item
+  Standards: WCAG 2.1 AA; PWA installability criteria (Chrome/Android,
+  iOS 16+).
+\item
+  Design system basis: playful \emph{Carnival} token set (paper/accent
+  OKLCH architecture) re-hued to the keraton palette in §9.2.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\emph{End of document. Next step: confirm §20 decisions, then scaffold
+M0.}\# Naskah Aplikasi Petualangan Ajisaka
+
+\emph{Tema utama: gamifikasi keterampilan menulis Aksara Jawa.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Halaman Utama dan
+Navigasi}\label{halaman-utama-dan-navigasi}
+
+Aplikasi dibuka dengan halaman depan yang menampilkan judul media
+pembelajaran dan satu tombol PLAY besar. Setelah tombol itu ditekan,
+pemain masuk ke menu utama yang menampung lima pilihan:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Prolog} --- pengenalan cerita dan asal-usul.
+\item
+  \textbf{Level 1: Pemula} --- menulis aksara dasar.
+\item
+  \textbf{Level 2: Mahir} --- menulis aksara sandangan.
+\item
+  \textbf{Level 3: Master} --- menulis aksara pasangan dan ujian akhir.
+\item
+  \textbf{Kembali ke Rumah} --- kembali ke halaman depan.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Prolog: Mengenal Asal-Usul}\label{prolog-mengenal-asal-usul}
+
+Pilihan pertama membawa pemain ke halaman edukasi yang membahas sejarah
+terciptanya Aksara Jawa. Bagian ini menjawab dari mana aksara itu lahir
+dan bagaimana ia sampai dipakai seperti sekarang, sebelum pemain mulai
+menulis satu huruf pun.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Level 1 --- Pemula: Misi di Pulau
+Sanjaya}\label{level-1-pemula-misi-di-pulau-sanjaya}
+
+Di pulau pertama, Ajisaka harus membuka segel dan mengambil pedang.
+Syaratnya jelas: pemain wajib menyelesaikan tantangan praktik menulis
+Aksara Jawa Dasar (Nglegena) langsung di layar digital. Proses
+penulisannya dibantu penuh oleh garis panduan berbentuk anak panah, atau
+\emph{stroke guide}, yang menunjukkan arah guratan tangan secara tepat
+--- dari coretan pertama sampai hurufnya jadi.
+
+Setelah tantangan menulis selesai, pemain menerima hadiah berupa
+\textbf{Pedang Pusaka}. Tak lama berselang, Ajisaka bertemu seorang
+pemuda lokal bernama Dora yang memutuskan menjadi pengikut setianya.
+Ketika cerita selesai, muncul tombol \textbf{Next Level} untuk
+melanjutkan ke menu ketiga.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Level 2 --- Mahir: Misi di Pulau Adi
+Jaya}\label{level-2-mahir-misi-di-pulau-adi-jaya}
+
+Perjalanan berlanjut. Ajisaka dan Dora mengarungi pulau kedua, Pulau Adi
+Jaya, untuk mencari pusaka berikutnya: \textbf{Perisai Sakti}. Di tengah
+jalan mereka bertemu seorang warga lokal yang mengetahui tempat
+penyimpanan perisai itu. Warga tersebut menantang mereka, berjanji
+kembali memberi tahu lokasinya bila Ajisaka dan Dora mampu menjawab
+ujian yang ia berikan.
+
+Melihat kemahiran Ajisaka menuliskan ke-11 soal ujian itu, sang warga
+kagum dan berniat ikut bertualang melawan raksasa. Ia menunjukkan letak
+Perisai Sakti hingga pusaka itu berhasil diambil. Kini mereka bertiga
+bersiap berlayar ke pulau utama lewat tombol \textbf{Next Level}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Level 3 --- Master: Pertempuran Akhir di Kerajaan
+Nusantara}\label{level-3-master-pertempuran-akhir-di-kerajaan-nusantara}
+
+Tingkat terakhir ini terbagi menjadi dua fase pertempuran menulis yang
+sengit.
+
+\subsubsection{Fase 1: Penghadangan Dua
+Utusan}\label{fase-1-penghadangan-dua-utusan}
+
+Dalam perjalanan laut menuju pusat kerajaan musuh, kapal mereka dicegat
+dua utusan Raksasa Hijau yang berniat membunuh Ajisaka. Pemain wajib
+menyelesaikan 20 soal Aksara Pasangan, yaitu konsonan tumpuk. Pada tiap
+soal, pemain diminta menuliskan Aksara Jawa utama sekaligus bentuk
+pasangannya yang menempel di bawah atau di samping. Seluruh guratan
+dibimbing arah anak panah agar susunan penulisannya tidak keliru. Begitu
+ke-20 soal selesai ditulis, kedua utusan itu berhasil diselesaikan.
+
+\subsubsection{Fase 2: Ujian Penyegelan Raksasa
+Hijau}\label{fase-2-ujian-penyegelan-raksasa-hijau}
+
+Sistem langsung mengoper pemain ke menu latihan soal akhir. Ajisaka,
+Dora, dan warga lokal itu berhasil menyusup ke Kerajaan Nusantara yang
+sedang dikuasai Raksasa Hijau. Untuk memerdekakan kerajaan dari teror,
+pemain harus menyelesaikan tiga menu latihan utama; masing-masing berisi
+lima soal menulis:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Latihan 1} --- menulis kalimat bahasa Jawa menggunakan
+  komponen Aksara Jawa Dasar.
+\item
+  \textbf{Latihan 2} --- menulis kalimat bahasa Jawa yang menggunakan
+  aturan Aksara Sandangan.
+\item
+  \textbf{Latihan 3} --- menulis kalimat bahasa Jawa yang menggunakan
+  aturan Aksara Pasangan.
+\end{enumerate}
+
+\subsubsection{Akhir Cerita}\label{akhir-cerita}
+
+Setelah ketiga menu latihan penulisan, total 15 soal, diselesaikan
+secara berurutan, Raksasa Hijau berhasil diselesaikan secara mutlak.
+Kerajaan Nusantara kembali damai dan bebas dari penjajahan. Atas jasa
+dan kepemimpinannya, pemain yang memerankan Ajisaka secara resmi
+dinobatkan menjadi \textbf{Raja Kerajaan Nusantara}.\# Petualangan
+Ajisaka --- Todo Pengembangan (P0--P3)
+
+Prioritas berdasarkan \texttt{DESIGN\_AND\_DEV.md} §5 \&
+\texttt{TIMELINE.md} W1--W11. \emph{Diperbarui setelah M0+M1 PoC build
+(2026-08-12).}
+
+\textbf{Skala prioritas} - \textbf{P0 --- Kritis:} tanpa ini aplikasi
+tidak bisa rilis / tidak bisa dimainkan. - \textbf{P1 --- Penting:}
+wajib untuk peluncuran yang baik, dapat ditunda jika terdesak. -
+\textbf{P2 --- Peningkatan:} nilai tambah setelah rilis inti stabil. -
+\textbf{P3 --- Masa depan:} di luar scop MVP, direncanakan kemudian.
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  = selesai \& terverifikasi (build/lint/test hijau)
+\item
+  {[}\textasciitilde{]} = sebagian / versi PoC / butuh kurasi
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{P0 --- Kritis (rintisan
+rilis)}\label{p0-kritis-rintisan-rilis}
+
+\subsubsection{Fondasi \& shell --- ✅ DONE
+(M0)}\label{fondasi-shell-done-m0}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Scaffold Vite + TypeScript strict + Tailwind v4 --- \texttt{src/}
+\item[$\boxtimes$]
+  Token desain keraton (OKLCH) §9.2 --- \texttt{src/src/index.css}
+  (@theme)
+\item[$\boxtimes$]
+  Routing hash: \texttt{/}, \texttt{/menu}, \texttt{/prolog},
+  \texttt{/level/1..3}, \texttt{/ending} --- App.tsx
+\item[$\boxtimes$]
+  Halaman Home (judul + tombol PLAY) --- FR-1.1 (Redesigned with playful
+  UX)
+\item[$\boxtimes$]
+  Dashboard 5 menu dengan state locked/unlock --- FR-1.3, FR-1.4
+  (Redesigned with Gamified LevelCards)
+\item[$\boxtimes$]
+  Manifest PWA + icons (192/512/maskable/apple-touch) + installable
+\item[$\square$]
+  Finalisasi keputusan §20 (jumlah soal L1, isi dataset, framework
+  ✅React, aset ilustrasi) --- sebagian tetap terbuka
+\end{itemize}
+
+\subsubsection{Stroke engine --- PIVOT: DTW → VECTOR
+GEOMETRY}\label{stroke-engine-pivot-dtw-vector-geometry}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Hook canvas Pointer Events, HiDPI, \texttt{touch-action:\ none},
+  live-ink --- useCanvasCapture
+\item[$\boxtimes$]
+  Normalisasi + resample (engine/geometry) --- dipakai rendering
+\item[$\boxtimes$]
+  Matcher \textbf{Vector Geometry (Chamfer Dist)} --- engine/raster.ts
+  (Skala dinamis, cegah exploit coretan)
+\item[$\boxtimes$]
+  Uji matcher sintetis (square/fill/miss/offset) + 20 glyph contours ---
+  vitest 8 tests
+\item[$\boxtimes$]
+  Umpan balik warna per guratan (green/amber/red) --- §11.4
+\item[$\boxtimes$]
+  Kontrol Clear (``Bersihkan'') --- FR-3.6
+\item[$\boxtimes$]
+  Kalibrasi toleransi coverage (COVERAGE\_PASS/WARN) dgn uji tablet
+  nyata --- sudah dinamis per luas/tebal glyph
+\end{itemize}
+
+\subsubsection{Konten}\label{konten}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Dataset Nglegena \textbf{20 contour} (dari Noto Sans Javanese,
+  Y-corrected, 80-pt) --- src/data/nglegena\_contours.json
+\item[$\boxtimes$]
+  Dataset Sandangan 8+ core + kombinasi --- §10.1 (Label \& Dotted
+  Circle diperbaiki)
+\item[$\boxtimes$]
+  Dataset Pasangan (20 pasang) --- §10.1 (Berhasil diekstrak ulang penuh
+  dengan loops via FontTools Python script)
+\item[$\boxtimes$]
+  Level config L1--L3 bukti: starter ha/na/ca/ra/ka; soal 11/20/3×5
+  belum terisi penuh --- §10.2 (Dataset penuh digunakan untuk L1-L3)
+\item[$\boxtimes$]
+  Copy cerita Indonesia penuh (dari \texttt{NASKAH\_AJISAKA.md}) ke tiap
+  level --- Selesai via i18n layer
+\item[$\boxtimes$]
+  Precache font Javanese (woff2, 89KB, self-host) --- FR-6.2
+\item[$\square$]
+  \textbf{Stroke data kurasi internal (guide pen-stroke ori)} --- kanvas
+  guide saat ini solid-fill contour; untuk guratan internal/order
+  diajarkan butuh data kurator (§20)
+\end{itemize}
+
+\subsubsection{Game flow \& state}\label{game-flow-state}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Level FSM path: intro screen → practice → done page
+\item[$\boxtimes$]
+  Reward Pedang Pusaka (L1) / Perisai Sakti (L2) / Raja (L3) ---
+  LevelDone
+\item[$\boxtimes$]
+  Event ``Dora bergabung'' \& ``warga bergabung'' (copy) --- LevelDone
+\item[$\boxtimes$]
+  Unlock chain + tombol Next Level --- FR-4.3
+\item[$\boxtimes$]
+  Interstitial Fase 1 / Fase 2 pilihan menu non-linear di Level 3 ---
+  FR-4.4 (Selesai, tracking granular per phase)
+\item[$\boxtimes$]
+  Ending dinobatkan Raja terhubung setelah L3 Fase 1 \& 2 selesai ---
+  Selesai
+\item[$\boxtimes$]
+  Persist progress (Zustand persist): completedLevels, completedPhases,
+  rewards --- FR-5.1
+\item[$\square$]
+  Resume level saat reload --- FR-5.2 (progress tersimpan, tapi resume
+  per-pertanyaan di tengah jalan belum)
+\item[$\square$]
+  Latihan soal L1: mulai dari soal 1 → reward→ level 2 dsb (starter set
+  dipakai ulang utk L2/L3 sementara)
+\end{itemize}
+
+\subsubsection{Fitur Tambahan \& UX Polish --- ✅
+DONE}\label{fitur-tambahan-ux-polish-done}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Localization penuh: Indonesia, English, Basa Jawa (Krama Inggil) via
+  i18next + ekstraksi data layer
+\item[$\boxtimes$]
+  Audio engine Gamelan Web Audio API (Ombak, saron, gong ageng, keprak,
+  detuned partials)
+\item[$\boxtimes$]
+  Hide global scrollbars untuk PWA fullscreen feel
+\item[$\boxtimes$]
+  Mengunci Orientasi Layar (Portrait PWA Lock)
+\end{itemize}
+
+\subsubsection{PWA \& offline}\label{pwa-offline}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Service worker (Workbox) precache penuh (\textasciitilde500 KB, 14
+  entries) --- FR-6.2
+\item[$\boxtimes$]
+  Update banner prompt-refresh --- FR-6.3 (registerSW onNeedRefresh,
+  diperbarui ke autoUpdate)
+\item[$\boxtimes$]
+  Uji playthrough offline penuh di perangkat (IOS icons +
+  user-scalable=no)
+\end{itemize}
+
+\subsubsection{QA rilis}\label{qa-rilis}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Unit test matcher/raster + geometry + dtw (8 tests) --- vitest
+\item[$\square$]
+  Coverage ≥90\% utk engine (target paket tambahan)
+\item[$\square$]
+  E2E Playwright: Home→L1 selesai→L2 unlock; reload mid-level
+\item[$\square$]
+  Matrix perangkat (iPad, Android tablet, desktop) --- §14
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{P1 --- Penting (peluncuran
+berkualitas)}\label{p1-penting-peluncuran-berkualitas}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Partikel sukses per soal \& reward (≤60 particle) --- §9.5 (Selesai
+  via Anime.js confetti)
+\item[$\boxtimes$]
+  Suara gamelan ringan (Web Audio) (engine audio.ts selesai) --- §12.2
+\item[$\boxtimes$]
+  Transisi antarmuka \& animasi UI (menggunakan animejs dgn
+  bounce/stagger)
+\item[$\boxtimes$]
+  Transisi slide sinopsis (Prolog.tsx) --- FR-2.2
+\item[$\square$]
+  Modal congrats/fokus trap --- §9.7
+\item[$\boxtimes$]
+  Audit a11y axe (P0 kritikal/serius = 0, kontras AA) --- §16
+\item[$\boxtimes$]
+  Skip-link + landmark announcement + \texttt{:focus-visible} penuh ---
+  §16
+\item[$\boxtimes$]
+  Suport keyboard (story slides, Enter/Space) --- §16 (Selesai untuk
+  Prolog, Practice, Phase2, LevelDone)
+\item[$\square$]
+  Alternatif aksesibel untuk canvas (deskripsi soal lengkap) --- §16
+\item[$\square$]
+  Optimasi bundle ≤1,5 MB + font ≤600 KB (saat ini ±500 KB total
+  precache) --- §15
+\item[$\square$]
+  Pola 60fps saat menulis dgn guide menyala (rAF + dpr scaling)--- §15
+\item
+  {[}\textasciitilde{]} Kanvas toggle panduan (Tampilkan/Sembunyikan
+  Contoh) --- selesai, verifikasi UX
+\item[$\square$]
+  E2E offline emulation penuh (Playwright)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{P2 --- Peningkatan (setelah rilis inti
+stabil)}\label{p2-peningkatan-setelah-rilis-inti-stabil}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  TTS pengucapan fonem + pelafalan nama aksara (lokal, gabung dgn suara)
+\item[$\boxtimes$]
+  Transliterasi teks → Aksara Jawa (masukan bebas) --- Selesai via
+  ``Free Type''
+\item[$\square$]
+  Set glyph lanjutan: Angka, Murda, Swara
+\item[$\square$]
+  Peningkatan model matcher → classifier ML (ONNX/TFLite \textless500
+  KB) --- §11.3
+\item[$\square$]
+  Statistik per latihan tambahan (skor, waktu, retry)
+\item[$\square$]
+  Kuis pengetahuan cepat (bukan hanya menulis) sbg penguat
+\item[$\square$]
+  Mode bantuan ekstra anak kecil (petunjuk lebih besar, warna kontras
+  tinggi)
+\item[$\square$]
+  Pengaturan lanjutan (volume, mode kontras tinggi, ukuran teks)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{P3 --- Masa depan (di luar
+MVP)}\label{p3-masa-depan-di-luar-mvp}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Dockerization untuk hosting production yang mandiri
+\item[$\square$]
+  Cloud sync \& laporan guru (``Guru Report'') --- §19
+\item[$\square$]
+  Leaderboard lokal/kelas + akun opsional --- G5, §19
+\item[$\square$]
+  APK Android via TWA; wrapper iPad --- §19
+\item[$\boxtimes$]
+  Multi-bahasa (Jawa--Indonesia--English) --- Selesai (i18n ditambahkan
+  ke MVP)
+\item[$\square$]
+  Editor stroke konten untuk guru (impor data aksara baru)
+\item[$\square$]
+  Ekspor sertifikat penyelesaian (printer-friendly)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Notulensi Pengunci
+Keputusan}\label{notulensi-pengunci-keputusan}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\#
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Keputusan
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Deadlines
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Jumlah soal Level 1 (starter: 5 glyph ha/na/ca/ra/ka) & ⏳ terbuka &
+sebelum isi dataset penuh \\
+2 & Isi dataset (glyph mana saja per level) & ⏳ terbuka & sebelum
+dataset lengkap \\
+3 & Sinopsis L1 (copy lengkap dari PDF hilang) & ⏳ terbuka & sebelum
+copy cerita penuh \\
+4 & Framework React vs Svelte & ✅ \textbf{React} (diputuskan) & --- \\
+5 & Aset ilustrasi (SVG inline) & ⏳ terbuka & akhir minggu 2 \\
+6 & Model evaluasi menulis & ✅ \textbf{Raster coverage} (DTW outline
+diganti) & --- \\
+7 & Sumber data pen-stroke kurasi (guide internal) & ⏳ terbuka & P1 \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\emph{Perbarui notulensi § berdasarkan keputusan TIMELINE.md; kotak cek
+dicoret saat selesai.}
+
+\end{document}
