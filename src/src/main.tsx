@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { registerSW } from 'virtual:pwa-register'
+
 import './index.css'
 import './i18n'
 import App from './App.tsx'
@@ -13,17 +13,6 @@ createRoot(rootEl).render(
     <App />
   </StrictMode>,
 )
-
-registerSW({
-  onNeedRefresh() {
-    if (window.confirm('Ada pembaruan Petualangan Ajisaka. Muat ulang?')) {
-      window.location.reload()
-    }
-  },
-  onOfflineReady() {
-    console.info('Petualangan Ajisaka siap dimainkan secara offline.')
-  },
-})
 
 // Global SFX listener for interactive operations
 window.addEventListener('pointerdown', (e) => {

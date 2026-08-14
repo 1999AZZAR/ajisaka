@@ -8,10 +8,13 @@ import LevelDone from './ui/components/LevelDone'
 import Settings from './ui/components/Settings'
 import Phase2 from './ui/components/Phase2'
 import FreeType from './ui/components/FreeType'
+import { PwaUpdater } from './ui/components/PwaUpdater'
 
 export default function App() {
   return (
-    <HashRouter>
+    <>
+      <PwaUpdater />
+      <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Dashboard />} />
@@ -25,5 +28,6 @@ export default function App() {
         <Route path="*" element={<Home />} />
       </Routes>
     </HashRouter>
+    </>
   )
 }
