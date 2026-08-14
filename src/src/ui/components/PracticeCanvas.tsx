@@ -99,10 +99,12 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
 
   return (
     <div className="flex flex-col h-full gap-3">
-      <div
-        className="relative flex-1 min-h-0 w-full overflow-hidden rounded-2xl border border-white/60 bg-white shadow-card"
-      >
-        <canvas
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center">
+        <div
+          className="relative w-full max-w-[360px] overflow-hidden rounded-2xl border border-white/60 bg-white shadow-card"
+          style={{ aspectRatio: '1 / 1' }}
+        >
+          <canvas
           ref={canvasRef}
           className="h-full w-full touch-none"
           data-testid="practice-canvas"
@@ -113,8 +115,9 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
           Tulis di sini
         </span>
       </div>
+      </div>
 
-      <div className="flex gap-3">
+      <div className="flex shrink-0 gap-3">
         <button
           type="button"
           onClick={() => {
