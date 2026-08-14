@@ -53,20 +53,29 @@ function getArea(poly: Point[]): number {
   return Math.abs(area / 2)
 }
 
-export function rasterMatch(strokes: Point[][], outline: Point[]): RasterMatch {
+export function rasterMatch(strokes: Point[][], outline: Point[][]): RasterMatch {
   if (strokes.length === 0) return { status: 'retry', score: 0, coverage: 0 }
 
-  const denseOutline = resample(outline, 0.02, true)
-  
+  let denseOutline: Point[] = []
   let targetPerimeter = 0
-  for (let i = 0; i < denseOutline.length; i++) {
-    const p1 = denseOutline[i]
-    const p2 = denseOutline[(i + 1) % denseOutline.length]
-    targetPerimeter += Math.hypot(p2.x - p1.x, p2.y - p1.y)
+  let area = 0
+
+  for (const op of outline) {
+    const resampled = resample(op, 0.02, true)
+    denseOutline = denseOutline.concat(resampled)
+    
+    // Perimeter of this subpath
+    for (let i = 0; i < resampled.length; i++) {
+      const p1 = resampled[i]
+      const p2 = resampled[(i + 1) % resampled.length]
+      targetPerimeter += Math.hypot(p2.x - p1.x, p2.y - p1.y)
+    }
+    
+    // Area of this subpath
+    area += getArea(resampled)
   }
   
   const expectedLength = targetPerimeter / 2
-  const area = getArea(denseOutline)
   
   // Dynamically compute the baseline thickness of the font to adapt to tiny sandangans
   // that are scaled up to a massive [0, 1] blob.

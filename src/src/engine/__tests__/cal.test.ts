@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { rasterMatch } from '../raster'
 import type { Point } from '../geometry'
 
-const square: Point[] = [
+const square: Point[][] = [[
   { x: 0.2, y: 0.2 }, { x: 0.8, y: 0.2 }, { x: 0.8, y: 0.8 }, { x: 0.2, y: 0.8 },
-]
+]]
 
 describe('cal', () => {
   it('scores', () => {

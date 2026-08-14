@@ -12,7 +12,7 @@ export interface AksaraGlyph {
   hint: string
   unicode: string
   /** True glyph outline from the font, Y-corrected (0..1 box, y down). */
-  contour: Point[]
+  contour: Point[][]
   closed: true
 }
 

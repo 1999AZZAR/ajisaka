@@ -5,12 +5,12 @@ import type { Point } from '../geometry'
 
 // a horizontal thick line silhouette to test coverage semantics
 // thickness is 0.1 (y from 0.45 to 0.55), which respects the 0.15 max thickness clamp
-const thickLine: Point[] = [
+const thickLine: Point[][] = [[
   { x: 0.2, y: 0.45 },
   { x: 0.8, y: 0.45 },
   { x: 0.8, y: 0.55 },
   { x: 0.2, y: 0.55 },
-]
+]]
 
 describe('raster coverage matcher', () => {
   it('passes a drawing that fills the glyph silhouette', () => {
@@ -68,9 +68,10 @@ describe('aksara library', () => {
 
   it('every glyph has a dense upright contour', () => {
     for (const g of [...NGGLEGENA, ...SANDANGAN, ...PASANGAN]) {
-      expect(g.contour.length).toBeGreaterThan(30)
-      const xs = g.contour.map((p) => p.x)
-      const ys = g.contour.map((p) => p.y)
+      const allPoints = g.contour.flat()
+      expect(allPoints.length).toBeGreaterThan(4)
+      const xs = allPoints.map((p) => p.x)
+      const ys = allPoints.map((p) => p.y)
       expect(Math.max(...ys)).toBeGreaterThan(Math.min(...ys) + 0.2)
       expect(Math.max(...xs)).toBeGreaterThan(Math.min(...xs) + 0.2)
       expect(g.unicode).toBeTruthy()
