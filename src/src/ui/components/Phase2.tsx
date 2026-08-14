@@ -4,6 +4,7 @@ import { useProgress } from '../../state/progress'
 import { Button } from './Button'
 import SuccessParticles from './SuccessParticles'
 import { useTranslation } from 'react-i18next'
+import { playClick, playTypeSuccess, playTypeError } from '../../engine/audio'
 
 const KEYBOARD = [
   { id: 'ha', label: 'ha', char: 'ꦲ' },
@@ -69,6 +70,23 @@ export default function Phase2() {
   const isCorrect = input === currentQ.target
   const isTypo = input.length > 0 && !currentQ.target.startsWith(input)
 
+  const handleKeyPress = (char: string) => {
+    const nextVal = input + char
+    setInput(nextVal)
+    if (!currentQ.target.startsWith(nextVal)) {
+      playTypeError()
+    } else if (nextVal === currentQ.target) {
+      playTypeSuccess()
+    } else {
+      playClick()
+    }
+  }
+
+  const handleBackspace = () => {
+    playClick()
+    setInput(prev => prev.slice(0, -1))
+  }
+
   const handleFinish = () => {
     const p = useProgress.getState().completedPhases
     if (!p.includes('3_2')) useProgress.getState().completePhase('3_2')
@@ -126,7 +144,7 @@ export default function Phase2() {
           {KEYBOARD.map((k) => (
             <button
               key={k.id}
-              onClick={() => setInput(prev => prev + k.char)}
+              onClick={() => handleKeyPress(k.char)}
               disabled={isCorrect || isTypo}
               className="flex flex-col items-center justify-center aspect-square rounded-xl bg-white border border-border shadow-sm active:scale-95 active:shadow-none transition-all disabled:opacity-50"
             >
@@ -135,7 +153,7 @@ export default function Phase2() {
             </button>
           ))}
           <button
-            onClick={() => setInput(prev => prev.slice(0, -1))}
+            onClick={handleBackspace}
             disabled={isCorrect || !input}
             className="flex flex-col items-center justify-center rounded-xl bg-warn/10 border border-warn/20 text-warn shadow-sm active:scale-95 transition-all disabled:opacity-50 col-span-2"
           >

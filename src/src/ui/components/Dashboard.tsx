@@ -127,6 +127,16 @@ export default function Dashboard() {
             />
           </div>
 
+          <div className="mb-2">
+            <LevelCard
+              level={0}
+              title={t('dashboard.freetype_title')}
+              subtitle={t('dashboard.freetype_desc')}
+              icon="✍️"
+              onClick={() => navigate('/freetype')}
+            />
+          </div>
+
           {menu.slice(1).map((m) => (
             <LevelCard
               key={m.level}

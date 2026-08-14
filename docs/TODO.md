@@ -48,11 +48,16 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Reward Pedang Pusaka (L1) / Perisai Sakti (L2) / Raja (L3) — LevelDone
 - [x] Event "Dora bergabung" & "warga bergabung" (copy) — LevelDone
 - [x] Unlock chain + tombol Next Level — FR-4.3
-- [ ] Interstitial Fase 1→2 + 3 latihan menu di Level 3 — FR-4.4 (belum)
-- [ ] Ending dinobatkan Raja terhubung setelah L3 selesai — screen ada, alur belum
-- [x] Persist progress (Zustand persist): completedLevels, rewards — FR-5.1
+- [x] Interstitial Fase 1 / Fase 2 pilihan menu non-linear di Level 3 — FR-4.4 (Selesai, tracking granular per phase)
+- [x] Ending dinobatkan Raja terhubung setelah L3 Fase 1 & 2 selesai — Selesai
+- [x] Persist progress (Zustand persist): completedLevels, completedPhases, rewards — FR-5.1
 - [ ] Resume level saat reload — FR-5.2 (partial: progress tersimpan, resume per-question belum)
 - [ ] Latihan soal L1: mulai dari soal 1 → reward→ level 2 dsb (starter set dipakai ulang utk L2/L3 sementara)
+
+### Fitur Tambahan & UX Polish — ✅ DONE
+- [x] Localization penuh: Indonesia, English, Basa Jawa (Krama Inggil) via i18next + ekstraksi data layer
+- [x] Audio engine Gamelan Web Audio API (Ombak, saron, gong ageng, keprak, detuned partials)
+- [x] Hide global scrollbars untuk PWA fullscreen feel
 
 ### PWA & offline
 - [x] Service worker (Workbox) precache penuh (~500 KB, 14 entries) — FR-6.2

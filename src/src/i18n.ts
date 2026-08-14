@@ -69,7 +69,13 @@ const resources = {
         "kamus": "Buka Kamus",
         "kamus_desc": "Panduan lengkap aksara Jawa",
         "progress_title": "Progres Perjalanan",
-        "progress_complete": "{{count}} / 3 Selesai"
+        "progress_complete": "{{count}} / 3 Selesai",
+        "freetype_title": "Bebas Nulis",
+        "freetype_desc": "Ketik aksara Jawa sesukamu"
+      },
+      "freetype": {
+        "read_as": "Dibaca",
+        "space": "Spasi"
       },
       "settings": {
         "title": "Pengaturan",
@@ -218,12 +224,18 @@ const resources = {
         "kamus_desc": "Javanese letters cheat sheet",
         "progress_title": "Journey Progress",
         "progress_complete": "{{count}} / 3 Completed",
+        "freetype_title": "Free Type",
+        "freetype_desc": "Type Javanese freely",
         "level1_title": "Sanjaya Island",
         "level1_desc": "Mission to get the Sacred Sword",
         "level2_title": "Adi Jaya Island",
         "level2_desc": "Search for the Magic Shield",
         "level3_title": "Nusantara Kingdom",
         "level3_desc": "The Final Battle"
+      },
+      "freetype": {
+        "read_as": "Read as",
+        "space": "Space"
       },
       "settings": {
         "title": "Settings",
@@ -377,7 +389,13 @@ const resources = {
         "kamus": "Buka Bausastra",
         "kamus_desc": "Pandhuan pepak aksara Jawa",
         "progress_title": "Lampahing Pangumbara",
-        "progress_complete": "{{count}} / 3 Rampung"
+        "progress_complete": "{{count}} / 3 Rampung",
+        "freetype_title": "Bebas Nyerat",
+        "freetype_desc": "Nyerat aksara Jawa sak kersanipun"
+      },
+      "freetype": {
+        "read_as": "Diwaos",
+        "space": "Spasi"
       },
       "settings": {
         "title": "Pangaturan",

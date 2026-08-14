@@ -3,6 +3,7 @@ import { Button } from './Button'
 import { BackButton } from './BackButton'
 import { useProgress, isLevelUnlocked } from '../../state/progress'
 import { useTranslation } from 'react-i18next'
+import { playStartGame } from '../../engine/audio'
 
 const levelMeta: Record<string, { titleKey: string; subtitleKey: string; icon: string }> = {
   '1': { titleKey: 'dashboard.level1_title', subtitleKey: 'dashboard.level1_desc', icon: '🏝️' },
@@ -61,19 +62,19 @@ export default function Level() {
         {id === 3 ? (
           <div className="grid grid-cols-2 gap-3">
             <Link to={`/level/3/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
-              <Button className="w-full py-4 text-sm" disabled={!isUnlocked}>
+              <Button className="w-full py-4 text-sm" disabled={!isUnlocked} onClick={playStartGame}>
                 {t('level.play_phase1')} {completedPhases.includes('3_1') ? '✅' : ''}
               </Button>
             </Link>
             <Link to={`/level/3/phase2`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
-              <Button className="w-full py-4 text-sm" disabled={!isUnlocked}>
+              <Button className="w-full py-4 text-sm" disabled={!isUnlocked} onClick={playStartGame}>
                 {t('level.play_phase2')} {completedPhases.includes('3_2') ? '✅' : ''}
               </Button>
             </Link>
           </div>
         ) : (
           <Link to={`/level/${id}/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
-            <Button className="w-full py-4 text-lg" disabled={!isUnlocked}>
+            <Button className="w-full py-4 text-lg" disabled={!isUnlocked} onClick={playStartGame}>
               {t('level.play')}
             </Button>
           </Link>

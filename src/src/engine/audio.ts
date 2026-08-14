@@ -32,65 +32,92 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
     const t = ctx.currentTime;
 
     if (type === 'error') {
-      // Dissonant, muted "thud" (like hitting wood incorrectly)
       const osc1 = ctx.createOscillator();
       const osc2 = ctx.createOscillator();
       const gain = ctx.createGain();
       osc1.type = 'triangle';
       osc2.type = 'sawtooth';
       osc1.frequency.setValueAtTime(150, t);
-      osc2.frequency.setValueAtTime(215, t); // Dissonance
+      osc2.frequency.setValueAtTime(215, t);
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(vol * 0.6, t + 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+      gain.gain.linearRampToValueAtTime(vol * 0.8, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
       osc1.connect(gain); osc2.connect(gain); gain.connect(ctx.destination);
-      osc1.start(t); osc1.stop(t + 0.3); osc2.start(t); osc2.stop(t + 0.3);
+      osc1.start(t); osc1.stop(t + 0.2); osc2.start(t); osc2.stop(t + 0.2);
       return;
     }
 
     if (type === 'click') {
-      // Light wooden tap (Keprak mallet)
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(600, t);
-      osc.frequency.exponentialRampToValueAtTime(100, t + 0.08); // Pitch drop for transient
+      osc.frequency.setValueAtTime(800, t);
+      osc.frequency.exponentialRampToValueAtTime(100, t + 0.05);
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(vol * 0.8, t + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+      gain.gain.linearRampToValueAtTime(vol * 1.2, t + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
       osc.connect(gain); gain.connect(ctx.destination);
-      osc.start(t); osc.stop(t + 0.1);
+      osc.start(t); osc.stop(t + 0.08);
       return;
     }
 
-    // Gamelan Additive Synthesis (Saron & Gong)
-    // partials: { r: frequency ratio, a: amplitude ratio, d: decay time }
-    const partials = type === 'gong' 
-      ? [ {r: 1, a: 1, d: 4.0}, {r: 1.52, a: 0.5, d: 2.0}, {r: 2.46, a: 0.3, d: 1.5}, {r: 3.43, a: 0.2, d: 1.0} ] // Deep, long resonance
-      : [ {r: 1, a: 1, d: 1.2}, {r: 2.76, a: 0.4, d: 0.5}, {r: 5.40, a: 0.2, d: 0.2}, {r: 8.90, a: 0.1, d: 0.1} ]; // Bright, bell-like
+    // Advanced Gamelan Physical Modeling Approach
+    
+    // 1. Mallet Strike (Exciter) - The sound of the wooden/horn hammer hitting the bronze
+    const strikeOsc = ctx.createOscillator();
+    const strikeGain = ctx.createGain();
+    const strikeFilter = ctx.createBiquadFilter();
+    strikeOsc.type = 'square';
+    strikeOsc.frequency.setValueAtTime(type === 'gong' ? 200 : 1200, t);
+    strikeOsc.frequency.exponentialRampToValueAtTime(type === 'gong' ? 50 : 300, t + 0.05);
+    strikeFilter.type = 'bandpass';
+    strikeFilter.frequency.setValueAtTime(type === 'gong' ? 400 : 2000, t);
+    strikeGain.gain.setValueAtTime(0, t);
+    strikeGain.gain.linearRampToValueAtTime(vol * (type === 'gong' ? 0.3 : 0.15), t + 0.005);
+    strikeGain.gain.exponentialRampToValueAtTime(0.001, t + (type === 'gong' ? 0.1 : 0.05));
+    
+    strikeOsc.connect(strikeFilter);
+    strikeFilter.connect(strikeGain);
+    strikeGain.connect(ctx.destination);
+    strikeOsc.start(t); strikeOsc.stop(t + 0.1);
 
-    const duration = type === 'gong' ? 4.0 : 1.5;
+    // 2. Bronze Resonance (Body) - Inharmonic partials with Ombak
+    // Saron has very strong bright partials. Gong has massive deep resonance.
+    const partials = type === 'gong' 
+      ? [ {r: 1, a: 1, d: 5.0}, {r: 1.52, a: 0.6, d: 3.5}, {r: 2.46, a: 0.4, d: 2.0}, {r: 3.43, a: 0.2, d: 1.0}, {r: 4.1, a: 0.1, d: 0.5} ]
+      : [ {r: 1, a: 1, d: 1.5}, {r: 2.76, a: 0.45, d: 0.7}, {r: 5.40, a: 0.25, d: 0.3}, {r: 8.90, a: 0.1, d: 0.15}, {r: 11.3, a: 0.05, d: 0.05} ];
+
+    const duration = type === 'gong' ? 5.0 : 1.5;
+    const beatHz = type === 'gong' ? 1.2 : 3.5;
 
     partials.forEach((p) => {
-      // Create two oscillators per partial slightly detuned to create "Ombak" (acoustic beating characteristic of Gamelan)
+      // Primary Tone
       const osc1 = ctx.createOscillator();
+      // Ombak (Beating) Tone
       const osc2 = ctx.createOscillator();
       const pGain = ctx.createGain();
+      const pFilter = ctx.createBiquadFilter();
 
       osc1.type = 'sine';
       osc2.type = 'sine';
       
-      const beatHz = type === 'gong' ? 1.5 : 3.0;
       osc1.frequency.setValueAtTime(freq * p.r, t);
       osc2.frequency.setValueAtTime(freq * p.r + beatHz, t);
 
+      // Lowpass filter that closes over time: High frequencies decay much faster in physical bronze
+      pFilter.type = 'lowpass';
+      pFilter.frequency.setValueAtTime(Math.min(freq * p.r * 2 + 1000, 20000), t);
+      pFilter.frequency.exponentialRampToValueAtTime(Math.max(freq * p.r, 100), t + p.d);
+      
+      // Envelope
       pGain.gain.setValueAtTime(0, t);
-      const attack = type === 'gong' ? 0.05 : 0.02;
-      pGain.gain.linearRampToValueAtTime(vol * p.a * 0.5, t + attack);
-      pGain.gain.exponentialRampToValueAtTime(0.001, t + attack + p.d);
+      const attack = type === 'gong' ? 0.05 : 0.015;
+      pGain.gain.linearRampToValueAtTime(vol * p.a * 0.4, t + attack);
+      pGain.gain.exponentialRampToValueAtTime(0.0001, t + attack + p.d);
 
-      osc1.connect(pGain);
-      osc2.connect(pGain);
+      osc1.connect(pFilter);
+      osc2.connect(pFilter);
+      pFilter.connect(pGain);
       pGain.connect(ctx.destination);
 
       osc1.start(t); osc1.stop(t + duration);
@@ -101,7 +128,32 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
   }
 }
 
-export const playClick = () => playGamelanTone(0, 'click', 0.2);
+function playTone(freq: number, type: OscillatorType = 'sine', duration: number = 0.5, vol: number = 0.3) {
+  try {
+    const ctx = getContext();
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+export const playClick = () => playTone(Slendro.Ro, 'sine', 0.15, 0.15);
+export const playTypeSuccess = () => playTone(Slendro.JiHigh, 'sine', 0.2, 0.1);
+export const playTypeError = () => playTone(150, 'sawtooth', 0.2, 0.1);
+
+export const playStartGame = () => {
+  playTone(Slendro.Lu, 'sine', 0.2, 0.15);
+  setTimeout(() => playTone(Slendro.Nem, 'sine', 0.2, 0.15), 100);
+  setTimeout(() => playTone(Slendro.JiHigh, 'sine', 0.5, 0.2), 200);
+}
+
 export const playStrokeSuccess = () => playGamelanTone(Slendro.Nem, 'saron', 0.3);
 export const playStrokeError = () => playGamelanTone(0, 'error', 0.2);
 
