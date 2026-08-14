@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+.git
+.gitignore
+.env
+.vscode
+.idea
+*.log
+Dockerfile
+.dockerignore
+memory.db
+memory.db-journal
+note.txt
+jla.md
