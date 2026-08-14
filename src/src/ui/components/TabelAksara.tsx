@@ -55,7 +55,14 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string 
   'tarung': { jv: 'ꦱꦺꦴꦠꦺꦴ', la: 'soto', id: 'soto', en: 'soto' },
   'cecak': { jv: 'ꦏꦕꦁ', la: 'kacang', id: 'kacang', en: 'peanut' },
   'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar', en: 'market' },
-  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah', en: 'elephant' }
+  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah', en: 'elephant' },
+
+  // Rekan
+  'kha': { jv: 'ꦏ꦳ꦠꦩ꧀', la: 'khatam', id: 'khatam', en: 'finished' },
+  'dza': { jv: 'ꦢ꦳ꦶꦏꦶꦂ', la: 'dzikir', id: 'dzikir', en: 'dhikr' },
+  'fa': { jv: 'ꦥ꦳ꦲꦩ꧀', la: 'faham', id: 'paham', en: 'understand' },
+  'za': { jv: 'ꦗ꦳ꦩꦤ꧀', la: 'zaman', id: 'zaman', en: 'era' },
+  'gha': { jv: 'ꦒ꦳ꦲꦶꦧ꧀', la: 'ghaib', id: 'gaib', en: 'unseen' }
 }
 
 export interface TabelAksaraProps {
