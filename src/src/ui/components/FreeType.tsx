@@ -123,31 +123,31 @@ export default function FreeType() {
         </div>
       </section>
 
-      <div className="relative flex-1 min-h-0 w-full bg-white/50 rounded-3xl p-4 shadow-inner border border-white/40 overflow-y-auto">
-        <div className="grid grid-cols-5 sm:grid-cols-7 gap-2">
+      <div className="flex-1 w-full flex flex-col justify-end bg-paper-2 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-border mt-auto -mx-4 -mb-4 px-2 pb-6 pt-4">
+        <div className="grid grid-cols-5 sm:grid-cols-7 gap-1.5 sm:gap-2 max-w-full">
           {KEYBOARD.map((k) => (
             <button
               key={k.id}
               onClick={() => handleKeyPress(k.char)}
-              className="flex flex-col items-center justify-center aspect-square rounded-xl bg-white border border-border shadow-sm active:scale-95 active:shadow-none transition-all"
+              className="flex flex-col items-center justify-center h-12 sm:h-14 rounded-xl bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all"
             >
-              <span className="font-javanese text-2xl mb-1 text-text">{k.char}</span>
-              <span className="text-[10px] font-bold text-text-2 uppercase">{k.label}</span>
+              <span className="font-javanese text-xl sm:text-2xl mb-0.5 text-text leading-none">{k.char}</span>
+              <span className="text-[9px] sm:text-[10px] font-bold text-text-2 uppercase">{k.label}</span>
             </button>
           ))}
           <button
-            onClick={handleSpace}
-            className="flex flex-col items-center justify-center rounded-xl bg-paper-2 border border-border shadow-sm active:scale-95 transition-all col-span-3"
-          >
-            <span className="text-sm font-bold uppercase">{t('freetype.space')}</span>
-          </button>
-          <button
             onClick={handleBackspace}
             disabled={input.length === 0}
-            className="flex flex-col items-center justify-center rounded-xl bg-warn/10 border border-warn/20 text-warn shadow-sm active:scale-95 transition-all disabled:opacity-50 col-span-2"
+            className="flex flex-col items-center justify-center h-12 sm:h-14 rounded-xl bg-paper border-b-2 border-border text-warn shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 col-span-1"
           >
-            <span className="text-xl mb-1">⌫</span>
-            <span className="text-[10px] font-bold uppercase">{t('practice.clear')}</span>
+            <span className="text-lg mb-0.5 leading-none">⌫</span>
+            <span className="text-[9px] font-bold uppercase tracking-tighter">Del</span>
+          </button>
+          <button
+            onClick={handleSpace}
+            className="flex flex-col items-center justify-center h-12 sm:h-14 rounded-xl bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all col-span-4 sm:col-span-6"
+          >
+            <span className="text-xs font-bold uppercase tracking-widest">{t('freetype.space')}</span>
           </button>
         </div>
       </div>
