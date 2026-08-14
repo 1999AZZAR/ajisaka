@@ -26,7 +26,7 @@ export default function Level() {
   const meta = levelMeta[id ?? ''] ?? levelMeta['1']
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pb-8 pt-6">
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-5 pb-8 pt-6">
       <header className="mb-6">
         <BackButton />
       </header>

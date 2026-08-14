@@ -76,7 +76,7 @@ export default function Practice() {
           : 'border-transparent text-text-2'
 
   return (
-    <main className="mx-auto flex h-full w-full max-w-md flex-col px-5 pb-5 pt-6 overflow-hidden">
+    <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-5 pb-5 pt-6 overflow-hidden">
       <header className="mb-5 shrink-0 flex items-center justify-between">
         <BackButton to="/menu" />
         <div className="flex items-center gap-2">

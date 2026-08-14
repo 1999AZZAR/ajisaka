@@ -101,8 +101,8 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
     <div className="flex flex-col h-full gap-3">
       <div className="flex-1 min-h-0 w-full flex items-center justify-center">
         <div
-          className="relative w-full max-w-[360px] overflow-hidden rounded-2xl border border-white/60 bg-white shadow-card"
-          style={{ aspectRatio: '1 / 1' }}
+          className="relative overflow-hidden rounded-2xl border border-white/60 bg-white shadow-card"
+          style={{ aspectRatio: '1 / 1', width: '1000px', maxWidth: '100%', maxHeight: '100%' }}
         >
           <canvas
           ref={canvasRef}
