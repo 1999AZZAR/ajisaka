@@ -1,68 +1,56 @@
 # Petualangan Ajisaka 👑
 
-Petualangan Ajisaka is a **Gamified Progressive Web App (PWA)** designed to teach **Aksara Jawa** (Javanese Script) through an engaging, interactive adventure.
+![Ajisaka Blotcat Illustration](public/assets/ajisaka-blotcat.jpg)
 
-Built with an offline-first architecture, this app leverages a custom **Vector Geometry Stroke Engine** and a **Web Audio Physical Modeling Gamelan Synthesizer** to create a deeply authentic, tactile learning experience right in your browser—without needing a constant internet connection.
+Petualangan Ajisaka is an offline-first Progressive Web App (PWA) built to teach Aksara Jawa (Javanese script). It structures the learning process as a journey across three islands, moving from basic letters to complex consonant pairings.
 
-## ✨ Features
+Instead of relying on simple multiple-choice questions or pixel-perfect canvas matching, we built a custom stroke evaluation engine and an additive synthesizer for audio feedback. The app runs entirely in the browser and requires no internet connection after the initial load.
 
-- ✍️ **Vector Geometry Stroke Recognition**: Rather than rigid pixel matching, the app uses dynamic Chamfer Distance geometry to accurately evaluate drawing strokes on the canvas, even across different screen sizes.
-- 🎵 **Procedural Gamelan Audio Engine**: No bloated MP3 samples! The app synthesizes authentic Javanese Gamelan instruments (Saron, Gong, Keprak) in real-time using Web Audio physical modeling, including transients and *Ombak* (acoustic beating).
-- 🌍 **Full Localization (i18n)**: Play in Indonesian, English, or Javanese (Krama Inggil). 
-- 🕹️ **Gamified Progression**: Unlock levels, gather companions, and earn mythical items (like the Sacred Sword and Magic Shield) as you master the script.
-- 📱 **Offline-First PWA**: Install it on your phone or tablet and play it entirely offline. Progress is securely persisted locally using Zustand.
-- 🆓 **Free Type Mode**: An experimental playground where users can freely type Javanese script using a custom virtual keyboard, complete with real-time Latin transliteration.
+## Architecture & Mechanics
 
-## 🚀 Tech Stack
+- **Vector Geometry Stroke Recognition**: The drawing canvas captures user inputs as coordinate paths, normalizes them, and evaluates them against reference contours using a Chamfer Distance algorithm. This prevents players from cheating by scribbling over the entire canvas and ensures the evaluation scales correctly across any screen resolution.
+- **Physical Modeling Gamelan Audio**: The app synthesizes its own sound effects using the native Web Audio API. When a player completes a stroke, it triggers a modeled Gamelan strike complete with a mallet exciter, dynamically damped low-pass filters, and the characteristic *Ombak* (acoustic beating) of resonating bronze.
+- **Granular State Tracking**: Game progress is tracked and persisted locally via Zustand. Players can leave the app mid-level and return without losing their unlocked phases, islands, or items.
+- **Three-Way Localization**: The UI, story, and drawing hints are fully translated into Indonesian, English, and Javanese Krama Inggil.
+- **Free Type Mode**: A dedicated sandbox where users can test out the virtual keyboard and see their Javanese characters transliterated into Latin text in real time.
 
-- **Frontend**: React 18, Vite, TypeScript
-- **Styling**: Tailwind CSS v4, OKLCH Color Tokens
-- **State Management**: Zustand (with Persist)
-- **Routing**: React Router (HashRouter for optimal PWA caching)
-- **Audio**: Native Web Audio API (Additive/Physical Modeling Synthesis)
-- **PWA**: Vite PWA Plugin, Workbox (Service Worker precaching)
-- **i18n**: i18next, react-i18next
+## Technical Details
 
-## 🛠️ Getting Started
+The codebase is structured around React 18 and Vite.
 
-### Prerequisites
-- Node.js (v18 or higher recommended)
-- npm
+- **Frontend Framework**: React 18 (TypeScript)
+- **Styling**: Tailwind CSS v4, built on an OKLCH color token system for theme consistency.
+- **State**: Zustand with localStorage persistence.
+- **Routing**: React Router using HashRouter to ensure stable offline navigation without server-side rewrite rules.
+- **Offline Capabilities**: Workbox precaches the HTML bundle, custom Javanese font (WOFF2), and minimal assets. 
 
-### Installation
+## Running the App
 
-1. **Clone the repository**
+You need Node.js (v18 or newer) to run the development server.
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/1999AZZAR/ajisaka.git
    cd ajisaka
    ```
-
-2. **Install dependencies**
+2. Install dependencies:
    ```bash
    npm install
    ```
-
-3. **Start the development server**
+3. Start the Vite dev server:
    ```bash
    npm run dev
    ```
-   *Note: For testing touch interactions and PWA features locally on a mobile device, you can use `npm run dev -- --host`.*
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+To test the touch interactions on a mobile device on your local network, start the server with `npm run dev -- --host` and navigate to the provided local IP address on your phone.
 
-## 🗺️ Project Structure
+## Repository Layout
 
-- `src/engine/` - Core logic for stroke recognition (`raster.ts`, `geometry.ts`) and audio synthesis (`audio.ts`).
-- `src/state/` - Zustand global state for tracking unlocked levels, phases, and rewards.
-- `src/ui/` - React components, screens, and UI elements.
-- `src/data/` - Level configurations and Javanese character datasets (SVG paths).
-- `docs/` - Original design documents, naskah (scripts), and TODO lists.
+- `src/engine/` - Mathematical logic for the canvas stroke geometry (`raster.ts`, `geometry.ts`) and the physical modeling audio synthesizer (`audio.ts`).
+- `src/state/` - Zustand stores for tracking progress and user configuration.
+- `src/ui/` - React views, UI components, and the virtual keyboard.
+- `src/data/` - Static configurations for the three levels and the JSON definitions for the Javanese script SVG contours.
+- `docs/` - Planning documents, scripts, and task tracking.
 
-## 📜 Storyline
-Follow the legend of **Ajisaka** as you travel from Sanjaya Island to the Nusantara Kingdom. Master the *Nglegena* (basic letters), learn the *Sandangan* (vowel modifications), and conquer the final challenge using *Pasangan* (consonant pairs) to defeat the Green Giants and claim the throne!
-
-## 📄 License
+## License
 Private Repository. Copyright © 2026 Azzar. All Rights Reserved.
