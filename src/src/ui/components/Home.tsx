@@ -1,13 +1,22 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import anime from 'animejs'
 import { useTranslation } from 'react-i18next'
+import { usePWAInstall } from '../../hooks/usePWAInstall'
 
 export default function Home() {
   const navigate = useNavigate()
   const titleRef = useRef<HTMLHeadingElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
+  const { isInstallable, install } = usePWAInstall()
+  const [isFullscreen, setIsFullscreen] = useState(!!document.fullscreenElement)
+
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', onFsChange)
+    return () => document.removeEventListener('fullscreenchange', onFsChange)
+  }, [])
 
   useEffect(() => {
     // Playful entrance animation for the title and background
@@ -71,11 +80,38 @@ export default function Home() {
 
             <div className="mt-4 flex flex-col items-center gap-3 w-full">
               <button 
-                onClick={() => navigate('/menu')}
+                onClick={async () => {
+                  try {
+                    if (!document.fullscreenElement) {
+                      await document.documentElement.requestFullscreen()
+                    }
+                  } catch (e) {
+                    console.log('Fullscreen error:', e)
+                  }
+                  navigate('/menu')
+                }}
                 className="w-full sm:w-64 rounded-3xl bg-gradient-to-b from-accent to-[oklch(0.50_0.14_25)] px-8 py-5 font-display text-2xl tracking-wide text-white shadow-[0_8px_0_oklch(0.40_0.14_25),0_15px_20px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-1 hover:shadow-[0_10px_0_oklch(0.40_0.14_25),0_20px_25px_rgba(0,0,0,0.2)] active:translate-y-2 active:shadow-[0_0px_0_oklch(0.40_0.14_25),0_0px_0_rgba(0,0,0,0)]"
               >
                 {t('home.play')}
               </button>
+              
+              {isFullscreen && (
+                <button 
+                  onClick={() => document.exitFullscreen()}
+                  className="w-full sm:w-64 rounded-3xl bg-white/50 px-8 py-4 font-display text-xl tracking-wide text-warn border-2 border-warn/20 shadow-sm transition-all hover:bg-white/80"
+                >
+                  {t('home.exit_fullscreen')}
+                </button>
+              )}
+
+              {isInstallable && (
+                <button 
+                  onClick={install}
+                  className="w-full sm:w-64 rounded-3xl bg-white/50 px-8 py-4 font-display text-xl tracking-wide text-accent border-2 border-accent/20 shadow-sm transition-all hover:bg-white/80"
+                >
+                  {t('app.home.install')}
+                </button>
+              )}
             </div>
           </div>
         </div>

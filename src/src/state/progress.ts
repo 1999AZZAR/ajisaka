@@ -3,12 +3,14 @@ import { persist } from 'zustand/middleware'
 
 export interface ProgressState {
   completedLevels: number[]
+  completedPhases: string[]
   rewards: string[]
   bestByQuestion: Record<string, number>
   currentLevel?: number
   unfinished: string[]
   settings: { sound: boolean; dark: boolean }
   completeLevel: (level: number, reward?: string) => void
+  completePhase: (phaseId: string) => void
   setCurrentLevel: (level: number) => void
   recordScore: (questionId: string, score: number) => void
 }
@@ -17,10 +19,15 @@ export const useProgress = create<ProgressState>()(
   persist(
     (set) => ({
       completedLevels: [],
+      completedPhases: [],
       rewards: [],
       bestByQuestion: {},
       unfinished: [],
       settings: { sound: true, dark: false },
+      completePhase: (phaseId) =>
+        set((s) => ({
+          completedPhases: s.completedPhases.includes(phaseId) ? s.completedPhases : [...s.completedPhases, phaseId],
+        })),
       completeLevel: (level, reward) =>
         set((s) => ({
           completedLevels: s.completedLevels.includes(level)

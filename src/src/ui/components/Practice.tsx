@@ -27,15 +27,22 @@ export default function Practice() {
   const levelNum = (level ?? '1') as keyof typeof SETS
   const TYPE_LABEL = { '1': t('practice.base'), '2': t('practice.sandangan'), '3': t('practice.pasangan') } as Record<string, string>
   
-  // PDF requires 11 questions for Sandangan (Level 2). Since we only have 8, we duplicate the first 3.
-  const rawQuestions = SETS[levelNum] ?? NGGLEGENA
-  const questions = levelNum === '2' ? [...rawQuestions, rawQuestions[0], rawQuestions[1], rawQuestions[2]] : rawQuestions
+  const questions = SETS[levelNum] ?? NGGLEGENA
   
   const glyph = questions[qIndex % questions.length]
 
-  const finish = () => {
+  const handleDone = () => {
     if (levelNum === '3') {
-      navigate('/level/3/phase2')
+      const p = useProgress.getState().completedPhases
+      if (!p.includes('3_1')) useProgress.getState().completePhase('3_1')
+      
+      const newP = useProgress.getState().completedPhases
+      if (newP.includes('3_2')) {
+        completeLevel(3, '3')
+        navigate('/level/3/done', { replace: true })
+      } else {
+        navigate('/level/3', { replace: true })
+      }
     } else {
       completeLevel(Number(levelNum), levelNum === '1' ? 'pedang' : levelNum === '2' ? 'perisai' : undefined)
       navigate(`/level/${levelNum}/done`)
@@ -44,7 +51,7 @@ export default function Practice() {
 
   const handleNext = () => {
     if (qIndex + 1 >= questions.length) {
-      finish()
+      handleDone()
     } else {
       setQIndex((v) => v + 1)
       setStrokes([])
@@ -89,9 +96,9 @@ export default function Practice() {
       <header className="mb-5 shrink-0 flex items-center justify-between">
         <BackButton to="/menu" />
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-text-2">
-            {t('practice.question')} {qIndex + 1}/{questions.length}
-          </span>
+          <span className="rounded-full bg-paper border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">
+          {levelNum === '3' ? `${t('practice.phase')} 1/2 - ` : ''}{t('practice.question')} {qIndex + 1}/{questions.length}
+        </span>
         </div>
       </header>
 
@@ -114,17 +121,17 @@ export default function Practice() {
           <div className="flex flex-col items-start">
             <span className="text-xs font-bold uppercase tracking-wider text-accent-deep">{t('practice.draw')} · {TYPE_LABEL[levelNum]}</span>
             <h1 className="font-display text-2xl leading-none text-text">{glyph.label}</h1>
-            <p className="mt-1 text-xs leading-snug text-text-2">{glyph.hint}</p>
+            <p className="mt-1 text-xs leading-snug text-text-2">{t(`aksara_hints.${glyph.id}`, { defaultValue: glyph.hint })}</p>
           </div>
         </div>
       </section>
 
       <div className="relative flex-1 min-h-0 w-full mb-4">
         <PracticeCanvas
-          key={glyph.id}
           glyph={glyph}
           strokeIdx={0}
           feedback={feedback}
+          showArrows={levelNum === '1'}
           onStroke={handleStroke}
           onClear={handleClear}
         />

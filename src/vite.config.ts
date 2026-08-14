@@ -19,8 +19,9 @@ export default defineConfig({
         theme_color: '#fdfaf2',
         background_color: '#fdfaf2',
         lang: 'id',
-        display: 'standalone',
+        display: 'fullscreen',
         orientation: 'any',
+        scope: '/',
         start_url: '/',
         icons: [
           { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },

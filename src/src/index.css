@@ -14,6 +14,15 @@
   font-display: swap;
 }
 
+/* Hide scrollbars globally across the entire app */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 @font-face {
   font-family: 'Nunito';
   src: url('/fonts/Nunito.woff2') format('woff2-variations');

@@ -26,7 +26,7 @@ export function LevelCard({ level, title, subtitle, icon, reward, rewardIcon = '
     if (onClick) {
       onClick()
     } else {
-      navigate(`/level/${level}/practice`)
+      navigate(`/level/${level}`)
     }
   }
 

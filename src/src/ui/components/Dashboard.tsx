@@ -70,14 +70,7 @@ export default function Dashboard() {
             <p className="mt-1 text-[0.95rem] font-medium text-text-2">{t('dashboard.subtitle')}</p>
           </div>
           <div className="flex gap-2">
-            <button
-              type="button"
-              aria-label={t('dashboard.kamus')}
-              onClick={() => setShowTabel(true)}
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-border bg-white text-2xl shadow-[0_4px_0_oklch(0.86_0.025_78)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_0_oklch(0.86_0.025_78)] active:translate-y-1 active:shadow-[0_0px_0_oklch(0.86_0.025_78)]"
-            >
-              📖
-            </button>
+
             <Link
               to="/settings"
               aria-label={t('app.settings')}

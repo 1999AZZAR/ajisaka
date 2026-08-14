@@ -55,7 +55,7 @@ const QUESTIONS = [
   { word: 'mandi', target: 'ꦩꦤ꧀ꦢꦶ', menu: 'Menu 3: Pasangan' },
   { word: 'bantu', target: 'ꦧꦤ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
   { word: 'pintu', target: 'ꦥꦶꦤ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
-  { word: 'kunci', target: 'ꦏꦸꦚ꧀ꦕꦶ', menu: 'Menu 3: Pasangan' }
+  { word: 'lampu', target: 'ꦭꦩ꧀ꦥꦸ', menu: 'Menu 3: Pasangan' }
 ]
 
 export default function Phase2() {
@@ -67,15 +67,24 @@ export default function Phase2() {
 
   const currentQ = QUESTIONS[qIndex]
   const isCorrect = input === currentQ.target
+  const isTypo = input.length > 0 && !currentQ.target.startsWith(input)
 
-  const finish = () => {
-    completeLevel(3)
-    navigate('/level/3/done')
+  const handleFinish = () => {
+    const p = useProgress.getState().completedPhases
+    if (!p.includes('3_2')) useProgress.getState().completePhase('3_2')
+    
+    const newP = useProgress.getState().completedPhases
+    if (newP.includes('3_1')) {
+      completeLevel(3, '3')
+      navigate('/level/3/done', { replace: true })
+    } else {
+      navigate('/level/3', { replace: true })
+    }
   }
 
   const handleNext = () => {
     if (qIndex + 1 >= QUESTIONS.length) {
-      finish()
+      handleFinish()
     } else {
       setQIndex(v => v + 1)
       setInput('')
@@ -86,8 +95,8 @@ export default function Phase2() {
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-4 pb-4 pt-6 overflow-hidden">
       <header className="mb-4 shrink-0 flex items-center justify-between">
         <h1 className="font-display text-xl text-text">{currentQ.menu}</h1>
-        <span className="text-sm font-semibold text-text-2">
-          {t('practice.question')} {qIndex + 1}/{QUESTIONS.length}
+        <span className="rounded-full bg-paper border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">
+          {t('practice.phase')} 2/2 - {t('practice.question')} {qIndex + 1}/{QUESTIONS.length}
         </span>
       </header>
 
@@ -102,8 +111,12 @@ export default function Phase2() {
         <span className="text-sm font-bold uppercase tracking-widest text-accent-deep mb-2">{t('practice.write_word')}</span>
         <h2 className="font-display text-4xl text-text mb-6">{currentQ.word}</h2>
         
-        <div className="w-full flex flex-col items-center rounded-2xl bg-paper-2 border-2 border-border p-4 min-h-[100px] justify-center relative overflow-hidden">
-          <span className="font-javanese text-6xl md:text-7xl text-text leading-tight whitespace-nowrap overflow-x-auto max-w-full px-4 no-scrollbar">{input || ' '}</span>
+        <div className={`w-full flex flex-col items-center justify-center rounded-2xl px-4 h-[140px] sm:h-[160px] shrink-0 relative transition-all ${
+          isTypo ? 'bg-warn/10 border-2 border-warn/50 animate-shake' : 'bg-paper-2 border-2 border-border'
+        }`}>
+          <span className={`font-javanese text-5xl sm:text-6xl leading-normal whitespace-nowrap overflow-x-auto max-w-full px-4 no-scrollbar transition-colors ${
+            isTypo ? 'text-warn' : 'text-text'
+          }`}>{input || ' '}</span>
           {!input && <span className="absolute text-text-2 opacity-50 font-medium pointer-events-none">{t('practice.type_here')}</span>}
         </div>
       </section>
@@ -114,7 +127,7 @@ export default function Phase2() {
             <button
               key={k.id}
               onClick={() => setInput(prev => prev + k.char)}
-              disabled={isCorrect}
+              disabled={isCorrect || isTypo}
               className="flex flex-col items-center justify-center aspect-square rounded-xl bg-white border border-border shadow-sm active:scale-95 active:shadow-none transition-all disabled:opacity-50"
             >
               <span className="font-javanese text-2xl mb-1 text-text">{k.char}</span>

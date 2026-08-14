@@ -53,8 +53,8 @@ export default function Prolog() {
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 pb-10 pt-8 bg-paper">
-      <header className="mb-6 flex items-center justify-between">
+    <main className="mx-auto flex h-dvh w-full max-w-3xl flex-col px-6 pb-6 pt-8 bg-paper overflow-hidden">
+      <header className="mb-6 shrink-0 flex items-center justify-between">
         <BackButton />
         <span className="rounded-full bg-paper-2 border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">
           {t('prolog_page.title')}
@@ -63,30 +63,30 @@ export default function Prolog() {
 
       <section 
         ref={slideRef}
-        className="relative flex flex-1 flex-col items-center justify-center gap-8 overflow-hidden rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-8 text-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl"
+        className="relative flex flex-1 min-h-0 flex-col items-center justify-center gap-4 sm:gap-6 overflow-y-auto overflow-x-hidden rounded-[2rem] sm:rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-4 sm:p-8 text-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl no-scrollbar"
       >
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -right-4 -top-6 select-none text-[8rem] leading-none text-accent/5 opacity-50"
+          className="pointer-events-none absolute -right-4 -top-6 select-none text-[6rem] sm:text-[8rem] leading-none text-accent/5 opacity-50"
           style={{ fontFamily: 'var(--font-javanese)' }}
         >
           ꦲ
         </span>
 
-        <div className="relative">
-          <div className="absolute inset-0 animate-ping rounded-[2rem] bg-accent/20 blur-md opacity-60" />
-          <div className="relative flex h-32 w-32 items-center justify-center rounded-[2rem] bg-gradient-to-br from-paper to-paper-2 text-6xl shadow-[0_6px_0_oklch(0.86_0.025_78)] border-4 border-white">
+        <div className="relative shrink-0">
+          <div className="absolute inset-0 animate-ping rounded-[1.5rem] sm:rounded-[2rem] bg-accent/20 blur-md opacity-60" />
+          <div className="relative flex h-24 w-24 sm:h-32 sm:w-32 items-center justify-center rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-paper to-paper-2 text-5xl sm:text-6xl shadow-[0_4px_0_oklch(0.86_0.025_78)] sm:shadow-[0_6px_0_oklch(0.86_0.025_78)] border-[3px] sm:border-4 border-white">
             <span className="drop-shadow-sm">{s.icon}</span>
           </div>
         </div>
         
-        <div className="flex flex-col items-center gap-4">
-          <h2 className="font-display text-[2rem] leading-tight text-text">{t(s.titleKey)}</h2>
-          <p className="max-w-[15rem] text-[1.05rem] font-medium leading-relaxed text-text-2">{t(s.bodyKey)}</p>
+        <div className="flex flex-col items-center gap-2 sm:gap-4 shrink-0">
+          <h2 className="font-display text-[1.5rem] sm:text-[2rem] leading-tight text-text">{t(s.titleKey)}</h2>
+          <p className="max-w-[16rem] text-[0.95rem] sm:text-[1.05rem] font-medium leading-relaxed text-text-2">{t(s.bodyKey)}</p>
         </div>
       </section>
 
-      <footer className="mt-8 flex flex-col gap-6">
+      <footer className="mt-6 shrink-0 flex flex-col gap-6">
         <div className="flex items-center justify-center gap-3" aria-hidden="true">
           {slides.map((_, idx) => (
             <span

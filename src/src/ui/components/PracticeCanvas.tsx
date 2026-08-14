@@ -11,6 +11,7 @@ export interface PracticeCanvasProps {
   glyph: AksaraGlyph
   strokeIdx: number
   feedback: StrokeFeedback | null
+  showArrows?: boolean
   onStroke: (points: Point[]) => void
   onClear: () => void
 }
@@ -32,7 +33,7 @@ function drawPolyline(ctx: CanvasRenderingContext2D, pts: Point[], color: string
   ctx.stroke()
 }
 
-export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: PracticeCanvasProps) {
+export default function PracticeCanvas({ glyph, feedback, showArrows, onStroke, onClear }: PracticeCanvasProps) {
   const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const liveRef = useRef<Point[]>([])
@@ -79,6 +80,25 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
         })
         ctx.fillStyle = 'rgba(179, 64, 42, 0.22)'
         ctx.fill(path)
+
+        if (showArrows && glyph.contour.length > 0 && glyph.contour[0].length > 5) {
+          const p1 = map(glyph.contour[0][0])
+          const p2 = map(glyph.contour[0][Math.floor(glyph.contour[0].length / 10)]) // Look ahead a bit
+          const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
+          
+          ctx.save()
+          ctx.translate(p1.x, p1.y)
+          ctx.rotate(angle)
+          ctx.beginPath()
+          ctx.moveTo(0, 0)
+          ctx.lineTo(-15, -10)
+          ctx.lineTo(-10, 0)
+          ctx.lineTo(-15, 10)
+          ctx.closePath()
+          ctx.fillStyle = '#b3402a'
+          ctx.fill()
+          ctx.restore()
+        }
       }
 
       // Live ink while drawing.

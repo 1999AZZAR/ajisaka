@@ -31,6 +31,18 @@ export default function Settings() {
           </button>
           
           <button
+            onClick={() => i18n.changeLanguage('jv')}
+            className={`flex items-center justify-between rounded-2xl border-2 p-4 font-semibold transition-all ${
+              i18n.resolvedLanguage === 'jv'
+                ? 'border-accent bg-accent/10 text-accent-deep'
+                : 'border-white/50 bg-white/60 text-text-2 hover:bg-white/80'
+            }`}
+          >
+            ꦗ {t('settings.language_jv')}
+            {i18n.resolvedLanguage === 'jv' && <span className="text-accent-deep">✓</span>}
+          </button>
+
+          <button
             onClick={() => i18n.changeLanguage('en')}
             className={`flex items-center justify-between rounded-2xl border-2 p-4 font-semibold transition-all ${
               i18n.resolvedLanguage === 'en'

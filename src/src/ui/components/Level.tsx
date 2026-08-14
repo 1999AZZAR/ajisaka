@@ -14,6 +14,7 @@ export default function Level() {
   const { level } = useParams<{ level: string }>()
   const id = level ? parseInt(level, 10) : 1
   const completedLevels = useProgress((s) => s.completedLevels)
+  const completedPhases = useProgress((s) => s.completedPhases)
   const isUnlocked = isLevelUnlocked(id, completedLevels)
   const isCompleted = completedLevels.includes(id)
   const { t } = useTranslation()
@@ -57,11 +58,26 @@ export default function Level() {
       </section>
 
       <footer className="mt-8 flex flex-col gap-3">
-        <Link to={`/level/${id}/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
-          <Button className="w-full py-4 text-lg" disabled={!isUnlocked}>
-            {t('level.play')}
-          </Button>
-        </Link>
+        {id === 3 ? (
+          <div className="grid grid-cols-2 gap-3">
+            <Link to={`/level/3/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
+              <Button className="w-full py-4 text-sm" disabled={!isUnlocked}>
+                {t('level.play_phase1')} {completedPhases.includes('3_1') ? '✅' : ''}
+              </Button>
+            </Link>
+            <Link to={`/level/3/phase2`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
+              <Button className="w-full py-4 text-sm" disabled={!isUnlocked}>
+                {t('level.play_phase2')} {completedPhases.includes('3_2') ? '✅' : ''}
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Link to={`/level/${id}/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
+            <Button className="w-full py-4 text-lg" disabled={!isUnlocked}>
+              {t('level.play')}
+            </Button>
+          </Link>
+        )}
       </footer>
     </main>
   )
