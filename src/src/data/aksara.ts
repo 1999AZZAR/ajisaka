@@ -2,8 +2,9 @@ import type { Point } from '../engine/geometry'
 import nglegenaContours from './nglegena_contours.json'
 import sandanganContours from './sandangan_contours.json'
 import pasanganContours from './pasangan_contours.json'
+import rekanContours from './rekan_contours.json'
 
-export type AksaraType = 'nglegena' | 'sandangan' | 'pasangan'
+export type AksaraType = 'nglegena' | 'sandangan' | 'pasangan' | 'rekan'
 
 export interface AksaraGlyph {
   id: string
@@ -48,6 +49,12 @@ const HINTS: Record<string, string> = {
   cecak: 'Tanda ng — di atas',
   layar: 'Tanda r — di atas',
   wignyan: 'Tanda h — di atas',
+  // rekan
+  kha: 'Ka dengan tiga titik di atas',
+  dza: 'Da dengan tiga titik di atas',
+  fa: 'Pa dengan tiga titik di atas',
+  za: 'Ja dengan tiga titik di atas',
+  gha: 'Ga dengan tiga titik di atas',
 }
 
 function decodeUnicode(u: string): string {
@@ -88,18 +95,20 @@ export const SANDANGAN: AksaraGlyph[] = (sandanganContours as (ContourEntry & { 
 export const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map((e) =>
   build(e, 'pasangan', `${e.id} (pasangan)`),
 )
+export const REKAN: AksaraGlyph[] = (rekanContours as ContourEntry[]).map((e) => build(e, 'rekan'))
 
 export const LIBRARY: Record<AksaraType, AksaraGlyph[]> = {
   nglegena: NGGLEGENA,
   sandangan: SANDANGAN,
   pasangan: PASANGAN,
+  rekan: REKAN,
 }
 
 /** Level 1: 10 Aksara Dasar pertama (ha-la) */
 export const STARTER_QUESTIONS = NGGLEGENA.slice(0, 10)
 
-/** Level 2: Semua 8 Sandangan */
-export const SANDANGAN_QUESTIONS = SANDANGAN
+/** Level 2: Semua 8 Sandangan + 5 Rekan */
+export const SANDANGAN_QUESTIONS = [...SANDANGAN, ...REKAN]
 
 /** Level 3: 10 Pasangan pertama (ha-la) */
 export const PASANGAN_QUESTIONS = PASANGAN.slice(0, 10)

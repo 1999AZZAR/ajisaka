@@ -115,6 +115,7 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
     { id: 'nglegena', label: t('kamus_modal.nglegena') },
     { id: 'pasangan', label: t('kamus_modal.pasangan') },
     { id: 'sandangan', label: t('kamus_modal.sandangan') },
+    { id: 'rekan', label: t('kamus_modal.rekan') },
   ]
 
   const items = LIBRARY[activeTab]
