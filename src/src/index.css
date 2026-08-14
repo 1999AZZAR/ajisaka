@@ -1,0 +1,116 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Noto Sans Javanese';
+  src: url('/fonts/NotoSansJavanese[wght].woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  src: url('/fonts/Fredoka.woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/Nunito.woff2') format('woff2-variations');
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+/* Petualangan Ajisaka — keraton tokens (DESIGN_AND_DEV.md §9.2) */
+@theme {
+  --color-paper: oklch(0.97 0.012 78);
+  --color-paper-2: oklch(0.92 0.03 78);
+  --color-paper-3: oklch(0.84 0.05 55);
+  --color-text: oklch(0.34 0.04 262);
+  --color-text-2: oklch(0.52 0.03 262);
+  --color-accent: oklch(0.58 0.14 25);
+  --color-accent-deep: oklch(0.5 0.16 27);
+  --color-accent-2: oklch(0.7 0.13 80);
+  --color-warn: oklch(0.66 0.14 60);
+  --color-error: oklch(0.52 0.16 27);
+  --color-border: oklch(0.86 0.025 78);
+  --color-focus: oklch(0.6 0.16 262);
+  --color-glass: oklch(1 0 0 / 0.55);
+
+  --font-display: 'Fredoka', 'Baloo 2', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-javanese: 'Noto Sans Javanese', system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-card: 0 1px 2px oklch(0.25 0.03 262 / 0.06), 0 4px 16px oklch(0.25 0.03 262 / 0.08);
+  --shadow-pop: 0 4px 8px oklch(0.25 0.03 262 / 0.1), 0 12px 28px oklch(0.25 0.03 262 / 0.16);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 0.68, 0.06);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  
+  --animate-spin-slow: spin 20s linear infinite;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-paper text-text font-body antialiased;
+    background-image:
+      radial-gradient(60rem 30rem at 110% -10%, oklch(0.9 0.05 55 / 0.35), transparent 60%),
+      radial-gradient(50rem 30rem at -20% 110%, oklch(0.92 0.04 80 / 0.4), transparent 55%);
+    background-attachment: fixed;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    overflow-wrap: anywhere;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .animate-pop {
+    animation: pop var(--dur-base, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.92);
+      opacity: 0.6;
+    }
+    60% {
+      transform: scale(1.03);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}

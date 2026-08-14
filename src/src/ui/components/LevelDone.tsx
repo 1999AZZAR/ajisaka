@@ -1,0 +1,110 @@
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import anime from 'animejs'
+
+const rewardMeta = {
+  '1': {
+    icon: '🗡️',
+    name: 'Pedang Pusaka',
+    text: 'Ajisaka membuka segel dan mengambil Pedang Pusaka. Dora memutuskan menjadi pengikut setianya!',
+  },
+  '2': {
+    icon: '🛡️',
+    name: 'Perisai Sakti',
+    text: 'Warga lokal menunjukkan letak Perisai Sakti. Kini mereka bertiga siap berlayar!',
+  },
+  '3': {
+    icon: '👑',
+    name: 'Raja Nusantara',
+    text: 'Raksasa Hijau berhasil dikalahkan. Kerajaan Nusantara kembali damai, dan Ajisaka dinobatkan menjadi Raja!',
+  },
+} as const
+
+export default function LevelDone() {
+  const { level } = useParams<'level'>()
+  const navigate = useNavigate()
+  const m = rewardMeta[(level ?? '1') as keyof typeof rewardMeta] ?? rewardMeta['1']
+  const next = Number(level) + 1
+  const isLast = Number(level) >= 3
+
+  const iconRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    import('../../engine/audio').then(m => m.playLevelDone())
+    
+    // Huge popping animation for the reward icon
+    if (iconRef.current) {
+      anime({
+        targets: iconRef.current,
+        scale: [0, 1.2, 1],
+        rotate: ['-15deg', '15deg', '0deg'],
+        opacity: [0, 1],
+        easing: 'easeOutElastic(1, .8)',
+        duration: 1500,
+        delay: 200,
+      })
+    }
+
+    // Slide up text content
+    if (contentRef.current) {
+      anime({
+        targets: contentRef.current.children,
+        translateY: [40, 0],
+        opacity: [0, 1],
+        delay: anime.stagger(150, { start: 400 }),
+        easing: 'easeOutElastic(1, .8)',
+        duration: 1000,
+      })
+    }
+  }, [])
+
+  return (
+    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
+      <section className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-8 text-center shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+        
+        {/* Playful background sunburst */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30 pointer-events-none">
+           <div className="w-[150%] aspect-square animate-spin-slow bg-[conic-gradient(var(--color-accent-2)_0deg_15deg,transparent_15deg_30deg)] rounded-full blur-2xl" style={{ animationDuration: '20s' }} />
+        </div>
+
+        <div className="relative z-10">
+          <span className="inline-block rounded-full bg-accent-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_3px_0_oklch(0.65_0.13_80)] mb-6">
+            Misi Selesai!
+          </span>
+
+          <div className="flex flex-col items-center gap-8">
+            <div className="relative">
+              <div className="absolute inset-0 animate-ping rounded-full bg-accent-2/40 opacity-75 blur-md" />
+              <div ref={iconRef} className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-accent-2 to-[oklch(0.65_0.13_80)] text-8xl shadow-[0_8px_0_oklch(0.65_0.13_80)] border-4 border-white opacity-0 transform-gpu">
+                <span className="drop-shadow-lg">{m.icon}</span>
+              </div>
+            </div>
+            
+            <div ref={contentRef} className="flex flex-col items-center gap-3">
+              <h1 className="font-display text-[2.2rem] leading-tight text-text drop-shadow-sm opacity-0 transform-gpu">{m.name}</h1>
+              <p className="max-w-[16rem] text-[1rem] font-medium leading-relaxed text-text-2 opacity-0 transform-gpu">{m.text}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="mt-8 flex flex-col gap-4">
+        {!isLast && (
+          <button 
+            onClick={() => navigate(`/level/${next}/practice`)}
+            className="w-full rounded-[1.5rem] bg-gradient-to-b from-accent to-[oklch(0.50_0.14_25)] px-8 py-4 font-display text-xl tracking-wide text-white shadow-[0_6px_0_oklch(0.40_0.14_25),0_10px_20px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_0_oklch(0.40_0.14_25),0_15px_25px_rgba(0,0,0,0.2)] active:translate-y-[6px] active:shadow-[0_0px_0_oklch(0.40_0.14_25),0_0px_0_rgba(0,0,0,0)]"
+          >
+            Lanjut Petualangan ➡️
+          </button>
+        )}
+        <button 
+          onClick={() => navigate('/menu')}
+          className="w-full rounded-[1.5rem] bg-white border-2 border-border px-8 py-4 font-display text-xl tracking-wide text-text shadow-[0_6px_0_oklch(0.86_0.025_78)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_0_oklch(0.86_0.025_78)] active:translate-y-[6px] active:shadow-[0_0px_0_oklch(0.86_0.025_78)]"
+        >
+          Kembali ke Peta
+        </button>
+      </footer>
+    </main>
+  )
+}
