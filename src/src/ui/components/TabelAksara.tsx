@@ -239,7 +239,7 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
                 "{EXAMPLES[selected.id]?.la || selected.id}"
               </span>
               <span className="text-sm font-medium text-text-2">
-                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'id' ? (EXAMPLES[selected.id]?.id || '...') : (EXAMPLES[selected.id]?.en || '...')}
+                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.id]?.en || '...') : (EXAMPLES[selected.id]?.id || '...')}
               </span>
             </div>
 

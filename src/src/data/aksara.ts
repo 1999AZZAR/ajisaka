@@ -67,8 +67,9 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
   
   if (type === 'pasangan') {
     // If the unicode is empty, construct it from Pangkon + base
-    if (entry.unicode === '\\u0000') {
-      const base = (nglegenaContours as ContourEntry[]).find(n => n.id === entry.id)
+    if (!entry.unicode || entry.unicode === '\\u0000') {
+      const baseId = entry.id.replace('.pas', '') // handle if id has .pas
+      const base = (nglegenaContours as ContourEntry[]).find(n => n.id === baseId)
       if (base) u = '\uA9C0' + decodeUnicode(base.unicode)
     }
   }
