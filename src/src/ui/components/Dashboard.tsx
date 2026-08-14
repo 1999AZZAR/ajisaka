@@ -103,6 +103,17 @@ export default function Dashboard() {
             icon="📜"
             onClick={() => navigate('/prolog')}
           />
+
+          <div className="mb-2">
+            <LevelCard
+              level={0}
+              title="Kamus Aksara"
+              subtitle="Tabel contekan huruf Jawa"
+              icon="📖"
+              onClick={() => setShowTabel(true)}
+            />
+          </div>
+
           {menu.slice(1).map((m) => (
             <LevelCard
               key={m.level}
@@ -114,16 +125,6 @@ export default function Dashboard() {
               rewardIcon={m.rewardIcon}
             />
           ))}
-          
-          <div className="mt-4">
-            <LevelCard
-              level={0}
-              title="Kamus Aksara"
-              subtitle="Tabel contekan huruf Jawa"
-              icon="📖"
-              onClick={() => setShowTabel(true)}
-            />
-          </div>
         </nav>
       </main>
 
