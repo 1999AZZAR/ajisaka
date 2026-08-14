@@ -51,7 +51,7 @@ export default function Prolog() {
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pb-10 pt-8 bg-paper">
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 pb-10 pt-8 bg-paper">
       <header className="mb-6 flex items-center justify-between">
         <BackButton />
         <span className="rounded-full bg-paper-2 border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">

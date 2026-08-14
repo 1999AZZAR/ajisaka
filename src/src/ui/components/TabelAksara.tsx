@@ -78,7 +78,7 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-paper/95 backdrop-blur-sm sm:items-center sm:justify-center">
-      <div className="flex h-full w-full flex-col bg-paper sm:h-[85vh] sm:max-w-md sm:rounded-3xl sm:border-2 sm:border-border sm:shadow-2xl">
+      <div className="flex h-full w-full flex-col bg-paper sm:h-[85vh] sm:max-w-3xl sm:rounded-3xl sm:border-2 sm:border-border sm:shadow-2xl">
         <header className="flex items-center justify-between p-6 pb-2">
           <div>
             <h1 className="font-display text-2xl text-text">Kamus Aksara</h1>

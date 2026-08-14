@@ -48,7 +48,7 @@ export default function Home() {
           <span className="absolute bottom-1/3 left-5 text-8xl text-warn" style={{ fontFamily: 'var(--font-javanese)' }}>ꦫ</span>
         </div>
 
-        <div className="relative z-10 w-full max-w-md">
+        <div className="relative z-10 w-full max-w-3xl">
           {/* Main hero card */}
           <div className="relative flex flex-col items-center gap-6 overflow-hidden rounded-[2.5rem] border-4 border-white/80 bg-white/60 p-10 text-center shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl transition-transform">
             
