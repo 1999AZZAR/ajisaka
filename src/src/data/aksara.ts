@@ -74,9 +74,11 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
     }
   }
 
-  // Prepend Dotted Circle (\u25CC) to sandangan and pasangan so they render
-  // correctly as standalone characters in the UI details without shifting or having 0-width.
-  const displayUnicode = (type === 'sandangan' || type === 'pasangan') ? '\u25CC' + u : u
+  // Prepend Dotted Circle (\u25CC) to sandangan so they render nicely.
+  // Prepend ZWJ (\u200D) to pasangan so they shape into their subjoined form standalone!
+  const displayUnicode = type === 'sandangan' 
+    ? '\u25CC' + u 
+    : (type === 'pasangan' ? '\u200D' + u : u)
 
   return {
     id: entry.id,
