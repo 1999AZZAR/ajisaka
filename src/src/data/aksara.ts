@@ -4,7 +4,7 @@ import sandanganContours from './sandangan_contours.json'
 import pasanganContours from './pasangan_contours.json'
 import rekanContours from './rekan_contours.json'
 
-export type AksaraType = 'nglegena' | 'sandangan' | 'pasangan' | 'rekan'
+export type AksaraType = 'nglegena' | 'sandangan' | 'pasangan' | 'rekan' | 'murda' | 'swara' | 'angka'
 
 export interface AksaraGlyph {
   id: string
@@ -97,11 +97,46 @@ export const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map(
 )
 export const REKAN: AksaraGlyph[] = (rekanContours as ContourEntry[]).map((e) => build(e, 'rekan'))
 
+export const MURDA: AksaraGlyph[] = [
+  { id: 'na.murda', unicode: 'ꦟ' },
+  { id: 'ka.murda', unicode: 'ꦑ' },
+  { id: 'ta.murda', unicode: 'ꦡ' },
+  { id: 'sa.murda', unicode: 'ꦯ' },
+  { id: 'pa.murda', unicode: 'ꦦ' },
+  { id: 'nya.murda', unicode: 'ꦘ' },
+  { id: 'ga.murda', unicode: 'ꦓ' },
+  { id: 'ba.murda', unicode: 'ꦨ' },
+].map((e) => build({ ...e, contour: [] }, 'murda', `${e.id.replace('.murda', '')} (murda)`))
+
+export const SWARA: AksaraGlyph[] = [
+  { id: 'A', unicode: 'ꦄ' },
+  { id: 'I', unicode: 'ꦆ' },
+  { id: 'U', unicode: 'ꦈ' },
+  { id: 'E', unicode: 'ꦌ' },
+  { id: 'O', unicode: 'ꦎ' },
+].map((e) => build({ ...e, contour: [] }, 'swara', `${e.id} (swara)`))
+
+export const ANGKA: AksaraGlyph[] = [
+  { id: '1', unicode: '꧑' },
+  { id: '2', unicode: '꧒' },
+  { id: '3', unicode: '꧓' },
+  { id: '4', unicode: '꧔' },
+  { id: '5', unicode: '꧕' },
+  { id: '6', unicode: '꧖' },
+  { id: '7', unicode: '꧗' },
+  { id: '8', unicode: '꧘' },
+  { id: '9', unicode: '꧙' },
+  { id: '0', unicode: '꧐' },
+].map((e) => build({ ...e, contour: [] }, 'angka', `Angka ${e.id}`))
+
 export const LIBRARY: Record<AksaraType, AksaraGlyph[]> = {
   nglegena: NGGLEGENA,
   sandangan: SANDANGAN,
   pasangan: PASANGAN,
   rekan: REKAN,
+  murda: MURDA,
+  swara: SWARA,
+  angka: ANGKA,
 }
 
 /** Level 1: 10 Aksara Dasar pertama (ha-la) */

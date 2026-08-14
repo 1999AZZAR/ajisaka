@@ -136,13 +136,19 @@ const resources = {
         "sandangan": "Sandangan (Vokal)",
         "pasangan": "Pasangan",
         "rekan": "Aksara Rekan",
+        "murda": "Aksara Murda (Kapital)",
+        "swara": "Aksara Swara (Vokal Mandiri)",
+        "angka": "Angka",
         "example": "Contoh Penggunaan",
         "meaning": "Arti:",
         "close_example": "Tutup Contoh",
         "desc_nglegena": "Penggunaan aksara dalam kata.",
         "desc_pasangan": "Pasangan menyambung suku kata mati (contoh: \"anak...\").",
         "desc_sandangan": "Sandangan memberikan bunyi vokal atau akhiran pada aksara dasar.",
-        "desc_rekan": "Aksara Rekan digunakan untuk menulis kata serapan (Kha, Dza, Fa, Za, Gha)."
+        "desc_rekan": "Aksara Rekan digunakan untuk menulis kata serapan (Kha, Dza, Fa, Za, Gha).",
+        "desc_murda": "Aksara Murda digunakan sebagai huruf kapital untuk nama orang yang dihormati atau gelar.",
+        "desc_swara": "Aksara Swara adalah huruf vokal mandiri untuk menulis kata serapan asing.",
+        "desc_angka": "Angka Jawa digunakan untuk menuliskan bilangan."
       },
       "prolog_page": {
         "title": "Prolog",
@@ -298,13 +304,19 @@ const resources = {
         "sandangan": "Vowel Modifiers (Sandangan)",
         "pasangan": "Consonant Pairs (Pasangan)",
         "rekan": "Foreign Letters (Rekan)",
+        "murda": "Capital Letters (Murda)",
+        "swara": "Independent Vowels (Swara)",
+        "angka": "Numbers (Angka)",
         "example": "Usage Example",
         "meaning": "Meaning:",
         "close_example": "Close Example",
         "desc_nglegena": "Usage of the script in a word.",
         "desc_pasangan": "Pairs connect a dead syllable (e.g. \"anak...\").",
         "desc_sandangan": "Modifiers give vowel sounds or endings to the base script.",
-        "desc_rekan": "Foreign letters are used for borrowed loanwords (Kha, Dza, Fa, Za, Gha)."
+        "desc_rekan": "Foreign letters are used for borrowed loanwords (Kha, Dza, Fa, Za, Gha).",
+        "desc_murda": "Murda letters are used as capitals for respected names or titles.",
+        "desc_swara": "Swara letters are independent vowels used for foreign words.",
+        "desc_angka": "Javanese numerals for writing numbers."
       },
       "prolog_page": {
         "title": "Prologue",
@@ -460,13 +472,19 @@ const resources = {
         "sandangan": "Sandhangan (Vokal)",
         "pasangan": "Pasangan",
         "rekan": "Aksara Rekan",
+        "murda": "Aksara Murda (Kapital)",
+        "swara": "Aksara Swara",
+        "angka": "Angka",
         "example": "Tuladha Pangangge",
         "meaning": "Tegesipun:",
         "close_example": "Tutup Tuladha",
         "desc_nglegena": "Panganggening aksara wonten ing tembung.",
         "desc_pasangan": "Pasangan nyambung wanda mati (tuladha: \"anak...\").",
         "desc_sandangan": "Sandhangan maringaken ungel vokal utawi panambang ing aksara dasar.",
-        "desc_rekan": "Aksara Rekan dipunginakaken kagem panyeratan tembung manca (Kha, Dza, Fa, Za, Gha)."
+        "desc_rekan": "Aksara Rekan dipunginakaken kagem panyeratan tembung manca (Kha, Dza, Fa, Za, Gha).",
+        "desc_murda": "Aksara Murda dipunginakaken kagem panyeratan asma luhur utawi pangkat.",
+        "desc_swara": "Aksara Swara dipunginakaken kagem panyeratan vokal tembung manca.",
+        "desc_angka": "Angka Jawa kagem panyeratan wilangan."
       },
       "prolog_page": {
         "title": "Purwaka",

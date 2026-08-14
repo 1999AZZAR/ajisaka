@@ -62,7 +62,36 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string 
   'dza': { jv: 'ꦢ꦳ꦶꦏꦶꦂ', la: 'dzikir', id: 'dzikir', en: 'dhikr' },
   'fa': { jv: 'ꦥ꦳ꦲꦩ꧀', la: 'faham', id: 'paham', en: 'understand' },
   'za': { jv: 'ꦗ꦳ꦩꦤ꧀', la: 'zaman', id: 'zaman', en: 'era' },
-  'gha': { jv: 'ꦒ꦳ꦲꦶꦧ꧀', la: 'ghaib', id: 'gaib', en: 'unseen' }
+  'gha': { jv: 'ꦒ꦳ꦲꦶꦧ꧀', la: 'ghaib', id: 'gaib', en: 'unseen' },
+
+  // Murda
+  'na.murda': { jv: 'ꦟꦸꦃ', la: 'Nuh', id: 'Nuh', en: 'Noah' },
+  'ka.murda': { jv: 'ꦑꦢꦶꦗꦃ', la: 'Khadijah', id: 'Khadijah', en: 'Khadijah' },
+  'ta.murda': { jv: 'ꦡꦩꦿꦶꦤ꧀', la: 'Thamrin', id: 'Thamrin', en: 'Thamrin' },
+  'sa.murda': { jv: 'ꦯꦸꦏꦸꦂ', la: 'Syukur', id: 'Syukur', en: 'Syukur' },
+  'pa.murda': { jv: 'ꦦꦭꦺꦱ꧀ꦠꦶꦤ', la: 'Palestina', id: 'Palestina', en: 'Palestine' },
+  'nya.murda': { jv: 'ꦘꦲꦶ', la: 'Nyai', id: 'Nyai', en: 'Nyai' },
+  'ga.murda': { jv: 'ꦓꦤꦶ', la: 'Ghani', id: 'Ghani', en: 'Ghani' },
+  'ba.murda': { jv: 'ꦨꦭꦶ', la: 'Bali', id: 'Bali', en: 'Bali' },
+
+  // Swara
+  'A': { jv: 'ꦄꦒꦸꦱ꧀', la: 'Agus', id: 'Agus', en: 'Agus' },
+  'I': { jv: 'ꦆꦧꦿꦲꦶꦩ꧀', la: 'Ibrahim', id: 'Ibrahim', en: 'Ibrahim' },
+  'U': { jv: 'ꦈꦩꦂ', la: 'Umar', id: 'Umar', en: 'Umar' },
+  'E': { jv: 'ꦌꦫꦺꦴꦥ', la: 'Eropa', id: 'Eropa', en: 'Europe' },
+  'O': { jv: 'ꦎꦱ꧀ꦩꦤ꧀', la: 'Osman', id: 'Osman', en: 'Osman' },
+
+  // Angka
+  '1': { jv: '꧑', la: '1', id: 'satu', en: 'one' },
+  '2': { jv: '꧒', la: '2', id: 'dua', en: 'two' },
+  '3': { jv: '꧓', la: '3', id: 'tiga', en: 'three' },
+  '4': { jv: '꧔', la: '4', id: 'empat', en: 'four' },
+  '5': { jv: '꧕', la: '5', id: 'lima', en: 'five' },
+  '6': { jv: '꧖', la: '6', id: 'enam', en: 'six' },
+  '7': { jv: '꧗', la: '7', id: 'tujuh', en: 'seven' },
+  '8': { jv: '꧘', la: '8', id: 'delapan', en: 'eight' },
+  '9': { jv: '꧙', la: '9', id: 'sembilan', en: 'nine' },
+  '0': { jv: '꧐', la: '0', id: 'nol', en: 'zero' },
 }
 
 export interface TabelAksaraProps {
@@ -119,10 +148,13 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
   if (!isOpen) return null
 
   const TABS: { id: AksaraType; label: string }[] = [
-    { id: 'nglegena', label: t('kamus_modal.nglegena') },
-    { id: 'pasangan', label: t('kamus_modal.pasangan') },
-    { id: 'sandangan', label: t('kamus_modal.sandangan') },
-    { id: 'rekan', label: t('kamus_modal.rekan') },
+    { id: 'nglegena', label: t('kamus_modal.nglegena') || 'Nglegena' },
+    { id: 'pasangan', label: t('kamus_modal.pasangan') || 'Pasangan' },
+    { id: 'sandangan', label: t('kamus_modal.sandangan') || 'Sandangan' },
+    { id: 'rekan', label: t('kamus_modal.rekan') || 'Rekan' },
+    { id: 'murda', label: t('kamus_modal.murda') || 'Murda' },
+    { id: 'swara', label: t('kamus_modal.swara') || 'Swara' },
+    { id: 'angka', label: t('kamus_modal.angka') || 'Angka' },
   ]
 
   const items = LIBRARY[activeTab]
