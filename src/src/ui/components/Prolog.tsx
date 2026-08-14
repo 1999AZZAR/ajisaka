@@ -46,8 +46,18 @@ export default function Prolog() {
     }
   }, [i])
 
-  const handleNext = () => {
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        handleNext()
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [i, isDone])
 
+  const handleNext = () => {
     if (!isDone) setI((v) => v + 1)
     else navigate('/menu')
   }

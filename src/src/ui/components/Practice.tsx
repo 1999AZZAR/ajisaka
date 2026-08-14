@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import type { Point } from '../../engine/geometry'
 import { NGGLEGENA, SANDANGAN, PASANGAN } from '../../data/aksara'
 import { useProgress } from '../../state/progress'
 import { rasterMatch } from '../../engine/raster'
+import { fireConfetti } from '../../engine/confetti'
 import PracticeCanvas, { type StrokeFeedback } from './PracticeCanvas'
 import { BackButton } from './BackButton'
 import { Button } from './Button'
@@ -59,6 +60,19 @@ export default function Practice() {
     }
   }
 
+  const passed = feedback?.status === 'pass'
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && passed) {
+        e.preventDefault()
+        handleNext()
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [passed, qIndex])
+
   const handleStroke = useCallback(
     (raw: Point[]) => {
       const all = [...strokes, raw]
@@ -67,7 +81,10 @@ export default function Practice() {
       setFeedback({ ...m, points: all.flat() })
       
       import('../../engine/audio').then(a => {
-        if (m.status === 'pass') a.playQuestionDone()
+        if (m.status === 'pass') {
+          a.playQuestionDone()
+          fireConfetti()
+        }
         else if (m.status === 'warn') a.playStrokeError()
         else if (m.status === 'retry') a.playStrokeError()
         else a.playStrokeSuccess() // For valid but incomplete strokes if implemented
@@ -81,7 +98,6 @@ export default function Practice() {
     setFeedback(null)
   }, [])
 
-  const passed = feedback?.status === 'pass'
   const statusStyle =
     feedback?.status === 'pass'
       ? 'bg-accent-2/20 text-[oklch(0.35_0.09_130)] border-accent-2/40'

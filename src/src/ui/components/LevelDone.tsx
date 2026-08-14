@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import anime from 'animejs'
 import { useTranslation } from 'react-i18next'
+import { fireConfetti } from '../../engine/confetti'
 
 const rewardMeta = {
   '1': {
@@ -37,6 +38,7 @@ export default function LevelDone() {
     
     // Huge popping animation for the reward icon
     if (iconRef.current) {
+      fireConfetti()
       anime({
         targets: iconRef.current,
         scale: [0, 1.2, 1],
@@ -59,7 +61,18 @@ export default function LevelDone() {
         duration: 1000,
       })
     }
-  }, [])
+  }, [level])
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        navigate(isLast ? '/menu' : `/level/${next}`)
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [navigate, isLast, next])
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
@@ -94,7 +107,7 @@ export default function LevelDone() {
       <footer className="mt-8 flex flex-col gap-4">
         {!isLast && (
           <button 
-            onClick={() => navigate(`/level/${next}/practice`)}
+            onClick={() => navigate(`/level/${next}`)}
             className="w-full rounded-[1.5rem] bg-gradient-to-b from-accent to-[oklch(0.50_0.14_25)] px-8 py-4 font-display text-xl tracking-wide text-white shadow-[0_6px_0_oklch(0.40_0.14_25),0_10px_20px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_0_oklch(0.40_0.14_25),0_15px_25px_rgba(0,0,0,0.2)] active:translate-y-[6px] active:shadow-[0_0px_0_oklch(0.40_0.14_25),0_0px_0_rgba(0,0,0,0)]"
           >
             {t('level_done.next')}

@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProgress } from '../../state/progress'
 import { Button } from './Button'
 import SuccessParticles from './SuccessParticles'
 import { useTranslation } from 'react-i18next'
 import { playClick, playTypeSuccess, playTypeError } from '../../engine/audio'
+import { fireConfetti } from '../../engine/confetti'
 
 const KEYBOARD = [
   { id: 'ha', label: 'ha', char: 'ꦲ' },
@@ -77,6 +78,7 @@ export default function Phase2() {
       playTypeError()
     } else if (nextVal === currentQ.target) {
       playTypeSuccess()
+      fireConfetti()
     } else {
       playClick()
     }
@@ -108,6 +110,17 @@ export default function Phase2() {
       setInput('')
     }
   }
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && isCorrect) {
+        e.preventDefault()
+        handleNext()
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [isCorrect, qIndex])
 
   return (
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-4 pb-4 pt-6 overflow-hidden">
