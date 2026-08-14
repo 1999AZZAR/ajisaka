@@ -44,6 +44,20 @@ You need Node.js (v18 or newer) to run the development server.
 
 To test the touch interactions on a mobile device on your local network, start the server with `npm run dev -- --host` and navigate to the provided local IP address on your phone.
 
+### Using Docker
+
+If you prefer using Docker, you can build and run the production image using the included multi-stage Dockerfile:
+
+1. Build the image:
+   ```bash
+   docker build -t ajisaka .
+   ```
+2. Run the container:
+   ```bash
+   docker run -p 8080:80 ajisaka
+   ```
+The app will be available at `http://localhost:8080`.
+
 ## Repository Layout
 
 - `src/engine/` - Mathematical logic for the canvas stroke geometry (`raster.ts`, `geometry.ts`) and the physical modeling audio synthesizer (`audio.ts`).
