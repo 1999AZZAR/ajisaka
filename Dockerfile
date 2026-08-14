@@ -3,12 +3,12 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies first (better layer caching)
-COPY package.json package-lock.json ./
+# Copy the nested src directory contents
+COPY src/package.json src/package-lock.json ./
 RUN npm ci
 
-# Copy source code and build the project
-COPY . .
+# Copy the rest of the application
+COPY src/ .
 RUN npm run build
 
 # Stage 2: Serve the static files using Nginx
