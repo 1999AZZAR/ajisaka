@@ -95,11 +95,11 @@ export const LIBRARY: Record<AksaraType, AksaraGlyph[]> = {
   pasangan: PASANGAN,
 }
 
-/** Full ordered teaching set used by Level 1 (all 20 Nglegena). */
-export const STARTER_QUESTIONS = NGGLEGENA
+/** Level 1: 10 Aksara Dasar pertama (ha-la) */
+export const STARTER_QUESTIONS = NGGLEGENA.slice(0, 10)
 
-/** Level 2 set: Sandangan practice. */
+/** Level 2: Semua 8 Sandangan */
 export const SANDANGAN_QUESTIONS = SANDANGAN
 
-/** Level 3 Fase 1: Pasangan practice. */
-export const PASANGAN_QUESTIONS = PASANGAN
+/** Level 3: 10 Pasangan pertama (ha-la) */
+export const PASANGAN_QUESTIONS = PASANGAN.slice(0, 10)

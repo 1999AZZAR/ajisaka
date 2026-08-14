@@ -7,6 +7,7 @@ import { rasterMatch } from '../../engine/raster'
 import PracticeCanvas, { type StrokeFeedback } from './PracticeCanvas'
 import { BackButton } from './BackButton'
 import { Button } from './Button'
+import SuccessParticles from './SuccessParticles'
 
 const SETS = { '1': NGGLEGENA, '2': SANDANGAN, '3': PASANGAN } as const
 const TYPE_LABEL = { '1': 'Aksara Dasar', '2': 'Sandangan', '3': 'Pasangan' } as const
@@ -106,14 +107,17 @@ export default function Practice() {
         </div>
       </section>
 
-      <PracticeCanvas
-        key={glyph.id}
-        glyph={glyph}
-        strokeIdx={0}
-        feedback={feedback}
-        onStroke={handleStroke}
-        onClear={handleClear}
-      />
+      <div className="relative">
+        <PracticeCanvas
+          key={glyph.id}
+          glyph={glyph}
+          strokeIdx={0}
+          feedback={feedback}
+          onStroke={handleStroke}
+          onClear={handleClear}
+        />
+        <SuccessParticles show={passed} />
+      </div>
 
       <div
         aria-live="polite"
