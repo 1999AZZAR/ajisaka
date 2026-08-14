@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import anime from 'animejs'
-import TabelAksara from './TabelAksara'
+import { useTranslation } from 'react-i18next'
 
 export default function Home() {
   const navigate = useNavigate()
   const titleRef = useRef<HTMLHeadingElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
-  const [showTabel, setShowTabel] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     // Playful entrance animation for the title and background
@@ -61,11 +61,11 @@ export default function Home() {
             
             <div className="flex flex-col items-center gap-3">
               <h1 ref={titleRef} className="font-display text-[3.2rem] leading-[1.1] text-text drop-shadow-sm">
-                <span className="block text-accent">Petualangan</span>
-                <span className="block">Ajisaka</span>
+                <span className="block text-accent">{t('app.petualangan')}</span>
+                <span className="block">{t('app.ajisaka')}</span>
               </h1>
               <p className="max-w-[16rem] text-base font-medium text-text-2">
-                Belajar menulis Aksara Jawa lewat petualangan seru!
+                {t('home.desc')}
               </p>
             </div>
 
@@ -74,24 +74,12 @@ export default function Home() {
                 onClick={() => navigate('/menu')}
                 className="w-full sm:w-64 rounded-3xl bg-gradient-to-b from-accent to-[oklch(0.50_0.14_25)] px-8 py-5 font-display text-2xl tracking-wide text-white shadow-[0_8px_0_oklch(0.40_0.14_25),0_15px_20px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-1 hover:shadow-[0_10px_0_oklch(0.40_0.14_25),0_20px_25px_rgba(0,0,0,0.2)] active:translate-y-2 active:shadow-[0_0px_0_oklch(0.40_0.14_25),0_0px_0_rgba(0,0,0,0)]"
               >
-                Mulai Main!
-              </button>
-              <div className="flex items-center gap-2 rounded-full bg-paper-2/80 px-4 py-1.5 text-xs font-semibold text-text-2 backdrop-blur-sm">
-                <span className="flex h-2 w-2 rounded-full bg-accent-2" />
-                Bisa dimainkan offline
-              </div>
-              <button
-                onClick={() => setShowTabel(true)}
-                className="mt-2 text-sm font-bold text-text-2 underline decoration-text-2/40 underline-offset-4 transition-colors hover:text-accent active:text-accent-deep"
-              >
-                📖 Lihat Kamus Aksara
+                {t('home.play')}
               </button>
             </div>
           </div>
         </div>
       </main>
-
-      <TabelAksara isOpen={showTabel} onClose={() => setShowTabel(false)} />
     </>
   )
 }

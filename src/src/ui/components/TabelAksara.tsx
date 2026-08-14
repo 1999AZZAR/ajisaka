@@ -1,66 +1,61 @@
 import { useState } from 'react'
 import { LIBRARY, type AksaraType, type AksaraGlyph } from '../../data/aksara'
+import { useTranslation } from 'react-i18next'
 
-const TABS: { id: AksaraType; label: string }[] = [
-  { id: 'nglegena', label: 'Aksara Dasar' },
-  { id: 'pasangan', label: 'Pasangan' },
-  { id: 'sandangan', label: 'Sandangan' },
-]
-
-const EXAMPLES: Record<string, { jv: string, la: string, id: string }> = {
+const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string }> = {
   // Nglegena (PURE: Only characters with inherent 'a' vowel, no sandangan, no pasangan, no pangkon)
-  'ha': { jv: 'ꦲꦤ', la: 'hana', id: 'ada' },
-  'na': { jv: 'ꦤꦩ', la: 'nama', id: 'nama' },
-  'ca': { jv: 'ꦕꦫ', la: 'cara', id: 'cara' },
-  'ra': { jv: 'ꦫꦱ', la: 'rasa', id: 'rasa' },
-  'ka': { jv: 'ꦏꦕ', la: 'kaca', id: 'kaca' },
-  'da': { jv: 'ꦢꦮ', la: 'dawa', id: 'panjang' },
-  'ta': { jv: 'ꦠꦠ', la: 'tata', id: 'atur' },
-  'sa': { jv: 'ꦱꦥ', la: 'sapa', id: 'siapa' },
-  'wa': { jv: 'ꦮꦕ', la: 'waca', id: 'baca' },
-  'la': { jv: 'ꦭꦮ', la: 'lawa', id: 'kelelawar' },
-  'pa': { jv: 'ꦥꦝ', la: 'padha', id: 'sama' },
-  'dha': { jv: 'ꦝꦝ', la: 'dhadha', id: 'dada' },
-  'ja': { jv: 'ꦗꦒ', la: 'jaga', id: 'jaga' },
-  'ya': { jv: 'ꦧꦪ', la: 'baya', id: 'buaya' },
-  'nya': { jv: 'ꦚꦥ', la: 'nyapa', id: 'menyapa' },
-  'ma': { jv: 'ꦩꦕ', la: 'maca', id: 'membaca' },
-  'ga': { jv: 'ꦤꦒ', la: 'naga', id: 'naga' },
-  'ba': { jv: 'ꦧꦭ', la: 'bala', id: 'pasukan' },
-  'tha': { jv: 'ꦧꦛꦫ', la: 'bathara', id: 'dewa' },
-  'nga': { jv: 'ꦔꦔ', la: 'nganga', id: 'menganga' },
+  'ha': { jv: 'ꦲꦤ', la: 'hana', id: 'ada', en: 'there is' },
+  'na': { jv: 'ꦤꦩ', la: 'nama', id: 'nama', en: 'name' },
+  'ca': { jv: 'ꦕꦫ', la: 'cara', id: 'cara', en: 'way/method' },
+  'ra': { jv: 'ꦫꦱ', la: 'rasa', id: 'rasa', en: 'feeling' },
+  'ka': { jv: 'ꦏꦕ', la: 'kaca', id: 'kaca', en: 'glass/mirror' },
+  'da': { jv: 'ꦢꦮ', la: 'dawa', id: 'panjang', en: 'long' },
+  'ta': { jv: 'ꦠꦠ', la: 'tata', id: 'atur', en: 'arrange' },
+  'sa': { jv: 'ꦱꦥ', la: 'sapa', id: 'siapa', en: 'who' },
+  'wa': { jv: 'ꦮꦕ', la: 'waca', id: 'baca', en: 'read' },
+  'la': { jv: 'ꦭꦮ', la: 'lawa', id: 'kelelawar', en: 'bat' },
+  'pa': { jv: 'ꦥꦝ', la: 'padha', id: 'sama', en: 'same' },
+  'dha': { jv: 'ꦝꦝ', la: 'dhadha', id: 'dada', en: 'chest' },
+  'ja': { jv: 'ꦗꦒ', la: 'jaga', id: 'jaga', en: 'guard' },
+  'ya': { jv: 'ꦧꦪ', la: 'baya', id: 'buaya', en: 'crocodile' },
+  'nya': { jv: 'ꦚꦥ', la: 'nyapa', id: 'menyapa', en: 'greet' },
+  'ma': { jv: 'ꦩꦕ', la: 'maca', id: 'membaca', en: 'reading' },
+  'ga': { jv: 'ꦤꦒ', la: 'naga', id: 'naga', en: 'dragon' },
+  'ba': { jv: 'ꦧꦭ', la: 'bala', id: 'pasukan', en: 'troops' },
+  'tha': { jv: 'ꦧꦛꦫ', la: 'bathara', id: 'dewa', en: 'god' },
+  'nga': { jv: 'ꦔꦔ', la: 'nganga', id: 'menganga', en: 'agape' },
 
   // Pasangan (PURE: Uses "mangan [kata]" (ꦩꦔꦤ꧀...) or "anak [kata]" (ꦲꦤꦏ꧀...) without any sandangan at all)
-  'ha.pas': { jv: 'ꦩꦔꦤ꧀ꦲꦥ', la: 'mangan apa', id: 'makan apa' },
-  'na.pas': { jv: 'ꦲꦤꦏ꧀ꦤꦒ', la: 'anak naga', id: 'anak naga' },
-  'ca.pas': { jv: 'ꦲꦤꦏ꧀ꦕꦫ', la: 'anak cara', id: 'anak cara' },
-  'ra.pas': { jv: 'ꦲꦤꦏ꧀ꦫꦗ', la: 'anak raja', id: 'anak raja' },
-  'ka.pas': { jv: 'ꦲꦤꦏ꧀ꦏꦕ', la: 'anak kaca', id: 'anak kaca' },
-  'da.pas': { jv: 'ꦲꦤꦏ꧀ꦢꦮ', la: 'anak dawa', id: 'anak panjang' },
-  'ta.pas': { jv: 'ꦲꦤꦏ꧀ꦠꦠ', la: 'anak tata', id: 'anak tata' },
-  'sa.pas': { jv: 'ꦲꦤꦏ꧀ꦱꦥ', la: 'anak sapa', id: 'anak siapa' },
-  'wa.pas': { jv: 'ꦲꦤꦏ꧀ꦮꦕ', la: 'anak waca', id: 'anak baca' },
-  'la.pas': { jv: 'ꦲꦤꦏ꧀ꦭꦮ', la: 'anak lawa', id: 'anak kelelawar' },
-  'pa.pas': { jv: 'ꦲꦤꦏ꧀ꦥꦝ', la: 'anak padha', id: 'anak sama' },
-  'dha.pas': { jv: 'ꦲꦤꦏ꧀ꦝꦝ', la: 'anak dhadha', id: 'anak dada' },
-  'ja.pas': { jv: 'ꦲꦤꦏ꧀ꦗꦒ', la: 'anak jaga', id: 'anak jaga' },
-  'ya.pas': { jv: 'ꦲꦤꦏ꧀ꦪꦪ', la: 'anak yaya', id: 'anak yaya' },
-  'nya.pas': { jv: 'ꦲꦤꦏ꧀ꦚꦥ', la: 'anak nyapa', id: 'anak sapa' },
-  'ma.pas': { jv: 'ꦲꦤꦏ꧀ꦩꦕ', la: 'anak maca', id: 'anak baca' },
-  'ga.pas': { jv: 'ꦲꦤꦏ꧀ꦒꦒ', la: 'anak gaga', id: 'anak gaga' },
-  'ba.pas': { jv: 'ꦲꦤꦏ꧀ꦧꦭ', la: 'anak bala', id: 'anak pasukan' },
-  'tha.pas': { jv: 'ꦲꦤꦏ꧀ꦛꦛ', la: 'anak thatha', id: 'anak thatha' },
-  'nga.pas': { jv: 'ꦲꦤꦏ꧀ꦔꦔ', la: 'anak nganga', id: 'anak menganga' },
+  'ha.pas': { jv: 'ꦩꦔꦤ꧀ꦲꦥ', la: 'mangan apa', id: 'makan apa', en: 'eat what' },
+  'na.pas': { jv: 'ꦲꦤꦏ꧀ꦤꦒ', la: 'anak naga', id: 'anak naga', en: 'dragon child' },
+  'ca.pas': { jv: 'ꦲꦤꦏ꧀ꦕꦫ', la: 'anak cara', id: 'anak cara', en: 'child method' },
+  'ra.pas': { jv: 'ꦲꦤꦏ꧀ꦫꦗ', la: 'anak raja', id: 'anak raja', en: 'royal child' },
+  'ka.pas': { jv: 'ꦲꦤꦏ꧀ꦏꦕ', la: 'anak kaca', id: 'anak kaca', en: 'mirror child' },
+  'da.pas': { jv: 'ꦲꦤꦏ꧀ꦢꦮ', la: 'anak dawa', id: 'anak panjang', en: 'tall child' },
+  'ta.pas': { jv: 'ꦲꦤꦏ꧀ꦠꦠ', la: 'anak tata', id: 'anak tata', en: 'polite child' },
+  'sa.pas': { jv: 'ꦲꦤꦏ꧀ꦱꦥ', la: 'anak sapa', id: 'anak siapa', en: 'whose child' },
+  'wa.pas': { jv: 'ꦲꦤꦏ꧀ꦮꦕ', la: 'anak waca', id: 'anak baca', en: 'child reads' },
+  'la.pas': { jv: 'ꦲꦤꦏ꧀ꦭꦮ', la: 'anak lawa', id: 'anak kelelawar', en: 'bat child' },
+  'pa.pas': { jv: 'ꦲꦤꦏ꧀ꦥꦝ', la: 'anak padha', id: 'anak sama', en: 'same child' },
+  'dha.pas': { jv: 'ꦲꦤꦏ꧀ꦝꦝ', la: 'anak dhadha', id: 'anak dada', en: 'chest child' },
+  'ja.pas': { jv: 'ꦲꦤꦏ꧀ꦗꦒ', la: 'anak jaga', id: 'anak jaga', en: 'guard child' },
+  'ya.pas': { jv: 'ꦲꦤꦏ꧀ꦪꦪ', la: 'anak yaya', id: 'anak yaya', en: 'yaya child' },
+  'nya.pas': { jv: 'ꦲꦤꦏ꧀ꦚꦥ', la: 'anak nyapa', id: 'anak sapa', en: 'greeting child' },
+  'ma.pas': { jv: 'ꦲꦤꦏ꧀ꦩꦕ', la: 'anak maca', id: 'anak baca', en: 'reading child' },
+  'ga.pas': { jv: 'ꦲꦤꦏ꧀ꦒꦒ', la: 'anak gaga', id: 'anak gaga', en: 'gaga child' },
+  'ba.pas': { jv: 'ꦲꦤꦏ꧀ꦧꦭ', la: 'anak bala', id: 'anak pasukan', en: 'troop child' },
+  'tha.pas': { jv: 'ꦲꦤꦏ꧀ꦛꦛ', la: 'anak thatha', id: 'anak thatha', en: 'thatha child' },
+  'nga.pas': { jv: 'ꦲꦤꦏ꧀ꦔꦔ', la: 'anak nganga', id: 'anak menganga', en: 'agape child' },
 
   // Sandangan (PURE: Emphasizes the sandangan)
-  'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu' },
-  'suku': { jv: 'ꦧꦸꦏꦸ', la: 'buku', id: 'buku' },
-  'pepet': { jv: 'ꦱꦼꦒ', la: 'sega', id: 'nasi' },
-  'taling': { jv: 'ꦭꦺꦭꦺ', la: 'lélé', id: 'ikan lele' },
-  'tarung': { jv: 'ꦱꦺꦴꦠꦺꦴ', la: 'soto', id: 'soto' },
-  'cecak': { jv: 'ꦏꦕꦁ', la: 'kacang', id: 'kacang' }, // kacang instead of kucing so it only uses cecak
-  'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar' },
-  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah' }
+  'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu', en: 'one' },
+  'suku': { jv: 'ꦧꦸꦏꦸ', la: 'buku', id: 'buku', en: 'book' },
+  'pepet': { jv: 'ꦱꦼꦒ', la: 'sega', id: 'nasi', en: 'rice' },
+  'taling': { jv: 'ꦭꦺꦭꦺ', la: 'lélé', id: 'ikan lele', en: 'catfish' },
+  'tarung': { jv: 'ꦱꦺꦴꦠꦺꦴ', la: 'soto', id: 'soto', en: 'soto' },
+  'cecak': { jv: 'ꦏꦕꦁ', la: 'kacang', id: 'kacang', en: 'peanut' },
+  'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar', en: 'market' },
+  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah', en: 'elephant' }
 }
 
 export interface TabelAksaraProps {
@@ -71,8 +66,15 @@ export interface TabelAksaraProps {
 export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
   const [activeTab, setActiveTab] = useState<AksaraType>('nglegena')
   const [selected, setSelected] = useState<AksaraGlyph | null>(null)
+  const { t, i18n } = useTranslation()
 
   if (!isOpen) return null
+
+  const TABS: { id: AksaraType; label: string }[] = [
+    { id: 'nglegena', label: t('kamus_modal.nglegena') },
+    { id: 'pasangan', label: t('kamus_modal.pasangan') },
+    { id: 'sandangan', label: t('kamus_modal.sandangan') },
+  ]
 
   const items = LIBRARY[activeTab]
 
@@ -81,12 +83,12 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
       <div className="flex h-full w-full flex-col bg-paper sm:h-[85vh] sm:max-w-3xl sm:rounded-3xl sm:border-2 sm:border-border sm:shadow-2xl">
         <header className="flex items-center justify-between p-6 pb-2">
           <div>
-            <h1 className="font-display text-2xl text-text">Kamus Aksara</h1>
-            <p className="text-sm font-medium text-text-2">Tabel referensi Javanese Script</p>
+            <h1 className="font-display text-2xl text-text">{t('kamus_modal.title')}</h1>
           </div>
           <button
             onClick={onClose}
             className="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-border bg-white text-xl shadow-sm transition-all hover:bg-paper-2 active:scale-95"
+            aria-label={t('kamus_modal.close')}
           >
             ❌
           </button>
@@ -150,21 +152,21 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
                 "{EXAMPLES[selected.id]?.la || selected.id}"
               </span>
               <span className="text-sm font-medium text-text-2">
-                Arti: {EXAMPLES[selected.id]?.id || '...'}
+                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'id' ? (EXAMPLES[selected.id]?.id || '...') : (EXAMPLES[selected.id]?.en || '...')}
               </span>
             </div>
 
             <p className="text-sm font-medium text-text-2 px-2">
-              {selected.type === 'nglegena' && 'Penggunaan aksara dalam kata.'}
-              {selected.type === 'pasangan' && 'Pasangan menyambung suku kata mati (contoh: "anak...").'}
-              {selected.type === 'sandangan' && 'Sandangan memberikan bunyi vokal atau akhiran pada aksara dasar.'}
+              {selected.type === 'nglegena' && t('kamus_modal.desc_nglegena')}
+              {selected.type === 'pasangan' && t('kamus_modal.desc_pasangan')}
+              {selected.type === 'sandangan' && t('kamus_modal.desc_sandangan')}
             </p>
             
             <button
               onClick={() => setSelected(null)}
               className="mt-2 w-full rounded-2xl bg-accent px-6 py-4 font-bold text-white shadow-md active:scale-95 transition-transform"
             >
-              Tutup Contoh
+              {t('kamus_modal.close_example')}
             </button>
           </div>
         </div>

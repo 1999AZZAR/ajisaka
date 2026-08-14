@@ -2,27 +2,29 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BackButton } from './BackButton'
 import anime from 'animejs'
+import { useTranslation } from 'react-i18next'
 
 const slides = [
   {
-    title: 'Aksara Jawa',
+    titleKey: 'prolog_page.slides.1.title',
     icon: '📜',
-    body: 'Aksara Jawa adalah sistem tulisan turunan dari aksara Brahmi yang dipakai masyarakat Jawa sejak abad ke-9.',
+    bodyKey: 'prolog_page.slides.1.body',
   },
   {
-    title: 'Leluhur Hanacaraka',
+    titleKey: 'prolog_page.slides.2.title',
     icon: '✒️',
-    body: 'Huruf-hurufnya dikenal lewat cerita Ajisaka — kisah yang melahirkan urutan ha, na, ca, ra, ka.',
+    bodyKey: 'prolog_page.slides.2.body',
   },
   {
-    title: 'Tiga Jenis Huruf',
+    titleKey: 'prolog_page.slides.3.title',
     icon: '🗂️',
-    body: 'Kita akan belajar Aksara Dasar (Nglegena), Sandangan penanda vokal, dan Pasangan untuk konsonan mati.',
+    bodyKey: 'prolog_page.slides.3.body',
   },
 ]
 
 export default function Prolog() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [i, setI] = useState(0)
   const isDone = i >= slides.length - 1
   const s = slides[Math.min(i, slides.length - 1)]
@@ -55,7 +57,7 @@ export default function Prolog() {
       <header className="mb-6 flex items-center justify-between">
         <BackButton />
         <span className="rounded-full bg-paper-2 border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">
-          {Math.min(i + 1, slides.length)} / {slides.length}
+          {t('prolog_page.title')}
         </span>
       </header>
 
@@ -79,8 +81,8 @@ export default function Prolog() {
         </div>
         
         <div className="flex flex-col items-center gap-4">
-          <h2 className="font-display text-[2rem] leading-tight text-text">{s.title}</h2>
-          <p className="max-w-[15rem] text-[1.05rem] font-medium leading-relaxed text-text-2">{s.body}</p>
+          <h2 className="font-display text-[2rem] leading-tight text-text">{t(s.titleKey)}</h2>
+          <p className="max-w-[15rem] text-[1.05rem] font-medium leading-relaxed text-text-2">{t(s.bodyKey)}</p>
         </div>
       </section>
 

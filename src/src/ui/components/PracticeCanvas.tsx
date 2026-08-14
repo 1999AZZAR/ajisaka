@@ -3,6 +3,7 @@ import type { Point } from '../../engine/geometry'
 import type { AksaraGlyph } from '../../data/aksara'
 import { useCanvasCapture, type LiveStrokeRef } from '../../hooks/useCanvasCapture'
 import { rasterMatch } from '../../engine/raster'
+import { useTranslation } from 'react-i18next'
 
 export type StrokeFeedback = ReturnType<typeof rasterMatch> & { points: Point[] }
 
@@ -32,6 +33,7 @@ function drawPolyline(ctx: CanvasRenderingContext2D, pts: Point[], color: string
 }
 
 export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: PracticeCanvasProps) {
+  const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const liveRef = useRef<Point[]>([])
   const rafRef = useRef(0)
@@ -100,39 +102,34 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
   return (
     <div className="flex flex-col h-full gap-3">
       <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-        <div
-          className="relative overflow-hidden rounded-2xl border border-white/60 bg-white shadow-card"
-          style={{ aspectRatio: '1 / 1', width: '1000px', maxWidth: '100%', maxHeight: '100%' }}
-        >
+        <div className="relative aspect-square w-full shadow-inner rounded-3xl bg-white overflow-hidden border border-border">
           <canvas
-          ref={canvasRef}
-          className="h-full w-full touch-none"
-          data-testid="practice-canvas"
-          role="img"
-          aria-label={`Tulis aksara ${glyph.label} pada bidang kosong.`}
-        />
-        <span className="pointer-events-none absolute left-3 top-2 text-xs font-semibold text-text-2" aria-hidden>
-          Tulis di sini
-        </span>
-      </div>
+            ref={canvasRef}
+            className="absolute inset-0 h-full w-full touch-none cursor-crosshair"
+            data-testid="practice-canvas"
+            role="img"
+            aria-label={t('practice.canvas_aria', { glyph: glyph.label })}
+          />
+          <span className="pointer-events-none absolute left-3 top-2 text-xs font-semibold text-text-2" aria-hidden>
+            {t('practice.write_here')}
+          </span>
+        </div>
       </div>
 
       <div className="flex shrink-0 gap-3">
         <button
           type="button"
           onClick={() => {
-
             onClear()
           }}
           className="min-h-12 flex-1 rounded-xl border border-border bg-paper-2 px-4 text-sm font-bold text-text shadow-sm transition-colors hover:bg-paper-3 active:scale-[0.98]"
         >
-          🧹 Bersihkan
+          🧹 {t('practice.clear')}
         </button>
         <button
           type="button"
           aria-pressed={showGuide}
           onClick={() => {
-
             setShowGuide((v) => !v)
           }}
           className={`min-h-12 flex-1 rounded-xl border px-4 text-sm font-bold transition-colors active:scale-[0.98] ${
@@ -141,7 +138,7 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
               : 'border-border bg-paper-2 text-text-2 hover:bg-paper-3'
           }`}
         >
-          {showGuide ? '👁 Contoh' : '👁 Sembunyikan'}
+          {showGuide ? `👁 ${t('practice.show_guide')}` : `👁 ${t('practice.hide_guide')}`}
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { isLevelUnlocked, useProgress } from '../../state/progress'
+import { useTranslation } from 'react-i18next'
 
 interface LevelCardProps {
   level: number
@@ -13,6 +14,7 @@ interface LevelCardProps {
 
 export function LevelCard({ level, title, subtitle, icon, reward, rewardIcon = '🏆', onClick }: LevelCardProps) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const completedLevels = useProgress((s) => s.completedLevels)
   const rewards = useProgress((s) => s.rewards)
   const unlocked = level <= 1 || isLevelUnlocked(level, completedLevels)
@@ -20,7 +22,7 @@ export function LevelCard({ level, title, subtitle, icon, reward, rewardIcon = '
   const hasReward = reward ? rewards.includes(reward) : false
 
   const handleClick = () => {
-
+    if (!unlocked) return
     if (onClick) {
       onClick()
     } else {
@@ -31,7 +33,7 @@ export function LevelCard({ level, title, subtitle, icon, reward, rewardIcon = '
   return (
     <button
       type="button"
-      aria-label={`${title}${unlocked ? '' : ' (terkunci)'}`}
+      aria-label={`${title}${unlocked ? '' : ` ${t('dashboard.locked')}`}`}
       disabled={!onClick && !unlocked}
       onClick={handleClick}
       className={`group relative flex w-full min-h-[5.5rem] items-center gap-4 rounded-[1.5rem] border-2 px-5 py-4 text-left transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-focus focus-visible:ring-offset-2 ${
@@ -54,7 +56,7 @@ export function LevelCard({ level, title, subtitle, icon, reward, rewardIcon = '
           <span className="font-display text-[1.2rem] text-text">{title}</span>
           {completed && (
             <span className="rounded-full bg-accent-2/20 px-2.5 py-1 text-[0.65rem] font-extrabold uppercase tracking-widest text-[oklch(0.4_0.09_110)] border border-accent-2/30">
-              Selesai
+              {t('dashboard.completed')}
             </span>
           )}
         </span>

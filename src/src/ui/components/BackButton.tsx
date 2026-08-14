@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export function BackButton({ to = '/menu' }: { to?: string }) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   return (
     <button
       type="button"
-      aria-label="Kembali"
+      aria-label={t('settings.back')}
       onClick={() => {
 
         navigate(to)

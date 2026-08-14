@@ -5,6 +5,7 @@ import Prolog from './ui/components/Prolog'
 import Level from './ui/components/Level'
 import Practice from './ui/components/Practice'
 import LevelDone from './ui/components/LevelDone'
+import Settings from './ui/components/Settings'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Dashboard />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/prolog" element={<Prolog />} />
         <Route path="/level/:level" element={<Level />} />
         <Route path="/level/:level/practice" element={<Practice />} />

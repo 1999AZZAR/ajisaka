@@ -1,29 +1,24 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { BackButton } from './BackButton'
+import { Link, useParams } from 'react-router-dom'
 import { Button } from './Button'
+import { BackButton } from './BackButton'
+import { useProgress, isLevelUnlocked } from '../../state/progress'
+import { useTranslation } from 'react-i18next'
 
-const levelMeta: Record<string, { title: string; desc: string; icon: string }> = {
-  '1': {
-    title: 'Level 1 · Pulau Sanjaya',
-    icon: '🗡️',
-    desc: 'Buka segel dan ambil Pedang Pusaka dengan menulis Aksara Dasar (Nglegena). Dora akan bergabung bersamamu!',
-  },
-  '2': {
-    title: 'Level 2 · Pulau Adi Jaya',
-    icon: '🛡️',
-    desc: 'Jawab 11 soal menulis Aksara Sandangan untuk mendapat Perisai Sakti. Seorang warga lokal siap menemanimu!',
-  },
-  '3': {
-    title: 'Level 3 · Kerajaan Nusantara',
-    icon: '⚔️',
-    desc: 'Hadapi Dua Utusan lalu kalahkan Raksasa Hijau dalam ujian menulis terakhir. Taklukkan dan bebaskan kerajaan!',
-  },
+const levelMeta: Record<string, { titleKey: string; subtitleKey: string; icon: string }> = {
+  '1': { titleKey: 'dashboard.level1_title', subtitleKey: 'dashboard.level1_desc', icon: '🏝️' },
+  '2': { titleKey: 'dashboard.level2_title', subtitleKey: 'dashboard.level2_desc', icon: '⛰️' },
+  '3': { titleKey: 'dashboard.level3_title', subtitleKey: 'dashboard.level3_desc', icon: '🌋' },
 }
 
 export default function Level() {
-  const { id } = useParams<'id'>()
-  const navigate = useNavigate()
-  const meta = levelMeta[id ?? ''] ?? levelMeta['1']
+  const { level } = useParams<{ level: string }>()
+  const id = level ? parseInt(level, 10) : 1
+  const completedLevels = useProgress((s) => s.completedLevels)
+  const isUnlocked = isLevelUnlocked(id, completedLevels)
+  const isCompleted = completedLevels.includes(id)
+  const { t } = useTranslation()
+
+  const meta = levelMeta[level ?? ''] ?? levelMeta['1']
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-5 pb-8 pt-6">
@@ -31,34 +26,42 @@ export default function Level() {
         <BackButton />
       </header>
 
-      <section className="relative flex flex-1 flex-col items-center justify-center gap-6 overflow-hidden rounded-[2rem] border border-white/60 bg-white/60 p-8 text-center shadow-card backdrop-blur-sm">
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-4 -top-6 select-none text-[6rem] leading-none text-accent/10"
-          style={{ fontFamily: 'var(--font-javanese)' }}
-        >
-          ꦲ
-        </span>
-
-        <div className="flex h-28 w-28 items-center justify-center rounded-[1.75rem] bg-gradient-to-b from-paper-2 to-paper-3 text-6xl shadow-sm">
+      <section className="flex flex-1 flex-col items-center justify-center">
+        <div className="relative mb-6 flex h-40 w-40 items-center justify-center rounded-[2.5rem] border-4 border-white bg-gradient-to-br from-paper-2 to-paper-3 text-7xl shadow-card ring-4 ring-black/5">
           {meta.icon}
+          {isCompleted && (
+            <div className="absolute -bottom-3 -right-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent-2 text-2xl shadow-md ring-4 ring-white">
+              ⭐
+            </div>
+          )}
         </div>
-        <div className="flex flex-col items-center gap-3">
-          <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent-deep">
-            Misi
+
+        <div className="flex flex-col items-center text-center">
+          <span
+            className={`mb-3 rounded-full px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest ${
+              isCompleted
+                ? 'bg-accent-2/15 text-[oklch(0.4_0.09_110)] border border-accent-2/20'
+                : isUnlocked
+                ? 'bg-accent/10 text-accent-deep border border-accent/20'
+                : 'bg-paper-3 text-text-2 border border-border'
+            }`}
+          >
+            {isCompleted ? t('level.completed') : isUnlocked ? `Level ${id}` : t('level.locked')}
           </span>
-          <h2 className="font-display text-2xl text-text">{meta.title}</h2>
-          <p className="max-w-sm text-[0.95rem] leading-relaxed text-text-2">{meta.desc}</p>
+          <h1 className="font-display text-4xl text-text">{t(meta.titleKey)}</h1>
+          <p className="mt-2 text-lg font-medium text-text-2">{t(meta.subtitleKey)}</p>
+          <div className="mt-6 rounded-2xl bg-white/40 p-4 border border-white/50 shadow-sm backdrop-blur-sm">
+            <p className="text-[0.95rem] leading-relaxed text-text-2">{t(`level.story${id}`)}</p>
+          </div>
         </div>
       </section>
 
-      <footer className="mt-6 flex flex-col gap-3">
-        <Button className="w-full" onClick={() => navigate(`/level/${id}/practice`)}>
-          Mulai Misi
-        </Button>
-        <Button variant="ghost" className="w-full" onClick={() => navigate('/menu')}>
-          Kembali ke Menu
-        </Button>
+      <footer className="mt-8 flex flex-col gap-3">
+        <Link to={`/level/${id}/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>
+          <Button className="w-full py-4 text-lg" disabled={!isUnlocked}>
+            {t('level.play')}
+          </Button>
+        </Link>
       </footer>
     </main>
   )

@@ -9,22 +9,23 @@ import { BackButton } from './BackButton'
 import { Button } from './Button'
 import SuccessParticles from './SuccessParticles'
 import { useWakeLock } from '../../hooks/useWakeLock'
+import { useTranslation } from 'react-i18next'
 
 const SETS = { '1': NGGLEGENA, '2': SANDANGAN, '3': PASANGAN } as const
-const TYPE_LABEL = { '1': 'Aksara Dasar', '2': 'Sandangan', '3': 'Pasangan' } as const
-
 export default function Practice() {
   useWakeLock()
 
   const { level } = useParams<'level'>()
   const navigate = useNavigate()
   const completeLevel = useProgress((s) => s.completeLevel)
+  const { t } = useTranslation()
 
   const [qIndex, setQIndex] = useState(0)
   const [strokes, setStrokes] = useState<Point[][]>([])
   const [feedback, setFeedback] = useState<StrokeFeedback | null>(null)
 
   const levelNum = (level ?? '1') as keyof typeof SETS
+  const TYPE_LABEL = { '1': t('practice.base'), '2': t('practice.sandangan'), '3': t('practice.pasangan') } as Record<string, string>
   const questions = SETS[levelNum] ?? NGGLEGENA
   const glyph = questions[qIndex % questions.length]
 
@@ -81,7 +82,7 @@ export default function Practice() {
         <BackButton to="/menu" />
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-text-2">
-            Soal {qIndex + 1}/{questions.length}
+            {t('practice.question')} {qIndex + 1}/{questions.length}
           </span>
         </div>
       </header>
@@ -103,7 +104,7 @@ export default function Practice() {
             {glyph.unicode}
           </span>
           <div className="flex flex-col items-start">
-            <span className="text-xs font-bold uppercase tracking-wider text-accent-deep">Tulislah · {TYPE_LABEL[levelNum]}</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-accent-deep">{t('practice.draw')} · {TYPE_LABEL[levelNum]}</span>
             <h1 className="font-display text-2xl leading-none text-text">{glyph.label}</h1>
             <p className="mt-1 text-xs leading-snug text-text-2">{glyph.hint}</p>
           </div>
@@ -132,25 +133,25 @@ export default function Practice() {
         {feedback?.status === 'pass' && (
           <>
             <span aria-hidden="true" className="text-lg">✅</span>
-            Bagus, bentukmu tepat!
+            {t('practice.feedback.pass')}
           </>
         )}
         {feedback?.status === 'warn' && (
           <>
             <span aria-hidden="true" className="text-lg">🟡</span>
-            Hampir pas, coba sedikit lagi.
+            {t('practice.feedback.warn')}
           </>
         )}
         {feedback?.status === 'retry' && (
           <>
             <span aria-hidden="true" className="text-lg">🔄</span>
-            Belum pas — coba lagi, dekati bentuknya.
+            {t('practice.feedback.retry')}
           </>
         )}
         {!feedback && (
           <>
             <span aria-hidden="true" className="text-lg">✏️</span>
-            Gambar aksara di bidang kosong, contoh di atas.
+            {t('practice.feedback.empty')}
           </>
         )}
       </div>
@@ -158,7 +159,7 @@ export default function Practice() {
       {passed && (
         <footer className="mt-4 shrink-0">
           <Button variant="reward" className="w-full" onClick={handleNext}>
-            {qIndex + 1 >= questions.length ? 'Selesai & Dapat Reward' : 'Soal Berikutnya →'}
+            {qIndex + 1 >= questions.length ? t('practice.finish') : t('practice.next')}
           </Button>
         </footer>
       )}
