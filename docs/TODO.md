@@ -35,10 +35,10 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Kalibrasi toleransi coverage (COVERAGE_PASS/WARN) dgn uji tablet nyata — sudah dinamis per luas/tebal glyph
 
 ### Konten
-- [~] Dataset Nglegena **20 contour** (dari Noto Sans Javanese, Y-corrected, 80-pt) — src/data/nglegena_contours.json
+- [x] Dataset Nglegena **20 contour** (dari Noto Sans Javanese, Y-corrected, 80-pt) — src/data/nglegena_contours.json
 - [x] Dataset Sandangan 8+ core + kombinasi — §10.1 (Label & Dotted Circle diperbaiki)
-- [~] Dataset Pasangan (20 pasang) — §10.1 (Data contour korup: loop/lubang hilang, perlu diekstrak ulang)
-- [~] Level config L1–L3 bukti: starter ha/na/ca/ra/ka; soal 11/20/3×5 belum terisi penuh — §10.2
+- [x] Dataset Pasangan (20 pasang) — §10.1 (Berhasil diekstrak ulang penuh dengan loops via FontTools Python script)
+- [x] Level config L1–L3 bukti: starter ha/na/ca/ra/ka; soal 11/20/3×5 belum terisi penuh — §10.2 (Dataset penuh digunakan untuk L1-L3)
 - [x] Copy cerita Indonesia penuh (dari `NASKAH_AJISAKA.md`) ke tiap level — Selesai via i18n layer
 - [x] Precache font Javanese (woff2, 89KB, self-host) — FR-6.2
 - [ ] **Stroke data kurasi internal (guide pen-stroke ori)** — kanvas guide saat ini solid-fill contour; untuk guratan internal/order diajarkan butuh data kurator (§20)
