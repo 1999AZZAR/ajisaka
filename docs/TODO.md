@@ -39,7 +39,7 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Dataset Sandangan 8+ core + kombinasi — §10.1 (Label & Dotted Circle diperbaiki)
 - [~] Dataset Pasangan (20 pasang) — §10.1 (Data contour korup: loop/lubang hilang, perlu diekstrak ulang)
 - [~] Level config L1–L3 bukti: starter ha/na/ca/ra/ka; soal 11/20/3×5 belum terisi penuh — §10.2
-- [ ] Copy cerita Indonesia penuh (dari `NASKAH_AJISAKA.md`) ke tiap level — sebagian
+- [x] Copy cerita Indonesia penuh (dari `NASKAH_AJISAKA.md`) ke tiap level — Selesai via i18n layer
 - [x] Precache font Javanese (woff2, 89KB, self-host) — FR-6.2
 - [ ] **Stroke data kurasi internal (guide pen-stroke ori)** — kanvas guide saat ini solid-fill contour; untuk guratan internal/order diajarkan butuh data kurator (§20)
 
@@ -51,13 +51,14 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Interstitial Fase 1 / Fase 2 pilihan menu non-linear di Level 3 — FR-4.4 (Selesai, tracking granular per phase)
 - [x] Ending dinobatkan Raja terhubung setelah L3 Fase 1 & 2 selesai — Selesai
 - [x] Persist progress (Zustand persist): completedLevels, completedPhases, rewards — FR-5.1
-- [ ] Resume level saat reload — FR-5.2 (partial: progress tersimpan, resume per-question belum)
+- [ ] Resume level saat reload — FR-5.2 (progress tersimpan, tapi resume per-pertanyaan di tengah jalan belum)
 - [ ] Latihan soal L1: mulai dari soal 1 → reward→ level 2 dsb (starter set dipakai ulang utk L2/L3 sementara)
 
 ### Fitur Tambahan & UX Polish — ✅ DONE
 - [x] Localization penuh: Indonesia, English, Basa Jawa (Krama Inggil) via i18next + ekstraksi data layer
 - [x] Audio engine Gamelan Web Audio API (Ombak, saron, gong ageng, keprak, detuned partials)
 - [x] Hide global scrollbars untuk PWA fullscreen feel
+- [x] Mengunci Orientasi Layar (Portrait PWA Lock)
 
 ### PWA & offline
 - [x] Service worker (Workbox) precache penuh (~500 KB, 14 entries) — FR-6.2
@@ -93,7 +94,7 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 ## P2 — Peningkatan (setelah rilis inti stabil)
 
 - [ ] TTS pengucapan fonem + pelafalan nama aksara (lokal, gabung dgn suara)
-- [ ] Transliterasi teks → Aksara Jawa (masukan bebas)
+- [x] Transliterasi teks → Aksara Jawa (masukan bebas) — Selesai via "Free Type"
 - [ ] Set glyph lanjutan: Angka, Murda, Swara
 - [ ] Peningkatan model matcher → classifier ML (ONNX/TFLite <500 KB) — §11.3
 - [ ] Statistik per latihan tambahan (skor, waktu, retry)
@@ -105,10 +106,11 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 
 ## P3 — Masa depan (di luar MVP)
 
+- [x] Dockerization untuk hosting production yang mandiri
 - [ ] Cloud sync & laporan guru ("Guru Report") — §19
 - [ ] Leaderboard lokal/kelas + akun opsional — G5, §19
 - [ ] APK Android via TWA; wrapper iPad — §19
-- [ ] Multi-bahasa (Jawa–Indonesia–English) — §2.2, §19
+- [x] Multi-bahasa (Jawa–Indonesia–English) — Selesai (i18n ditambahkan ke MVP)
 - [ ] Editor stroke konten untuk guru (impor data aksara baru)
 - [ ] Ekspor sertifikat penyelesaian (printer-friendly)
 
