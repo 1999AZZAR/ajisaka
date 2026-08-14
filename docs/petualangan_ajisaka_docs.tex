@@ -894,11 +894,12 @@ fast)}\label{online-matching-offline-deterministic-fast}
 Approach to keep 0 weight and run on-device: 1. \textbf{Normalize} the
 input stroke (resample to N=32 points, scale to 0..1, translate to
 center, keep proportional aspect). 2. \textbf{Direction signature:}
-per-segment angle buckets (e.g., 8 bins). 3. \textbf{Dynamic Time
-Warping (DTW)} distance to the reference normalized stroke (proxy: use
-multi-step/rough DTW on resampled polylines). 4. \textbf{Order = truth:}
-strokes must be completed in the reference order; a reversal triggers
-the ``wrong direction'' feedback even if the shape matches. 5. Score →
+per-segment angle buckets (e.g., 8 bins). 3. \textbf{Raster Coverage}
+(Geometric Outline Matcher) distance to the reference normalized stroke
+(proxy: resampled dense polylines calculating intersection over expected
+perimeter area). 4. \textbf{Order = truth:} strokes must be completed in
+the reference order; a reversal triggers the ``wrong direction''
+feedback even if the shape matches. 5. Score →
 \texttt{pass\ /\ warn\ /\ retry} via per-stroke tolerance.
 
 Optional future upgrade: a tiny \textbf{ONNX/TFLite} model
@@ -975,7 +976,7 @@ Icons/app assets & inline SVG (kirik) so SW precache stays small \\
 │                 matcher interface, scoring     │
 ├───────────────────────────────────────────────┤
 │ Infrastructure  CanvasEngine (capture+guide), │
-│                 DTW matcher, Zustand persist,  │
+│                 Raster Coverage, Zustand persist,│
 │                 PWA/SW, audio (gamelan blips)  │
 └───────────────────────────────────────────────┘
 \end{verbatim}
@@ -1094,7 +1095,8 @@ woff2 \\
 TTI on mid-range tablet & ≤ 3 s \\
 SW precache total & ≤ 4--5 MB \\
 Canvas frame during tracing & 60 fps \\
-Recognition latency & \textless{} 50 ms (DTW on 32-pt resample) \\
+Recognition latency & \textless{} 50 ms (Raster Coverage on 0.02 step
+resample) \\
 \end{longtable}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1160,8 +1162,8 @@ Scope
 \endlastfoot
 \textbf{M0 --- Seed \& shell} & Vite+TS app, tokens, routes, dashboard,
 manifest/SW, empty practice screen \\
-\textbf{M1 --- Stroke engine} & Canvas capture, guide animation, DTW
-matcher, feedback mapping \\
+\textbf{M1 --- Stroke engine} & Canvas capture, guide animation, Raster
+Coverage matcher, feedback mapping \\
 \textbf{M2 --- Content} & Full dataset (Nglegena 20+ / Sandangan 8+ /
 Pasangan pairs), level configs, story copy in Indonesian \\
 \textbf{M3 --- Game flow} & Level FSM, rewards, Dora/villager joins,
@@ -1243,7 +1245,10 @@ rotated mock. \\
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \emph{End of document. Next step: confirm §20 decisions, then scaffold
-M0.}\# Naskah Aplikasi Petualangan Ajisaka
+M0.}
+
+\section{Naskah Aplikasi Petualangan
+Ajisaka}\label{naskah-aplikasi-petualangan-ajisaka}
 
 \emph{Tema utama: gamifikasi keterampilan menulis Aksara Jawa.}
 
@@ -1363,8 +1368,10 @@ Setelah ketiga menu latihan penulisan, total 15 soal, diselesaikan
 secara berurutan, Raksasa Hijau berhasil diselesaikan secara mutlak.
 Kerajaan Nusantara kembali damai dan bebas dari penjajahan. Atas jasa
 dan kepemimpinannya, pemain yang memerankan Ajisaka secara resmi
-dinobatkan menjadi \textbf{Raja Kerajaan Nusantara}.\# Petualangan
-Ajisaka --- Todo Pengembangan (P0--P3)
+dinobatkan menjadi \textbf{Raja Kerajaan Nusantara}.
+
+\section{Petualangan Ajisaka --- Todo Pengembangan
+(P0--P3)}\label{petualangan-ajisaka-todo-pengembangan-p0p3}
 
 Prioritas berdasarkan \texttt{DESIGN\_AND\_DEV.md} §5 \&
 \texttt{TIMELINE.md} W1--W11. \emph{Diperbarui setelah M0+M1 PoC build

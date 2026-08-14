@@ -396,8 +396,7 @@ Approach to keep 0 weight and run on-device:
 1. **Normalize** the input stroke (resample to N=32 points, scale to 0..1, translate
    to center, keep proportional aspect).
 2. **Direction signature:** per-segment angle buckets (e.g., 8 bins).
-3. **Dynamic Time Warping (DTW)** distance to the reference normalized stroke
-   (proxy: use multi-step/rough DTW on resampled polylines).
+3. **Raster Coverage** (Geometric Outline Matcher) distance to the reference normalized stroke (proxy: resampled dense polylines calculating intersection over expected perimeter area).
 4. **Order = truth:** strokes must be completed in the reference order; a reversal
    triggers the "wrong direction" feedback even if the shape matches.
 5. Score → `pass / warn / retry` via per-stroke tolerance.
@@ -450,7 +449,7 @@ Optional future upgrade: a tiny **ONNX/TFLite** model (`12 class output`,
 │                 matcher interface, scoring     │
 ├───────────────────────────────────────────────┤
 │ Infrastructure  CanvasEngine (capture+guide), │
-│                 DTW matcher, Zustand persist,  │
+│                 Raster Coverage, Zustand persist,│
 │                 PWA/SW, audio (gamelan blips)  │
 └───────────────────────────────────────────────┘
 ```
@@ -527,7 +526,7 @@ javanese_learning_app/
 | TTI on mid-range tablet | ≤ 3 s |
 | SW precache total | ≤ 4–5 MB |
 | Canvas frame during tracing | 60 fps |
-| Recognition latency | < 50 ms (DTW on 32-pt resample) |
+| Recognition latency | < 50 ms (Raster Coverage on 0.02 step resample) |
 
 ---
 
@@ -558,7 +557,7 @@ javanese_learning_app/
 | Milestone | Scope |
 |---|---|
 | **M0 — Seed & shell** | Vite+TS app, tokens, routes, dashboard, manifest/SW, empty practice screen |
-| **M1 — Stroke engine** | Canvas capture, guide animation, DTW matcher, feedback mapping |
+| **M1 — Stroke engine** | Canvas capture, guide animation, Raster Coverage matcher, feedback mapping |
 | **M2 — Content** | Full dataset (Nglegena 20+ / Sandangan 8+ / Pasangan pairs), level configs, story copy in Indonesian |
 | **M3 — Game flow** | Level FSM, rewards, Dora/villager joins, ending, progress persistence |
 | **M4 — Polish QA** | Particles, sound, offline E2E, a11y scan, device matrix, update banner |
