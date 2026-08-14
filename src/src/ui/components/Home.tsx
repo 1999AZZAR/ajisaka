@@ -77,6 +77,12 @@ export default function Home() {
               <span className="flex h-2 w-2 rounded-full bg-accent-2" />
               Bisa dimainkan offline
             </div>
+            <button
+              onClick={() => navigate('/tabel')}
+              className="mt-2 text-sm font-bold text-text-2 underline decoration-text-2/40 underline-offset-4 transition-colors hover:text-accent active:text-accent-deep"
+            >
+              📖 Lihat Kamus Aksara
+            </button>
           </div>
         </div>
       </div>

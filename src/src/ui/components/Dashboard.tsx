@@ -111,6 +111,16 @@ export default function Dashboard() {
             rewardIcon={m.rewardIcon}
           />
         ))}
+        
+        <div className="mt-4">
+          <LevelCard
+            level={0}
+            title="Kamus Aksara"
+            subtitle="Tabel contekan huruf Jawa"
+            icon="📖"
+            onClick={() => navigate('/tabel')}
+          />
+        </div>
       </nav>
     </main>
   )
