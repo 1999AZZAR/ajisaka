@@ -7,6 +7,62 @@ const TABS: { id: AksaraType; label: string }[] = [
   { id: 'sandangan', label: 'Sandangan' },
 ]
 
+const EXAMPLES: Record<string, { jv: string, la: string, id: string }> = {
+  // Nglegena
+  'ha': { jv: 'ꦲꦤ', la: 'hana', id: 'ada' },
+  'na': { jv: 'ꦤꦩ', la: 'nama', id: 'nama' },
+  'ca': { jv: 'ꦕꦫ', la: 'cara', id: 'cara' },
+  'ra': { jv: 'ꦫꦱ', la: 'rasa', id: 'rasa' },
+  'ka': { jv: 'ꦏꦕ', la: 'kaca', id: 'kaca' },
+  'da': { jv: 'ꦢꦢꦶ', la: 'dadi', id: 'jadi' },
+  'ta': { jv: 'ꦠꦩꦸ', la: 'tamu', id: 'tamu' },
+  'sa': { jv: 'ꦱꦥꦶ', la: 'sapi', id: 'sapi' },
+  'wa': { jv: 'ꦮꦭꦶ', la: 'wali', id: 'wali' },
+  'la': { jv: 'ꦭꦭꦶ', la: 'lali', id: 'lupa' },
+  'pa': { jv: 'ꦥꦢ', la: 'pada', id: 'sama' },
+  'dha': { jv: 'ꦝꦝ', la: 'dhadha', id: 'dada' },
+  'ja': { jv: 'ꦗꦒꦺꦴ', la: 'jago', id: 'jago' },
+  'ya': { jv: 'ꦪꦺꦤ꧀', la: 'yèn', id: 'jika' },
+  'nya': { jv: 'ꦚꦚꦶ', la: 'nyanyi', id: 'nyanyi' },
+  'ma': { jv: 'ꦩꦠ', la: 'mata', id: 'mata' },
+  'ga': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah' },
+  'ba': { jv: 'ꦧꦥꦏ꧀', la: 'bapak', id: 'bapak' },
+  'tha': { jv: 'ꦛꦸꦛꦸꦏ꧀', la: 'thuthuk', id: 'pukul' },
+  'nga': { jv: 'ꦔꦼꦭꦸ', la: 'ngelu', id: 'pusing' },
+
+  // Pasangan (all use "anak [kata]" -> ꦲꦤꦏ꧀ + pasangan)
+  'ha.pas': { jv: 'ꦲꦤꦏ꧀ꦲꦪꦸ', la: 'anak hayu', id: 'anak cantik' },
+  'na.pas': { jv: 'ꦲꦤꦏ꧀ꦤꦏꦭ꧀', la: 'anak nakal', id: 'anak nakal' },
+  'ca.pas': { jv: 'ꦲꦤꦏ꧀ꦕꦕꦶꦁ', la: 'anak cacing', id: 'anak cacing' },
+  'ra.pas': { jv: 'ꦲꦤꦏ꧀ꦫꦗ', la: 'anak raja', id: 'anak raja' },
+  'ka.pas': { jv: 'ꦲꦤꦏ꧀ꦏꦸ', la: 'anakku', id: 'anakku' },
+  'da.pas': { jv: 'ꦲꦤꦏ꧀ꦢꦺꦱ', la: 'anak désa', id: 'anak desa' },
+  'ta.pas': { jv: 'ꦲꦤꦏ꧀ꦠꦩꦸ', la: 'anak tamu', id: 'anak tamu' },
+  'sa.pas': { jv: 'ꦲꦤꦏ꧀ꦱꦥꦶ', la: 'anak sapi', id: 'anak sapi' },
+  'wa.pas': { jv: 'ꦲꦤꦏ꧀ꦮꦭꦶ', la: 'anak wali', id: 'anak wali' },
+  'la.pas': { jv: 'ꦲꦤꦏ꧀ꦭꦭꦶ', la: 'anak lali', id: 'anak lupa' },
+  'pa.pas': { jv: 'ꦲꦤꦏ꧀ꦥꦶꦤ꧀ꦠꦼꦂ', la: 'anak pinter', id: 'anak pintar' },
+  'dha.pas': { jv: 'ꦲꦤꦏ꧀ꦝꦺꦴꦏ꧀ꦠꦼꦂ', la: 'anak dhokter', id: 'anak dokter' },
+  'ja.pas': { jv: 'ꦲꦤꦏ꧀ꦗꦫꦤ꧀', la: 'anak jaran', id: 'anak kuda' },
+  'ya.pas': { jv: 'ꦲꦤꦏ꧀ꦪꦸꦪꦸ', la: 'anak yuyu', id: 'anak kepiting' },
+  'nya.pas': { jv: 'ꦲꦤꦏ꧀ꦚꦩꦸꦏ꧀', la: 'anak nyamuk', id: 'anak nyamuk' },
+  'ma.pas': { jv: 'ꦲꦤꦏ꧀ꦩꦤꦸꦏ꧀', la: 'anak manuk', id: 'anak burung' },
+  'ga.pas': { jv: 'ꦲꦤꦏ꧀ꦒꦗꦃ', la: 'anak gajah', id: 'anak gajah' },
+  'ba.pas': { jv: 'ꦲꦤꦏ꧀ꦧꦥꦏ꧀', la: 'anak bapak', id: 'anak bapak' },
+  'tha.pas': { jv: 'ꦲꦤꦏ꧀ꦛꦸꦛꦸꦏ꧀', la: 'anak thuthuk', id: 'anak pukul' },
+  'nga.pas': { jv: 'ꦲꦤꦏ꧀ꦔꦼꦭꦸ', la: 'anak ngelu', id: 'anak pusing' },
+
+  // Sandangan
+  'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu' },
+  'suku': { jv: 'ꦧꦸꦏꦸ', la: 'buku', id: 'buku' },
+  'pepet': { jv: 'ꦱꦼꦒ', la: 'sega', id: 'nasi' },
+  'taling': { jv: 'ꦭꦺꦭꦺ', la: 'lélé', id: 'ikan lele' },
+  'tarung': { jv: 'ꦱꦺꦴꦠꦺꦴ', la: 'soto', id: 'soto' },
+  'cecak': { jv: 'ꦏꦸꦕꦶꦁ', la: 'kucing', id: 'kucing' },
+  'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar' },
+  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah' }
+}
+
 export interface TabelAksaraProps {
   isOpen: boolean
   onClose: () => void
@@ -19,14 +75,6 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
   if (!isOpen) return null
 
   const items = LIBRARY[activeTab]
-
-  const getExample = (glyph: AksaraGlyph) => {
-    if (glyph.type === 'nglegena') return glyph.unicode
-    const base = '\uA98F' // 'ka' as base
-    if (glyph.type === 'pasangan') return base + glyph.unicode.replace('\u25CC', '')
-    if (glyph.type === 'sandangan') return base + glyph.unicode.replace('\u25CC', '')
-    return glyph.unicode
-  }
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-paper/95 backdrop-blur-sm sm:items-center sm:justify-center">
@@ -90,19 +138,31 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
             <h2 className="font-display text-2xl text-text capitalize">
               {selected.id.replace('.pas', '').replace('.ns', '')}
             </h2>
-            <div className="flex items-center justify-center rounded-2xl bg-white p-6 shadow-inner min-w-40 border border-border">
-              <span className="text-7xl text-accent" style={{ fontFamily: 'var(--font-javanese)' }}>
-                {getExample(selected)}
+            
+            <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
+              <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
+                {EXAMPLES[selected.id]?.jv || selected.unicode}
               </span>
             </div>
-            <p className="text-sm font-medium text-text-2">
-              {selected.type === 'nglegena' && 'Bentuk aksara dasar.'}
-              {selected.type === 'pasangan' && 'Contoh pasangan dirangkai dengan aksara "ka" (ꦏ).'}
-              {selected.type === 'sandangan' && 'Contoh sandangan dirangkai dengan aksara "ka" (ꦏ).'}
+            
+            <div className="flex flex-col gap-1 text-center bg-paper-2 px-6 py-4 rounded-xl border border-border w-full">
+              <span className="font-display text-lg text-accent-deep tracking-wide">
+                "{EXAMPLES[selected.id]?.la || selected.id}"
+              </span>
+              <span className="text-sm font-medium text-text-2">
+                Arti: {EXAMPLES[selected.id]?.id || '...'}
+              </span>
+            </div>
+
+            <p className="text-sm font-medium text-text-2 px-2">
+              {selected.type === 'nglegena' && 'Penggunaan aksara dalam kata.'}
+              {selected.type === 'pasangan' && 'Pasangan menyambung suku kata mati (contoh: "anak...").'}
+              {selected.type === 'sandangan' && 'Sandangan memberikan bunyi vokal atau akhiran pada aksara dasar.'}
             </p>
+            
             <button
               onClick={() => setSelected(null)}
-              className="mt-4 w-full rounded-2xl bg-accent px-6 py-4 font-bold text-white shadow-md active:scale-95 transition-transform"
+              className="mt-2 w-full rounded-2xl bg-accent px-6 py-4 font-bold text-white shadow-md active:scale-95 transition-transform"
             >
               Tutup Contoh
             </button>
