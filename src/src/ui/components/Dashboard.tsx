@@ -16,7 +16,6 @@ const menu = [
 export default function Dashboard() {
   const navigate = useNavigate()
   const completedLevels = useProgress((s) => s.completedLevels)
-  const isLevelUnlocked = useProgress((s) => s.isLevelUnlocked)
   const progress = (completedLevels.length / 3) * 100
   const [showTabel, setShowTabel] = useState(false)
   const { t } = useTranslation()

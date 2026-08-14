@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 
 interface ShellProps {
-  title?: string
-  subtitle?: string
+  title?: ReactNode
+  subtitle?: ReactNode
   right?: ReactNode
   children: ReactNode
   footer?: ReactNode
