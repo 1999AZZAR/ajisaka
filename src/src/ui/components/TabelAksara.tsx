@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { LIBRARY, type AksaraType, type AksaraGlyph } from '../../data/aksara'
 import { useTranslation } from 'react-i18next'
 
