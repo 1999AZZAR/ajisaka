@@ -37,12 +37,8 @@ const KEYBOARD = [
   { id: 'cecak', label: '+ng', char: 'ꦁ' },
   { id: 'layar', label: '+r', char: 'ꦂ' },
   { id: 'pangkon', label: 'mati', char: '꧀' },
-  // Rekan
-  { id: 'kha', label: 'kha', char: 'ꦏ꦳' },
-  { id: 'dza', label: 'dza', char: 'ꦢ꦳' },
-  { id: 'fa', label: 'fa', char: 'ꦥ꦳' },
-  { id: 'za', label: 'za', char: 'ꦗ꦳' },
-  { id: 'gha', label: 'gha', char: 'ꦒ꦳' }
+  // Dynamic Rekan Modifier
+  { id: 'cecak_telu', label: 'rekan', char: '꦳' }
 ]
 
 const QUESTIONS = [
@@ -128,6 +124,18 @@ export default function Phase2() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [isCorrect, qIndex])
 
+  const validRekanBases = ['ꦏ', 'ꦢ', 'ꦥ', 'ꦗ', 'ꦒ'];
+  const lastInput = input.length > 0 ? input[input.length - 1] : null;
+  const isRekanValid = lastInput && validRekanBases.includes(lastInput);
+  let rekanLabel = 'rekan';
+  if (isRekanValid) {
+    if (lastInput === 'ꦏ') rekanLabel = 'kha';
+    if (lastInput === 'ꦢ') rekanLabel = 'dza';
+    if (lastInput === 'ꦥ') rekanLabel = 'fa';
+    if (lastInput === 'ꦗ') rekanLabel = 'za';
+    if (lastInput === 'ꦒ') rekanLabel = 'gha';
+  }
+
   return (
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-4 pb-4 pt-6 overflow-hidden">
       <header className="mb-4 shrink-0 flex items-center justify-between">
@@ -159,22 +167,27 @@ export default function Phase2() {
       </section>
 
       <div className="flex-1 w-full flex flex-col justify-end bg-paper-2 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-border mt-auto -mx-4 -mb-4 px-3 pb-6 pt-4 mb-4 relative overflow-hidden">
-        <div className="grid grid-cols-6 sm:grid-cols-8 gap-1.5 sm:gap-2 max-w-full mx-auto w-full">
-          {KEYBOARD.map((k) => (
-            <button
-              key={k.id}
-              onClick={() => handleKeyPress(k.char)}
-              disabled={isCorrect || isTypo}
-              className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50"
-            >
-              <span className="font-javanese text-2xl sm:text-3xl mb-0.5 text-text leading-none">{k.char}</span>
-              <span className="text-[9px] sm:text-[10px] font-bold text-text-2 uppercase">{k.label}</span>
-            </button>
-          ))}
+        <div className="grid grid-cols-5 sm:grid-cols-7 gap-1.5 sm:gap-2 max-w-full">
+          {KEYBOARD.map((k) => {
+            const isCecakTelu = k.id === 'cecak_telu';
+            const isDisabled = isCorrect || isTypo || (isCecakTelu && !isRekanValid);
+            const label = isCecakTelu ? rekanLabel : k.label;
+            return (
+              <button
+                key={k.id}
+                onClick={() => handleKeyPress(k.char)}
+                disabled={isDisabled}
+                className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 disabled:bg-paper-2 disabled:border-b-0 disabled:translate-y-0.5"
+              >
+                <span className="font-javanese text-2xl sm:text-3xl mb-0.5 text-text leading-none">{k.char}</span>
+                <span className="text-[9px] sm:text-[10px] font-bold text-text-2 uppercase">{label}</span>
+              </button>
+            )
+          })}
           <button
             onClick={handleBackspace}
             disabled={isCorrect || !input}
-            className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-paper border-b-2 border-border text-warn shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 col-span-3 sm:col-span-7"
+            className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-paper border-b-2 border-border text-warn shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 col-span-1 sm:col-span-6"
           >
             <span className="text-xl mb-0.5 leading-none">⌫</span>
             <span className="text-[9px] font-bold uppercase tracking-tighter">{t('practice.clear')}</span>
