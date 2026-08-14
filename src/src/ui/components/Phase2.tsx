@@ -36,9 +36,7 @@ const KEYBOARD = [
   { id: 'tarung', label: '+o', char: 'ꦺꦴ' },
   { id: 'cecak', label: '+ng', char: 'ꦁ' },
   { id: 'layar', label: '+r', char: 'ꦂ' },
-  { id: 'pangkon', label: 'mati', char: '꧀' },
-  // Dynamic Rekan Modifier
-  { id: 'cecak_telu', label: 'rekan', char: '꦳' }
+  { id: 'pangkon', label: 'mati', char: '꧀' }
 ]
 
 const QUESTIONS = [
@@ -48,18 +46,18 @@ const QUESTIONS = [
   { word: 'saka', target: 'ꦱꦏ', menu: 'Menu 1: Dasar' },
   { word: 'cara', target: 'ꦕꦫ', menu: 'Menu 1: Dasar' },
   { word: 'naga', target: 'ꦤꦒ', menu: 'Menu 1: Dasar' },
-  // Menu 2: Sandangan & Rekan
-  { word: 'buku', target: 'ꦧꦸꦏꦸ', menu: 'Menu 2: Sandangan & Rekan' },
-  { word: 'pari', target: 'ꦥꦫꦶ', menu: 'Menu 2: Sandangan & Rekan' },
-  { word: 'soto', target: 'ꦱꦺꦴꦠꦺꦴ', menu: 'Menu 2: Sandangan & Rekan' },
-  { word: 'faham', target: 'ꦥ꦳ꦲꦩ꧀', menu: 'Menu 2: Sandangan & Rekan' },
-  { word: 'zaman', target: 'ꦗ꦳ꦩꦤ꧀', menu: 'Menu 2: Sandangan & Rekan' },
+  // Menu 2: Sandangan
+  { word: 'buku', target: 'ꦧꦸꦏꦸ', menu: 'Menu 2: Sandangan' },
+  { word: 'pari', target: 'ꦥꦫꦶ', menu: 'Menu 2: Sandangan' },
+  { word: 'soto', target: 'ꦱꦺꦴꦠꦺꦴ', menu: 'Menu 2: Sandangan' },
+  { word: 'lali', target: 'ꦭꦭꦶ', menu: 'Menu 2: Sandangan' },
+  { word: 'sepi', target: 'ꦱꦼꦥꦶ', menu: 'Menu 2: Sandangan' },
   // Menu 3: Pasangan
   { word: 'sabtu', target: 'ꦱꦧ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
   { word: 'mandi', target: 'ꦩꦤ꧀ꦢꦶ', menu: 'Menu 3: Pasangan' },
   { word: 'bantu', target: 'ꦧꦤ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
   { word: 'pintu', target: 'ꦥꦶꦤ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
-  { word: 'lampu', target: 'ꦭꦩ꧀ꦥꦸ', menu: 'Menu 3: Pasangan' }
+  { word: 'kunci', target: 'ꦏꦸꦚ꧀ꦕꦶ', menu: 'Menu 3: Pasangan' }
 ]
 
 export default function Phase2() {
@@ -124,18 +122,6 @@ export default function Phase2() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [isCorrect, qIndex])
 
-  const validRekanBases = ['ꦏ', 'ꦢ', 'ꦥ', 'ꦗ', 'ꦒ'];
-  const lastInput = input.length > 0 ? input[input.length - 1] : null;
-  const isRekanValid = lastInput && validRekanBases.includes(lastInput);
-  let rekanLabel = 'rekan';
-  if (isRekanValid) {
-    if (lastInput === 'ꦏ') rekanLabel = 'kha';
-    if (lastInput === 'ꦢ') rekanLabel = 'dza';
-    if (lastInput === 'ꦥ') rekanLabel = 'fa';
-    if (lastInput === 'ꦗ') rekanLabel = 'za';
-    if (lastInput === 'ꦒ') rekanLabel = 'gha';
-  }
-
   return (
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-4 pb-4 pt-6 overflow-hidden">
       <header className="mb-4 shrink-0 flex items-center justify-between">
@@ -168,26 +154,21 @@ export default function Phase2() {
 
       <div className="flex-1 w-full flex flex-col justify-end bg-paper-2 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-border mt-auto -mx-4 -mb-4 px-3 pb-6 pt-4 mb-4 relative overflow-hidden">
         <div className="grid grid-cols-5 sm:grid-cols-7 gap-1.5 sm:gap-2 max-w-full">
-          {KEYBOARD.map((k) => {
-            const isCecakTelu = k.id === 'cecak_telu';
-            const isDisabled = isCorrect || isTypo || (isCecakTelu && !isRekanValid);
-            const label = isCecakTelu ? rekanLabel : k.label;
-            return (
-              <button
-                key={k.id}
-                onClick={() => handleKeyPress(k.char)}
-                disabled={isDisabled}
-                className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 disabled:bg-paper-2 disabled:border-b-0 disabled:translate-y-0.5"
-              >
-                <span className="font-javanese text-2xl sm:text-3xl mb-0.5 text-text leading-none">{k.char}</span>
-                <span className="text-[9px] sm:text-[10px] font-bold text-text-2 uppercase">{label}</span>
-              </button>
-            )
-          })}
+          {KEYBOARD.map((k) => (
+            <button
+              key={k.id}
+              onClick={() => handleKeyPress(k.char)}
+              disabled={isCorrect || isTypo}
+              className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 disabled:bg-paper-2 disabled:border-b-0 disabled:translate-y-0.5"
+            >
+              <span className="font-javanese text-2xl sm:text-3xl mb-0.5 text-text leading-none">{k.char}</span>
+              <span className="text-[9px] sm:text-[10px] font-bold text-text-2 uppercase">{k.label}</span>
+            </button>
+          ))}
           <button
             onClick={handleBackspace}
             disabled={isCorrect || !input}
-            className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-paper border-b-2 border-border text-warn shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 col-span-1 sm:col-span-6"
+            className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-paper border-b-2 border-border text-warn shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 col-span-2 sm:col-span-7"
           >
             <span className="text-xl mb-0.5 leading-none">⌫</span>
             <span className="text-[9px] font-bold uppercase tracking-tighter">{t('practice.clear')}</span>
