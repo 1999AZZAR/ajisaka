@@ -8,11 +8,14 @@ import PracticeCanvas, { type StrokeFeedback } from './PracticeCanvas'
 import { BackButton } from './BackButton'
 import { Button } from './Button'
 import SuccessParticles from './SuccessParticles'
+import { useWakeLock } from '../../hooks/useWakeLock'
 
 const SETS = { '1': NGGLEGENA, '2': SANDANGAN, '3': PASANGAN } as const
 const TYPE_LABEL = { '1': 'Aksara Dasar', '2': 'Sandangan', '3': 'Pasangan' } as const
 
 export default function Practice() {
+  useWakeLock()
+
   const { level } = useParams<'level'>()
   const navigate = useNavigate()
   const completeLevel = useProgress((s) => s.completeLevel)
@@ -73,8 +76,8 @@ export default function Practice() {
           : 'border-transparent text-text-2'
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pb-8 pt-6">
-      <header className="mb-5 flex items-center justify-between">
+    <main className="mx-auto flex h-full w-full max-w-md flex-col px-5 pb-5 pt-6 overflow-hidden">
+      <header className="mb-5 shrink-0 flex items-center justify-between">
         <BackButton to="/menu" />
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-text-2">
@@ -83,31 +86,31 @@ export default function Practice() {
         </div>
       </header>
 
-      <div className="mb-4 h-2 overflow-hidden rounded-full bg-paper-3">
+      <div className="mb-4 h-2 shrink-0 overflow-hidden rounded-full bg-paper-3">
         <div
           className="h-full rounded-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-500"
           style={{ width: `${((qIndex + (passed ? 1 : 0)) / questions.length) * 100}%` }}
         />
       </div>
 
-      <section className="mb-5 overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-5 shadow-card backdrop-blur-sm">
+      <section className="mb-4 shrink-0 overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-4 shadow-card backdrop-blur-sm">
         <div className="flex items-center justify-center gap-4">
           <span
-            className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-b from-paper-2 to-paper-3 text-text shadow-sm"
-            style={{ fontFamily: 'var(--font-javanese)', fontSize: '3.4rem', lineHeight: 1 }}
+            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-b from-paper-2 to-paper-3 text-text shadow-sm"
+            style={{ fontFamily: 'var(--font-javanese)', fontSize: '3rem', lineHeight: 1 }}
             aria-hidden="true"
           >
             {glyph.unicode}
           </span>
           <div className="flex flex-col items-start">
             <span className="text-xs font-bold uppercase tracking-wider text-accent-deep">Tulislah · {TYPE_LABEL[levelNum]}</span>
-            <h1 className="font-display text-3xl leading-none text-text">{glyph.label}</h1>
-            <p className="mt-1.5 text-sm leading-snug text-text-2">{glyph.hint}</p>
+            <h1 className="font-display text-2xl leading-none text-text">{glyph.label}</h1>
+            <p className="mt-1 text-xs leading-snug text-text-2">{glyph.hint}</p>
           </div>
         </div>
       </section>
 
-      <div className="relative">
+      <div className="relative flex-1 min-h-0 w-full mb-4">
         <PracticeCanvas
           key={glyph.id}
           glyph={glyph}
@@ -122,7 +125,7 @@ export default function Practice() {
       <div
         aria-live="polite"
         role="status"
-        className={`mt-4 flex min-h-11 items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-center text-sm font-semibold transition-all duration-300 ${statusStyle} ${
+        className={`shrink-0 flex min-h-11 items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-center text-sm font-semibold transition-all duration-300 ${statusStyle} ${
           feedback?.status === 'pass' ? 'animate-pop' : ''
         }`}
       >
@@ -153,7 +156,7 @@ export default function Practice() {
       </div>
 
       {passed && (
-        <footer className="mt-4">
+        <footer className="mt-4 shrink-0">
           <Button variant="reward" className="w-full" onClick={handleNext}>
             {qIndex + 1 >= questions.length ? 'Selesai & Dapat Reward' : 'Soal Berikutnya →'}
           </Button>
