@@ -142,8 +142,8 @@ export default function FreeType() {
         </div>
       </section>
 
-      <div className="flex-1 w-full flex flex-col justify-end bg-paper-2 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-border mt-auto -mx-4 -mb-4 px-3 pb-6 pt-4">
-        <div className="grid grid-cols-5 sm:grid-cols-7 gap-1.5 sm:gap-2 max-w-full">
+      <div className="relative flex-1 min-h-0 w-full bg-white/50 rounded-3xl p-4 shadow-inner border border-white/40 overflow-y-auto">
+        <div className="grid grid-cols-5 sm:grid-cols-7 gap-2">
           {KEYBOARD.map((k) => {
             const isDisabled = k.id === 'cecak_telu' && !isRekanValid;
             const label = k.id === 'cecak_telu' ? rekanLabel : k.label;
@@ -152,26 +152,26 @@ export default function FreeType() {
                 key={k.id}
                 onClick={() => handleKeyPress(k.char)}
                 disabled={isDisabled}
-                className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 disabled:bg-paper-2 disabled:border-b-0 disabled:translate-y-0.5"
+                className="flex flex-col items-center justify-center aspect-square rounded-xl bg-white border border-border shadow-sm active:scale-95 active:shadow-none transition-all disabled:opacity-50"
               >
-                <span className="font-javanese text-2xl sm:text-3xl mb-0.5 text-text leading-none">{k.char}</span>
-                <span className="text-[9px] sm:text-[10px] font-bold text-text-2 uppercase">{label}</span>
+                <span className="font-javanese text-2xl mb-1 text-text">{k.char}</span>
+                <span className="text-[10px] font-bold text-text-2 uppercase">{label}</span>
               </button>
             )
           })}
           <button
-            onClick={handleBackspace}
-            disabled={input.length === 0}
-            className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-paper border-b-2 border-border text-warn shadow-sm active:translate-y-0.5 active:border-b-0 transition-all disabled:opacity-50 col-span-2"
+            onClick={handleSpace}
+            className="flex flex-col items-center justify-center rounded-xl bg-paper-2 border border-border shadow-sm active:scale-95 transition-all col-span-3"
           >
-            <span className="text-xl mb-0.5 leading-none">⌫</span>
-            <span className="text-[9px] font-bold uppercase tracking-tighter">Del</span>
+            <span className="text-sm font-bold uppercase">{t('freetype.space')}</span>
           </button>
           <button
-            onClick={handleSpace}
-            className="flex flex-col items-center justify-center py-2 sm:py-3 rounded-lg bg-white border-b-2 border-border shadow-sm active:translate-y-0.5 active:border-b-0 transition-all col-span-4"
+            onClick={handleBackspace}
+            disabled={input.length === 0}
+            className="flex flex-col items-center justify-center rounded-xl bg-warn/10 border border-warn/20 text-warn shadow-sm active:scale-95 transition-all disabled:opacity-50 col-span-2"
           >
-            <span className="text-[10px] font-bold uppercase tracking-widest">{t('freetype.space')}</span>
+            <span className="text-xl mb-1">⌫</span>
+            <span className="text-[10px] font-bold uppercase">{t('practice.clear')}</span>
           </button>
         </div>
       </div>
