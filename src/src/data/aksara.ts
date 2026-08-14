@@ -76,7 +76,7 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
     label: label ?? entry.id,
     hint: type === 'pasangan' ? `Ikuti bentuk pasangan ${entry.id}` : (HINTS[entry.id] ?? (type === 'sandangan' ? `Tanda baca ${roman ?? entry.id}` : 'Ikuti bentuk huruf')),
     unicode: displayUnicode,
-    contour: entry.contour as unknown as Point[],
+    contour: entry.contour as unknown as Point[][],
     closed: true,
   }
 }

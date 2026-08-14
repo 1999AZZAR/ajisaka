@@ -67,12 +67,14 @@ export default function PracticeCanvas({ glyph, feedback, onStroke, onClear }: P
       // itself to trace over, no exposed boundary.
       if (showGuide) {
         const path = new Path2D()
-        glyph.contour.forEach((p, i) => {
-          const q = map(p)
-          if (i === 0) path.moveTo(q.x, q.y)
-          else path.lineTo(q.x, q.y)
+        glyph.contour.forEach(subpath => {
+          subpath.forEach((p, i) => {
+            const q = map(p)
+            if (i === 0) path.moveTo(q.x, q.y)
+            else path.lineTo(q.x, q.y)
+          })
+          path.closePath()
         })
-        path.closePath()
         ctx.fillStyle = 'rgba(179, 64, 42, 0.22)'
         ctx.fill(path)
       }
