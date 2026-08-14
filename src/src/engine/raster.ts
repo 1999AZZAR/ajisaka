@@ -30,18 +30,21 @@ function resample(points: Point[], step: number, closed: boolean): Point[] {
   return res
 }
 
-function getMeanDist(A: Point[], B: Point[]): number {
-  if (A.length === 0 || B.length === 0) return 1.0
+function getDistStats(A: Point[], B: Point[], maxTol: number): { mean: number, outlierRatio: number } {
+  if (A.length === 0 || B.length === 0) return { mean: 1.0, outlierRatio: 1.0 }
   let total = 0
+  let outliers = 0
   for (const a of A) {
     let minD = Infinity
     for (const b of B) {
       const dSq = (a.x - b.x)**2 + (a.y - b.y)**2
       if (dSq < minD) minD = dSq
     }
-    total += Math.sqrt(minD)
+    const d = Math.sqrt(minD)
+    total += d
+    if (d > maxTol) outliers++
   }
-  return total / A.length
+  return { mean: total / A.length, outlierRatio: outliers / A.length }
 }
 
 function getArea(poly: Point[]): number {
@@ -111,20 +114,23 @@ export function rasterMatch(strokes: Point[][], outline: Point[][]): RasterMatch
           denseUser = denseUser.concat(resample(st, 0.02, false))
         }
 
-        const precisionDist = getMeanDist(denseUser, denseOutline)
-        const recallDist = getMeanDist(denseOutline, denseUser)
+        const strictTol = targetDist * 2.5
+        const precisionStats = getDistStats(denseUser, denseOutline, strictTol)
+        const recallStats = getDistStats(denseOutline, denseUser, strictTol)
 
-        const precisionScore = Math.max(0, 1.0 - (Math.max(0, precisionDist - targetDist) / maxTolerance))
-        const recallScore = Math.max(0, 1.0 - (Math.max(0, recallDist - targetDist) / maxTolerance))
+        const precisionScore = Math.max(0, 1.0 - (Math.max(0, precisionStats.mean - targetDist) / maxTolerance))
+        const recallScore = Math.max(0, 1.0 - (Math.max(0, recallStats.mean - targetDist) / maxTolerance))
+
+        // Strict Outlier Penalty: if more than 15% of the user stroke is way outside the character bounds, kill the score
+        const outlierPenalty = Math.max(0, 1.0 - (precisionStats.outlierRatio / 0.15))
 
         const lengthRatio = expectedLength > 0 ? (userLength / expectedLength) : 1
         let lengthPenalty = 1.0
         if (lengthRatio > 1.5) { 
-          // Stricter length penalty: if user draws 50% more than the expected skeleton length, penalize heavily.
           lengthPenalty = Math.max(0, 1.0 - (lengthRatio - 1.5) * 2)
         }
         
-        const score = recallScore * precisionScore * lengthPenalty
+        const score = recallScore * precisionScore * lengthPenalty * outlierPenalty
         
         if (score > bestScore) bestScore = score
       }

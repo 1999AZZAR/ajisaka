@@ -14,17 +14,12 @@ const thickLine: Point[][] = [[
 
 describe('raster coverage matcher', () => {
   it('passes a drawing that fills the glyph silhouette', () => {
-    // Draw the "skeleton" of the square (a cross in the middle) 
-    // to match expected length rather than tracing the perimeter (which is now penalized as a scribble)
+    // Draw the "skeleton" of the thickLine (a horizontal line in the middle)
     const strokes: Point[][] = [
       [
         { x: 0.2, y: 0.5 },
         { x: 0.8, y: 0.5 },
-      ],
-      [
-        { x: 0.5, y: 0.2 },
-        { x: 0.5, y: 0.8 },
-      ],
+      ]
     ]
     const res = rasterMatch(strokes, thickLine)
     expect(['pass', 'warn']).toContain(res.status)
@@ -48,11 +43,7 @@ describe('raster coverage matcher', () => {
       [
         { x: 0.22, y: 0.52 },
         { x: 0.82, y: 0.52 },
-      ],
-      [
-        { x: 0.52, y: 0.22 },
-        { x: 0.52, y: 0.82 },
-      ],
+      ]
     ]
     const res = rasterMatch(strokes, thickLine)
     expect(res.coverage).toBeGreaterThan(0.3)
