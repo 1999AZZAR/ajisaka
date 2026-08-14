@@ -6,6 +6,7 @@ import Level from './ui/components/Level'
 import Practice from './ui/components/Practice'
 import LevelDone from './ui/components/LevelDone'
 import Settings from './ui/components/Settings'
+import Phase2 from './ui/components/Phase2'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/prolog" element={<Prolog />} />
         <Route path="/level/:level" element={<Level />} />
         <Route path="/level/:level/practice" element={<Practice />} />
+        <Route path="/level/3/phase2" element={<Phase2 />} />
         <Route path="/level/:level/done" element={<LevelDone />} />
         <Route path="*" element={<Home />} />
       </Routes>

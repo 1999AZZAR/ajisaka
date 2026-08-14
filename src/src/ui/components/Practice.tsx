@@ -26,12 +26,20 @@ export default function Practice() {
 
   const levelNum = (level ?? '1') as keyof typeof SETS
   const TYPE_LABEL = { '1': t('practice.base'), '2': t('practice.sandangan'), '3': t('practice.pasangan') } as Record<string, string>
-  const questions = SETS[levelNum] ?? NGGLEGENA
+  
+  // PDF requires 11 questions for Sandangan (Level 2). Since we only have 8, we duplicate the first 3.
+  const rawQuestions = SETS[levelNum] ?? NGGLEGENA
+  const questions = levelNum === '2' ? [...rawQuestions, rawQuestions[0], rawQuestions[1], rawQuestions[2]] : rawQuestions
+  
   const glyph = questions[qIndex % questions.length]
 
   const finish = () => {
-    completeLevel(Number(levelNum), levelNum === '1' ? 'pedang' : levelNum === '2' ? 'perisai' : undefined)
-    navigate(`/level/${levelNum}/done`)
+    if (levelNum === '3') {
+      navigate('/level/3/phase2')
+    } else {
+      completeLevel(Number(levelNum), levelNum === '1' ? 'pedang' : levelNum === '2' ? 'perisai' : undefined)
+      navigate(`/level/${levelNum}/done`)
+    }
   }
 
   const handleNext = () => {
