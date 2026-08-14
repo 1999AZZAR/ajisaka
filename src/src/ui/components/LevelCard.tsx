@@ -15,8 +15,8 @@ export function LevelCard({ level, title, subtitle, icon, reward, rewardIcon = '
   const navigate = useNavigate()
   const completedLevels = useProgress((s) => s.completedLevels)
   const rewards = useProgress((s) => s.rewards)
-  const unlocked = isLevelUnlocked(level, completedLevels)
-  const completed = completedLevels.includes(level)
+  const unlocked = level <= 1 || isLevelUnlocked(level, completedLevels)
+  const completed = level > 0 && completedLevels.includes(level)
   const hasReward = reward ? rewards.includes(reward) : false
 
   const handleClick = () => {
