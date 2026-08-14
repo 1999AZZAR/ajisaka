@@ -230,16 +230,16 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
               <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
-                {EXAMPLES[selected.id]?.jv || selected.unicode}
+                {EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.jv || selected.unicode}
               </span>
             </div>
             
             <div className="flex flex-col gap-1 text-center bg-paper-2 px-6 py-4 rounded-xl border border-border w-full">
               <span className="font-display text-lg text-accent-deep tracking-wide">
-                "{EXAMPLES[selected.id]?.la || selected.id}"
+                "{EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.la || selected.id.replace('.murda', '')}"
               </span>
               <span className="text-sm font-medium text-text-2">
-                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.id]?.en || '...') : (EXAMPLES[selected.id]?.id || '...')}
+                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.en || '...') : (EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.id || '...')}
               </span>
             </div>
 
