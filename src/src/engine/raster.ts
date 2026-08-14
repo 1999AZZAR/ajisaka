@@ -70,7 +70,11 @@ export function rasterMatch(strokes: Point[][], outline: Point[]): RasterMatch {
   
   // Dynamically compute the baseline thickness of the font to adapt to tiny sandangans
   // that are scaled up to a massive [0, 1] blob.
-  const thickness = expectedLength > 0 ? (area / expectedLength) : 0.1
+  // We clamp the thickness to a maximum of 0.15 to prevent corrupt "blob" contours
+  // (like the broken pasangan) from creating massive tolerances that allow scribbling.
+  let thickness = expectedLength > 0 ? (area / expectedLength) : 0.1
+  thickness = Math.min(0.15, thickness)
+  
   const targetDist = Math.max(0.04, thickness / 2)
   const maxTolerance = Math.max(0.07, targetDist * 1.5)
 
@@ -106,8 +110,9 @@ export function rasterMatch(strokes: Point[][], outline: Point[]): RasterMatch {
 
         const lengthRatio = expectedLength > 0 ? (userLength / expectedLength) : 1
         let lengthPenalty = 1.0
-        if (lengthRatio > 2.0) { // Slightly more generous length ratio for small sandangan scribbles
-          lengthPenalty = Math.max(0, 1.0 - (lengthRatio - 2.0))
+        if (lengthRatio > 1.5) { 
+          // Stricter length penalty: if user draws 50% more than the expected skeleton length, penalize heavily.
+          lengthPenalty = Math.max(0, 1.0 - (lengthRatio - 1.5) * 2)
         }
         
         const score = recallScore * precisionScore * lengthPenalty

@@ -3,27 +3,30 @@ import { rasterMatch } from '../raster'
 import { NGGLEGENA, SANDANGAN, PASANGAN } from '../../data/aksara'
 import type { Point } from '../geometry'
 
-// a square glyph silhouette to test coverage semantics
-const square: Point[] = [
-  { x: 0.2, y: 0.2 },
-  { x: 0.8, y: 0.2 },
-  { x: 0.8, y: 0.8 },
-  { x: 0.2, y: 0.8 },
+// a horizontal thick line silhouette to test coverage semantics
+// thickness is 0.1 (y from 0.45 to 0.55), which respects the 0.15 max thickness clamp
+const thickLine: Point[] = [
+  { x: 0.2, y: 0.45 },
+  { x: 0.8, y: 0.45 },
+  { x: 0.8, y: 0.55 },
+  { x: 0.2, y: 0.55 },
 ]
 
 describe('raster coverage matcher', () => {
   it('passes a drawing that fills the glyph silhouette', () => {
+    // Draw the "skeleton" of the square (a cross in the middle) 
+    // to match expected length rather than tracing the perimeter (which is now penalized as a scribble)
     const strokes: Point[][] = [
       [
-        { x: 0.2, y: 0.2 },
-        { x: 0.3, y: 0.2 },
-        { x: 0.8, y: 0.2 },
-        { x: 0.8, y: 0.8 },
-        { x: 0.2, y: 0.8 },
-        { x: 0.2, y: 0.2 },
+        { x: 0.2, y: 0.5 },
+        { x: 0.8, y: 0.5 },
+      ],
+      [
+        { x: 0.5, y: 0.2 },
+        { x: 0.5, y: 0.8 },
       ],
     ]
-    const res = rasterMatch(strokes, square)
+    const res = rasterMatch(strokes, thickLine)
     expect(['pass', 'warn']).toContain(res.status)
     expect(res.coverage).toBeGreaterThan(0.5)
   })
@@ -36,21 +39,22 @@ describe('raster coverage matcher', () => {
         { x: 0.98, y: 0.98 },
       ],
     ]
-    const res = rasterMatch(miss, square)
+    const res = rasterMatch(miss, thickLine)
     expect(res.status).toBe('retry')
   })
 
   it('accepts small offsets via alignment search', () => {
     const strokes: Point[][] = [
       [
-        { x: 0.2, y: 0.18 },
-        { x: 0.82, y: 0.18 },
-        { x: 0.82, y: 0.82 },
-        { x: 0.2, y: 0.82 },
-        { x: 0.2, y: 0.18 },
+        { x: 0.22, y: 0.52 },
+        { x: 0.82, y: 0.52 },
+      ],
+      [
+        { x: 0.52, y: 0.22 },
+        { x: 0.52, y: 0.82 },
       ],
     ]
-    const res = rasterMatch(strokes, square)
+    const res = rasterMatch(strokes, thickLine)
     expect(res.coverage).toBeGreaterThan(0.3)
   })
 })
