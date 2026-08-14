@@ -32,14 +32,21 @@ const KEYBOARD = [
   { id: 'tarung', label: '+o', char: 'ꦺꦴ' },
   { id: 'cecak', label: '+ng', char: 'ꦁ' },
   { id: 'layar', label: '+r', char: 'ꦂ' },
-  { id: 'pangkon', label: 'mati', char: '꧀' }
+  { id: 'pangkon', label: 'mati', char: '꧀' },
+  // Rekan
+  { id: 'kha', label: 'kha', char: 'ꦏ꦳' },
+  { id: 'dza', label: 'dza', char: 'ꦢ꦳' },
+  { id: 'fa', label: 'fa', char: 'ꦥ꦳' },
+  { id: 'za', label: 'za', char: 'ꦗ꦳' },
+  { id: 'gha', label: 'gha', char: 'ꦒ꦳' }
 ]
 
 const NgleGenaToLatin: Record<string, string> = {
   'ꦲ': 'ha', 'ꦤ': 'na', 'ꦕ': 'ca', 'ꦫ': 'ra', 'ꦏ': 'ka',
   'ꦢ': 'da', 'ꦠ': 'ta', 'ꦱ': 'sa', 'ꦮ': 'wa', 'ꦭ': 'la',
   'ꦥ': 'pa', 'ꦝ': 'dha', 'ꦗ': 'ja', 'ꦪ': 'ya', 'ꦚ': 'nya',
-  'ꦩ': 'ma', 'ꦒ': 'ga', 'ꦧ': 'ba', 'ꦛ': 'tha', 'ꦔ': 'nga'
+  'ꦩ': 'ma', 'ꦒ': 'ga', 'ꦧ': 'ba', 'ꦛ': 'tha', 'ꦔ': 'nga',
+  'ꦏ꦳': 'kha', 'ꦢ꦳': 'dza', 'ꦥ꦳': 'fa', 'ꦗ꦳': 'za', 'ꦒ꦳': 'gha'
 };
 
 function transliterate(chars: string[]): string {

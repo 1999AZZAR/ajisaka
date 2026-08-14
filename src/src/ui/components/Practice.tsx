@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import type { Point } from '../../engine/geometry'
-import { NGGLEGENA, SANDANGAN, PASANGAN } from '../../data/aksara'
+import { STARTER_QUESTIONS, SANDANGAN_QUESTIONS, PASANGAN_QUESTIONS } from '../../data/aksara'
 import { useProgress } from '../../state/progress'
 import { rasterMatch } from '../../engine/raster'
 import { fireConfetti } from '../../engine/confetti'
@@ -12,7 +12,7 @@ import SuccessParticles from './SuccessParticles'
 import { useWakeLock } from '../../hooks/useWakeLock'
 import { useTranslation } from 'react-i18next'
 
-const SETS = { '1': NGGLEGENA, '2': SANDANGAN, '3': PASANGAN } as const
+const SETS = { '1': STARTER_QUESTIONS, '2': SANDANGAN_QUESTIONS, '3': PASANGAN_QUESTIONS } as const
 export default function Practice() {
   useWakeLock()
 
@@ -27,8 +27,7 @@ export default function Practice() {
 
   const levelNum = (level ?? '1') as keyof typeof SETS
   const TYPE_LABEL = { '1': t('practice.base'), '2': t('practice.sandangan'), '3': t('practice.pasangan') } as Record<string, string>
-  
-  const questions = SETS[levelNum] ?? NGGLEGENA
+  const questions = SETS[levelNum] ?? STARTER_QUESTIONS
   
   const glyph = questions[qIndex % questions.length]
 
