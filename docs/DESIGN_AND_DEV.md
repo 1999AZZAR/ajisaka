@@ -1,335 +1,325 @@
 # Petualangan Ajisaka — Aplikasi Pembelajaran Menulis Aksara Jawa
 
-**Design & Development Document**
+**Dokumen Desain & Pengembangan**
 
 | | |
 |---|---|
-| **Version** | 0.1 (draft) |
-| **Date** | 2026-08-12 |
-| **Status** | Design document — pre-build |
-| **Delivery target** | Installable Progressive Web App (PWA) |
-| **Source material** | `projek Isif.pdf` — *Naskah Lengkap Aplikasi Petualangan Ajisaka* |
+| **Versi** | 0.1 (draf) |
+| **Tanggal** | 2026-08-12 |
+| **Status** | Dokumen desain — prabangun |
+| **Target rilis** | Installable Progressive Web App (PWA) |
+| **Materi sumber** | `projek Isif.pdf` — *Naskah Lengkap Aplikasi Petualangan Ajisaka* |
 
 ---
 
-## 1. Overview
+## 1. Gambaran Umum
 
-**Petualangan Ajisaka** is a gamified learning application that teaches children to
-read and write **Aksara Jawa** (the Javanese script) through a story-driven
-adventure. The player follows the legendary hero **Ajisaka** across three islands,
-unlocking relics and defeating enemies by completing on-screen handwriting
-practice challenges.
+**Petualangan Ajisaka** adalah aplikasi pembelajaran berbasis gamifikasi yang mengajarkan anak-anak untuk
+membaca dan menulis **Aksara Jawa** melalui petualangan yang didorong oleh cerita. Pemain mengikuti pahlawan legendaris **Ajisaka** melintasi tiga pulau,
+membuka pusaka dan mengalahkan musuh dengan menyelesaikan tantangan latihan menulis di layar.
 
-The app runs entirely inside the browser and is packaged as an installable,
-**offline-capable PWA** so students on low-end tablets and school Chromebooks can
-play without connectivity.
+Aplikasi ini berjalan sepenuhnya di dalam browser dan dikemas sebagai aplikasi yang dapat diinstal,
+**PWA dengan kemampuan luring (offline-capable)** sehingga siswa di tablet berspesifikasi rendah dan Chromebook sekolah dapat
+bermain tanpa koneksi internet.
 
-### 1.1 What the product is
+### 1.1 Apa produk ini
 
-- A *stroke-practice* game: the player literally writes Aksara Jawa with a finger
-  or stylus on a canvas, guided by animated arrow guides (stroke order + direction).
-- A *narrative adventure*: writing missions are framed as story events (unlock a
-  sword seal, answer a village elder's test, battle a giant's envoys).
-- A *progression system*: three levels (Pemula → Mahir → Master), rewards
-  (Pedang Pusaka, Perisai Sakti), followers joining the party (Dora, the local
-  villager), and a final exam + crowned-ending.
+- Permainan *latihan guratan (stroke-practice)*: pemain benar-benar menulis Aksara Jawa dengan jari
+  atau stylus di atas kanvas, dipandu oleh panduan panah animasi (urutan guratan + arah).
+- *Petualangan naratif*: misi menulis dibingkai sebagai peristiwa cerita (membuka segel pedang, menjawab tes tetua desa, bertarung dengan utusan raksasa).
+- *Sistem progresi*: tiga level (Pemula → Mahir → Master), hadiah
+  (Pedang Pusaka, Perisai Sakti), pengikut yang bergabung dengan kelompok (Dora, penduduk desa
+  setempat), dan ujian akhir + penobatan raja.
 
 ---
 
-## 2. Goals & Non-Goals
+## 2. Tujuan & Bukan Tujuan
 
-### 2.1 Goals
+### 2.1 Tujuan
 
-| # | Goal |
+| # | Tujuan |
 |---|------|
-| G1 | Teach correct **stroke order and direction** for Aksara Jawa basics (Nglegena), Sandangan, and Pasangan. |
-| G2 | Keep learners motivated through narrative, rewards, and escalating difficulty. |
-| G3 | Work **offline** and be **installable** on Android tablets, iPads, and desktop browsers (PWA). |
-| G4 | Give immediate, friendly feedback on each stroke (truthy/dirty, live). |
-| G5 | Track progress locally per device (no account required for MVP). |
-| G6 | Provide a complete, reusable dataset of Aksara Jawa strokes and Unicode mappings for future features (transliteration, quizzes). |
+| G1 | Mengajarkan **urutan dan arah guratan** yang benar untuk dasar-dasar Aksara Jawa (Nglegena), Sandangan, dan Pasangan. |
+| G2 | Menjaga motivasi pelajar melalui narasi, hadiah, dan tingkat kesulitan yang meningkat. |
+| G3 | Bekerja secara **luring (offline)** dan dapat **diinstal** di tablet Android, iPad, dan browser desktop (PWA). |
+| G4 | Memberikan umpan balik langsung yang ramah pada setiap guratan (benar/salah, secara langsung). |
+| G5 | Melacak kemajuan secara lokal per perangkat (tidak diperlukan akun untuk MVP). |
+| G6 | Menyediakan kumpulan data yang lengkap dan dapat digunakan kembali mengenai guratan Aksara Jawa dan pemetaan Unicode untuk fitur masa depan (transliterasi, kuis). |
 
-### 2.2 Non-goals (MVP)
+### 2.2 Bukan Tujuan (MVP)
 
-- ✗ Server accounts, cloud sync, or leaderboards (future work).
-- ✗ Freehand recognition beyond the taught question set (no arbitrary text input).
-- ✗ Audio instructions / speech synthesis (future; on-screen text only).
-- ✗ Multi-language UI beyond Indonesian + minimal English (future).
-- ✗ Native app stores (PWA only for now; TWA/APK wrapper considered later).
+- ✗ Akun server, sinkronisasi awan (cloud), atau papan peringkat (pekerjaan masa depan).
+- ✗ Pengenalan tulisan tangan bebas di luar kumpulan soal yang diajarkan (tidak ada input teks sembarang).
+- ✗ Instruksi audio / sintesis ucapan (masa depan; hanya teks di layar).
+- ✗ Antarmuka pengguna (UI) multibahasa di luar bahasa Indonesia + bahasa Inggris minimal (masa depan).
+- ✗ Toko aplikasi asli (PWA saja untuk saat ini; pembungkus TWA/APK dipertimbangkan nanti).
 
 ---
 
-## 3. Target Users & Personas
+## 3. Pengguna Target & Persona
 
-| Persona | Profile | Needs |
+| Persona | Profil | Kebutuhan |
 |---|---|---|
-| **Adi (9 y.o.)** | Primary: elementary student learning Aksara Jawa in class | Playful, guided practice, immediate feedback, feels like a game |
-| **Bu Sari (32 y.o.)** | Teacher | Assignable practice, clear level map, zero-install on classroom tablets |
-| **Pak Damar (40 y.o.)** | Parent helping at home | Simple install, offline, no account, safe kid UI |
+| **Adi (9 tahun)** | Utama: siswa SD yang belajar Aksara Jawa di kelas | Menyenangkan, latihan terpandu, umpan balik langsung, terasa seperti permainan |
+| **Bu Sari (32 tahun)** | Guru | Latihan yang dapat ditugaskan, peta level yang jelas, tanpa instalasi di tablet kelas |
+| **Pak Damar (40 tahun)** | Orang tua yang membantu di rumah | Instalasi sederhana, luring, tanpa akun, antarmuka pengguna aman untuk anak |
 
-**Design consequence:** big touch targets (≥ 48px), high-contrast solid buttons,
-readable Indonesian copy, minimal typing, zero ads, zero tracking.
+**Konsekuensi desain:** target sentuh besar (≥ 48px), tombol padat kontras tinggi,
+teks bahasa Indonesia yang dapat dibaca, pengetikan minimal, tanpa iklan, tanpa pelacakan.
 
 ---
 
-## 4. Narrative & Content Spec (from source PDF)
+## 4. Spesifikasi Narasi & Konten (dari PDF sumber)
 
-### 4.1 High-level arc
+### 4.1 Alur cerita tingkat tinggi
 
 ```
 Petualangan Ajisaka
   ├─ Prolog ─ Mengenal Asal-usul Aksara Jawa (edukasi)
-  ├─ Level 1 ─ Pemula   · Pulau Sanjaya    → Pedang Pusaka    (+ Dora joins)
-  ├─ Level 2 ─ Mahir    · Pulau Adi Jaya   → Perisai Sakti    (+ warga lokal joins)
-  └─ Level 3 ─ Master   · Kerajaan Nusantara (2 fase) → Raksasa Hijau defeated → crowned King
+  ├─ Level 1 ─ Pemula   · Pulau Sanjaya    → Pedang Pusaka    (+ Dora bergabung)
+  ├─ Level 2 ─ Mahir    · Pulau Adi Jaya   → Perisai Sakti    (+ warga lokal bergabung)
+  └─ Level 3 ─ Master   · Kerajaan Nusantara (2 fase) → Raksasa Hijau dikalahkan → dinobatkan sebagai Raja
 ```
 
-### 4.2 Screen / menu breakdown
+### 4.2 Rincian layar / menu
 
-| # | Screen | Content | Writing mechanic |
+| # | Layar | Konten | Mekanik penulisan |
 |---|--------|---------|------------------|
-| 0 | **Halaman Awal (Splash/Home)** | Media title + big **PLAY** button | — |
-| 1 | **Dashboard (Main Menu)** | 5 navigation menus: Prolog, Level 1, Level 2, Level 3, *Kembali ke Rumah* | — |
-| 2 | **Prolog** | Educational page: history & origin of Aksara Jawa | — |
-| 3 | **Level 1 — Pemula** (Pulau Sanjaya) | Sinopsis: unlock seal + take the sword. **Narasi sinopsis tidak diekstrak utuh dari PDF** → open question §20 | Write **Aksara Dasar (Nglegena)** with **arrow stroke-guides** |
-| 4 | **Level 1 End** | Reward: **Pedang Pusaka**; meeting **Dora** joins the party | — |
-| 5 | **Level 2 — Mahir** (Pulau Adi Jaya) | Sinopsis: sail with Dora, find **Perisai Sakti**, a local villager sets a test | **11 soal** (per narrative) of Sandangan writing |
-| 6 | **Level 2 End** | Reward: **Perisai Sakti**; villager joins party; *Next Level* | — |
-| 7 | **Level 3 — Master, Fase 1** (Penghadangan Dua Utusan) | Two Green Giant envoys intercept the ship at sea; defeat them by writing | **20 soal Aksara Pasangan** (stacked consonants: main letter + attached pasangan below/side), full stroke-guide |
-| 8 | **Level 3 — Master, Fase 2** (Penyegelan Raksasa Hijau) | Infiltrate Nusantara Kingdom; free it from the Green Giant | **3 latihan menus × 5 soal = 15 soal**: (1) kalimat dgn Aksara Dasar, (2) kalimat dgn Sandangan, (3) kalimat dgn Pasangan |
-| 9 | **Akhir Cerita** | Happy ending: Green Giant sealed away; player crowned **Raja Kerajaan Nusantara** | — |
+| 0 | **Halaman Awal (Splash/Home)** | Judul media + tombol **MAIN** besar | — |
+| 1 | **Dasbor (Menu Utama)** | 5 menu navigasi: Prolog, Level 1, Level 2, Level 3, *Kembali ke Rumah* | — |
+| 2 | **Prolog** | Halaman edukasi: sejarah & asal-usul Aksara Jawa | — |
+| 3 | **Level 1 — Pemula** (Pulau Sanjaya) | Sinopsis: buka segel + ambil pedang. **Narasi sinopsis tidak diekstrak utuh dari PDF** → pertanyaan terbuka §20 | Tulis **Aksara Dasar (Nglegena)** dengan **panduan guratan panah** |
+| 4 | **Akhir Level 1** | Hadiah: **Pedang Pusaka**; bertemu **Dora** yang bergabung dalam kelompok | — |
+| 5 | **Level 2 — Mahir** (Pulau Adi Jaya) | Sinopsis: berlayar bersama Dora, menemukan **Perisai Sakti**, seorang penduduk desa memberikan ujian | **11 soal** (per narasi) penulisan Sandangan |
+| 6 | **Akhir Level 2** | Hadiah: **Perisai Sakti**; penduduk desa bergabung dalam kelompok; *Level Berikutnya* | — |
+| 7 | **Level 3 — Master, Fase 1** (Penghadangan Dua Utusan) | Dua utusan Raksasa Hijau menghadang kapal di laut; kalahkan mereka dengan menulis | **20 soal Aksara Pasangan** (konsonan bertumpuk: huruf utama + pasangan terlampir di bawah/samping), panduan guratan penuh |
+| 8 | **Level 3 — Master, Fase 2** (Penyegelan Raksasa Hijau) | Menyusup ke Kerajaan Nusantara; bebaskan dari Raksasa Hijau | **3 menu latihan × 5 soal = 15 soal**: (1) kalimat dgn Aksara Dasar, (2) kalimat dgn Sandangan, (3) kalimat dgn Pasangan |
+| 9 | **Akhir Cerita** | Akhir yang bahagia: Raksasa Hijau disegel; pemain dinobatkan sebagai **Raja Kerajaan Nusantara** | — |
 
-### 4.3 Numbers locked from the narrative
+### 4.3 Angka yang dikunci dari narasi
 
-| Item | Count | Source |
+| Item | Jumlah | Sumber |
 |---|---|---|
-| Level 2 writing questions | **11** | "ke-11 soal" |
-| Level 3 Fase 1 questions | **20** (pasangan) | narrative |
-| Level 3 Fase 2 questions | **15** (3 × 5) | narrative |
-| Level 1 question count | *unspecified* | **open question §20** |
+| Soal penulisan Level 2 | **11** | "ke-11 soal" |
+| Soal Level 3 Fase 1 | **20** (pasangan) | narasi |
+| Soal Level 3 Fase 2 | **15** (3 × 5) | narasi |
+| Jumlah soal Level 1 | *tidak ditentukan* | **pertanyaan terbuka §20** |
 
-### 4.4 Content gaps to confirm (from PDF anomalies)
+### 4.4 Kesenjangan konten yang perlu dikonfirmasi (dari anomali PDF)
 
-1. Level 1 synopsis text for Pulau Sanjaya (the "unlock the seal" beat is present,
-   but the full story paragraph was empty in extraction).
-2. Whether Level 1 *requires* Nglegena only, or includes a tutorial sub-mode.
-3. Reward naming convention + visual style (game-asset source or in-app SVG?).
+1. Teks sinopsis Level 1 untuk Pulau Sanjaya (ketukan cerita "membuka segel" ada,
+   tetapi paragraf cerita lengkap kosong dalam ekstraksi).
+2. Apakah Level 1 *mensyaratkan* Nglegena saja, atau termasuk sub-mode tutorial.
+3. Konvensi penamaan hadiah + gaya visual (sumber aset permainan atau SVG dalam aplikasi?).
 
 ---
 
-## 5. Functional Requirements
+## 5. Persyaratan Fungsional
 
-### FR-1 · Home & Navigation
-- **FR-1.1** Home screen shows the media title and a primary **PLAY** button.
-- **FR-1.2** PLAY opens the dashboard; system back or "Kembali ke Rumah" returns home.
-- **FR-1.3** Dashboard always lists `Prolog`, `Level 1`, `Level 2`, `Level 3`, `Kembali ke Rumah`.
-- **FR-1.4** Locked levels are visually locked and show a "complete previous level" hint (do not hard-block navigation; allow reading Prolog anytime).
+### FR-1 · Beranda & Navigasi
+- **FR-1.1** Layar beranda menampilkan judul media dan tombol utama **MAIN**.
+- **FR-1.2** MAIN membuka dasbor; sistem kembali atau "Kembali ke Rumah" kembali ke beranda.
+- **FR-1.3** Dasbor selalu mencantumkan `Prolog`, `Level 1`, `Level 2`, `Level 3`, `Kembali ke Rumah`.
+- **FR-1.4** Level yang terkunci dikunci secara visual dan menampilkan petunjuk "selesaikan level sebelumnya" (jangan memblokir navigasi secara paksa; izinkan membaca Prolog kapan saja).
 
-### FR-2 · Story / Prolog
-- **FR-2.1** Prolog renders the origin story of Aksara Jawa as illustrated scenes.
-- **FR-2.2** Supports tap-to-advance (like a slide deck); skippable with confirmation.
+### FR-2 · Cerita / Prolog
+- **FR-2.1** Prolog menyajikan cerita asal-usul Aksara Jawa sebagai adegan bergambar.
+- **FR-2.2** Mendukung ketuk-untuk-melanjutkan (seperti dek salindia); dapat dilewati dengan konfirmasi.
 
-### FR-3 · Writing Practice (core gameplay)
-- **FR-3.1** Each question shows a reference glyph (rendered with the Javanese font) + its romanization + Indonesian hint.
-- **FR-3.2** A canvas area captures freehand strokes (single touch/stylus; multi-touch disabled).
-- **FR-3.3** Animated **stroke guide**: numbered arrow heads showing direction and order, replayable on demand.
-- **FR-3.4** Live feedback: stroke match indicator (e.g., green = good, amber = acceptable, red = wrong direction/order).
-- **FR-3.5** Between strokes, guide for the next sub-stroke highlights; completed strokes stay visible.
-- **FR-3.6** **Undo / Clear** controls (big, kid-safe).
-- **FR-3.7** After a question completes: celebratory micro-feedback, then auto-advance or "Lanjut".
-- **FR-3.8** A wrong-but-attempted answer can be retried (no fail-state lock on MVP).
+### FR-3 · Latihan Menulis (alur permainan inti)
+- **FR-3.1** Setiap pertanyaan menampilkan mesin terbang (glyph) referensi (disajikan dengan font bahasa Jawa) + romanisasinya + petunjuk bahasa Indonesia.
+- **FR-3.2** Area kanvas menangkap guratan tangan bebas (satu sentuhan/stylus; multi-sentuh dinonaktifkan).
+- **FR-3.3** **Panduan guratan** animasi: ujung panah bernomor yang menunjukkan arah dan urutan, dapat diputar ulang sesuai permintaan.
+- **FR-3.4** Umpan balik langsung: indikator kecocokan guratan (misalnya, hijau = bagus, kuning = dapat diterima, merah = arah/urutan salah).
+- **FR-3.5** Di antara guratan, panduan untuk sub-guratan berikutnya disorot; guratan yang selesai tetap terlihat.
+- **FR-3.6** Kontrol **Undo / Bersihkan** (besar, aman untuk anak).
+- **FR-3.7** Setelah pertanyaan selesai: umpan balik mikro perayaan, lalu maju otomatis atau "Lanjut".
+- **FR-3.8** Jawaban yang salah tetapi telah dicoba dapat diulang (tidak ada kunci status gagal pada MVP).
 
-### FR-4 · Level Flow & Rewards
-- **FR-4.1** Level intro screen = story beat (sinopsis) → practice session → outro beat.
-- **FR-4.2** On completion show reward item + story update (e.g., "Dora bergabung!").
-- **FR-4.3** "Next Level" button unlocks the following level.
-- **FR-4.4** Level 3 has two phases with a phase-transition interstitial.
+### FR-4 · Alur Level & Hadiah
+- **FR-4.1** Layar pengantar level = ketukan cerita (sinopsis) → sesi latihan → ketukan outro.
+- **FR-4.2** Saat selesai tampilkan item hadiah + pembaruan cerita (misalnya, "Dora bergabung!").
+- **FR-4.3** Tombol "Level Berikutnya" membuka level berikutnya.
+- **FR-4.4** Level 3 memiliki dua fase dengan interstisial transisi fase.
 
-### FR-5 · Persistence
-- **FR-5.1** Persist: completed levels, per-question best score, collected rewards, settings.
-- **FR-5.2** Resumable: closing mid-level returns to dashboard with progress intact; continue begins from first unanswered question.
-- **FR-5.3** Storage: local-first (IndexedDB via `localStorage` facade for MVP state; canvas data ephemeral).
+### FR-5 · Persistensi
+- **FR-5.1** Pertahankan: level yang diselesaikan, skor terbaik per pertanyaan, hadiah yang dikumpulkan, pengaturan.
+- **FR-5.2** Dapat dilanjutkan: menutup di pertengahan level akan kembali ke dasbor dengan kemajuan yang utuh; lanjutkan dimulai dari pertanyaan pertama yang belum terjawab.
+- **FR-5.3** Penyimpanan: lokal-pertama (IndexedDB melalui fasad `localStorage` untuk status MVP; data kanvas sesaat).
 
 ### FR-6 · PWA
-- **FR-6.1** Installable (valid manifest + icons + service worker).
-- **FR-6.2** Official **offline-first**: full app shell + asset (fonts, data, icons) precache; no network needed to play.
-- **FR-6.3** Updates: versioned SW with prompt-to-refresh when a new release is cached.
+- **FR-6.1** Dapat diinstal (manifes + ikon + pekerja layanan (service worker) yang valid).
+- **FR-6.2** Resmi **luring-pertama (offline-first)**: aplikasi cangkang (app shell) penuh + pra-tembolok aset (font, data, ikon); tidak diperlukan jaringan untuk bermain.
+- **FR-6.3** Pembaruan: pekerja layanan berversi dengan perintah untuk menyegarkan saat rilis baru ditembolok.
 
 ---
 
-## 6. Information Architecture & Navigation
+## 6. Arsitektur Informasi & Navigasi
 
 ```
-Home (Halaman Awal)
-  │  [PLAY]
+Beranda (Halaman Awal)
+  │  [MAIN]
   ▼
-Dashboard ────────────────► (5 menu)
-  ├── Prolog ─────────────► Story slides ──► back
-  ├── Level 1 (Pemula) ───► [Intro sinopsis] ─► Practice L1 ─► [Reward: Pedang] ─► Next Level
-  ├── Level 2 (Mahir) ────► [Intro sinopsis] ─► Practice L2 (11) ─► [Reward: Perisai] ─► Next Level
-  ├── Level 3 (Master) ───► Fase 1: Practice Pasangan (20) ─► Fase 2: Lat.1 (5) Lat.2 (5) Lat.3 (5) ─► Ending
-  └── Kembali ke Rumah ───► Home
+Dasbor ───────────────────► (5 menu)
+  ├── Prolog ─────────────► Salindia cerita ──► kembali
+  ├── Level 1 (Pemula) ───► [Intro sinopsis] ─► Latihan L1 ─► [Hadiah: Pedang] ─► Level Berikutnya
+  ├── Level 2 (Mahir) ────► [Intro sinopsis] ─► Latihan L2 (11) ─► [Hadiah: Perisai] ─► Level Berikutnya
+  ├── Level 3 (Master) ───► Fase 1: Latihan Pasangan (20) ─► Fase 2: Lat.1 (5) Lat.2 (5) Lat.3 (5) ─► Akhir Cerita
+  └── Kembali ke Rumah ───► Beranda
 ```
 
-### 6.1 Navigational rules
-- Global, persistent **back** affordance on every non-dashboard screen (system back + visible button).
-- Dashboard is the central hub; all level screens return to it.
-- *Next Level* is the only forward gate; it appears only after a level completes.
+### 6.1 Aturan navigasi
+- Fitur global, **kembali** terus-menerus pada setiap layar non-dasbor (kembali dari sistem + tombol yang terlihat).
+- Dasbor adalah hub pusat; semua layar level kembali ke dasbor.
+- *Level Berikutnya* adalah satu-satunya gerbang maju; ini muncul hanya setelah suatu level selesai.
 
 ---
 
-## 7. User Flows
+## 7. Alur Pengguna
 
-### 7.1 First play through Level 1
+### 7.1 Bermain untuk pertama kalinya melalui Level 1
 ```mermaid
 flowchart TD
-  A[Home] -->|PLAY| B[Dashboard]
+  A[Beranda] -->|MAIN| B[Dasbor]
   B -->|Level 1| C["Intro sinopsis: Pulau Sanjaya"]
-  C --> D["Writing practice: Nglegena set"]
-  D -->|question done| D
-  D -->|all done| E["Outro: Pedang Pusaka + Dora joins"]
-  E -->|Next Level| F[Dashboard - Level 2 unlocked]
+  C --> D["Latihan menulis: Set Nglegena"]
+  D -->|pertanyaan selesai| D
+  D -->|semua selesai| E["Outro: Pedang Pusaka + Dora bergabung"]
+  E -->|Level Berikutnya| F[Dasbor - Level 2 terbuka]
 ```
 
-### 7.2 Single-question writing loop
+### 7.2 Lingkaran penulisan pertanyaan tunggal
 ```mermaid
 flowchart TD
-  A[Show glyph + hint] --> B[Replay stroke guide]
-  B --> C[Player traces on canvas]
-  C --> D{Stroke match engine}
-  D -->|pass| E["Stroke locked green - next guide"]
-  D -->|dirty - retry stroke| C
-  E --> F{All sub-strokes done?}
-  F -->|no| B
-  F -->|yes| G["Celebration - record score"]
-  G --> H{More questions?}
-  H -->|yes| A
-  H -->|no| I[Level outro + reward]
+  A[Tampilkan mesin terbang + petunjuk] --> B[Putar ulang panduan guratan]
+  B --> C[Pemain melacak di kanvas]
+  C --> D{Mesin pencocokan guratan}
+  D -->|lulus| E["Guratan terkunci hijau - panduan berikutnya"]
+  D -->|kotor - ulangi guratan| C
+  E --> F{Semua sub-guratan selesai?}
+  F -->|tidak| B
+  F -->|ya| G["Perayaan - rekam skor"]
+  G --> H{Ada pertanyaan lagi?}
+  H -->|ya| A
+  H -->|tidak| I[Outro level + hadiah]
 ```
 
 ---
 
-## 8. Screen Inventory (route map)
+## 8. Inventaris Layar (peta rute)
 
-| Route | Screen | Key UI |
+| Rute | Layar | UI Utama |
 |---|---|---|
-| `/` | Home | Title, PLAY |
-| `/menu` | Dashboard | 5 level cards |
-| `/prolog` | Prolog story | Slides, skip |
-| `/level/1` | L1 flow | Intro / practice / outro |
-| `/level/2` | L2 flow | Intro / practice(11) / outro |
-| `/level/3` | L3 flow | Fase1 practice(20) → Fase2 3×latihan(15) → ending |
-| `/ending` | Happy ending | Crown ceremony |
+| `/` | Beranda | Judul, MAIN |
+| `/menu` | Dasbor | 5 kartu level |
+| `/prolog` | Cerita prolog | Salindia, lewati |
+| `/level/1` | Alur L1 | Intro / latihan / outro |
+| `/level/2` | Alur L2 | Intro / latihan(11) / outro |
+| `/level/3` | Alur L3 | Latihan Fase1(20) → Fase2 3×latihan(15) → akhir cerita |
+| `/ending` | Akhir bahagia | Upacara penobatan |
 
-(Routes are client-side only; PWA serves the app shell for every path → use hash router or SW navigation fallback to `/`.)
+(Rute hanya sisi klien; PWA menyajikan aplikasi cangkang untuk setiap jalur → gunakan perute hash (hash router) atau perutean pekerja layanan (SW) kembali ke `/`.)
 
 ---
 
-## 9. Design System
+## 9. Sistem Desain
 
-### 9.1 Design language
-Three layers (per product guardrails):
+### 9.1 Bahasa desain
+Tiga lapisan (per pagar pembatas produk):
 
-1. **Material You** — interaction model: adaptive touch surfaces, tonal surfaces,
-   dynamic elevation, large padded buttons, rounded corners.
-2. **Minimalism** — layout discipline: generous whitespace, clear hierarchy,
-   one primary action per screen, reduced visual noise so a 9-year-old isn't overwhelmed.
-3. **Glassmorphism** — only as an *accent* on story/interstitial screens (frosted
-   panels over illustrated backgrounds); not on gameplay surfaces (sketch canvases
-   must stay glare-free for writing).
+1. **Material You** — model interaksi: permukaan sentuh adaptif, permukaan tonal,
+   elevasi dinamis, tombol berbantalan besar, sudut membulat.
+2. **Minimalisme** — disiplin tata letak: ruang putih yang luas, hierarki yang jelas,
+   satu tindakan utama per layar, mengurangi kebisingan visual sehingga anak berusia 9 tahun tidak kewalahan.
+3. **Glassmorfisme** — hanya sebagai *aksen* pada layar cerita/interstisial (panel buram di atas latar belakang bergambar); bukan pada permukaan permainan (kanvas sketsa harus tetap bebas silau untuk menulis).
 
-Genre: **playful** (post-Linear soft school: consumer, casual, children). Warm,
-pastel-dominant palette with deep "keraton" accents. Illustrations are the brand:
-hand-drawn Ajisaka line-art silhouettes (simple SVG), not photos.
+Genre: **menyenangkan** (post-Linear soft school: konsumen, kasual, anak-anak). Hangat, palet dominan pastel dengan aksen "keraton" yang dalam. Ilustrasi adalah mereknya: siluet seni garis Ajisaka yang digambar tangan (SVG sederhana), bukan foto.
 
-### 9.2 Palette (Keraton theme)
+### 9.2 Palet (Tema Keraton)
 
-Derived from the playful **Carnival** token system, re-hued toward Javanese
-heritage colors (keraton indigo/red-gold + batik neutrals), pastel-first.
+Berasal dari sistem token **Karnaval (Carnival)** yang menyenangkan, diwarnai ulang ke arah
+warna warisan Jawa (keraton nila/merah-emas + netral batik), yang mengutamakan pastel.
 
-| Token | Value (OKLCH) | Use |
+| Token | Nilai (OKLCH) | Penggunaan |
 |---|---|---|
-| `--color-paper` | `oklch(97% 0.012 78)` | App background (batik cream) |
-| `--color-paper-2` | `oklch(92% 0.03 78)` | Card surfaces |
-| `--color-paper-3` | `oklch(84% 0.05 55)` | Hover/interactive surface |
-| `--color-text` | `oklch(34% 0.04 262)` | Primary text (deep indigo-black) |
-| `--color-text-2` | `oklch(52% 0.03 262)` | Muted text |
-| `--color-accent` | `oklch(58% 0.14 25)` | Primary action (keraton red / terracotta) |
-| `--color-accent-2` | `oklch(70% 0.13 80)` | Success / gold (pedang & perisai rewards) |
-| `--color-warn` | `oklch(66% 0.14 60)` | Warning / retry stroke |
-| `--color-error` | `oklch(52% 0.16 27)` | Error / wrong stroke |
-| `--color-border` | `oklch(86% 0.025 78)` | Dividers |
-| `--color-focus` | `oklch(60% 0.16 262)` | `:focus-visible` ring (indigo) |
-| `--color-glass` | `oklch(100% 0 0 / 0.55)` | Frosted overlay fill |
+| `--color-paper` | `oklch(97% 0.012 78)` | Latar belakang aplikasi (krem batik) |
+| `--color-paper-2` | `oklch(92% 0.03 78)` | Permukaan kartu |
+| `--color-paper-3` | `oklch(84% 0.05 55)` | Melayang/permukaan interaktif |
+| `--color-text` | `oklch(34% 0.04 262)` | Teks utama (hitam-nila pekat) |
+| `--color-text-2` | `oklch(52% 0.03 262)` | Teks diredam |
+| `--color-accent` | `oklch(58% 0.14 25)` | Tindakan utama (merah keraton / terakota) |
+| `--color-accent-2` | `oklch(70% 0.13 80)` | Sukses / emas (hadiah pedang & perisai) |
+| `--color-warn` | `oklch(66% 0.14 60)` | Peringatan / ulangi guratan |
+| `--color-error` | `oklch(52% 0.16 27)` | Kesalahan / arah guratan salah |
+| `--color-border` | `oklch(86% 0.025 78)` | Pembatas |
+| `--color-focus` | `oklch(60% 0.16 262)` | Cincin `:focus-visible` (nila) |
+| `--color-glass` | `oklch(100% 0 0 / 0.55)` | Isi hamparan buram |
 
-Dark mode: derived automatically by inverting paper band (keep for classroom)
-via `@media (prefers-color-scheme: dark)` + `[data-theme=dark]`.
+Mode gelap: diturunkan secara otomatis dengan membalikkan pita kertas (simpan untuk kelas)
+melalui `@media (prefers-color-scheme: dark)` + `[data-theme=dark]`.
 
-### 9.3 Typography
+### 9.3 Tipografi
 
-| Role | Token | Stack |
+| Peran | Token | Tumpukan (Stack) |
 |---|---|---|
-| Display / game titles | `--font-display` | `'Fredoka One', 'Baloo 2', system-ui, sans-serif` (rounded, kid-friendly) |
-| Body / copy | `--font-body` | `'Nunito', system-ui, sans-serif` |
-| Code / glyph data labels | `--font-mono` | `'JetBrains Mono', monospace` |
+| Tampilan / judul permainan | `--font-display` | `'Fredoka One', 'Baloo 2', system-ui, sans-serif` (membulat, ramah anak) |
+| Tubuh / salinan | `--font-body` | `'Nunito', system-ui, sans-serif` |
+| Kode / label data mesin terbang | `--font-mono` | `'JetBrains Mono', monospace` |
 
-**Scale** (from token system): display `clamp(2.5rem,6vw,4.5rem)`, display-s
-`clamp(2rem,4vw,3rem)`, 2xl `1.75rem`, xl `1.25rem`, lg `1.125rem`, base `1rem`,
+**Skala** (dari sistem token): tampilan `clamp(2.5rem,6vw,4.5rem)`, tampilan-s
+`clamp(2rem,4vw,3rem)`, 2xl `1.75rem`, xl `1.25rem`, lg `1.125rem`, dasar `1rem`,
 sm `0.875rem`, xs `0.75rem`.
 
-**Rules:** headings always roman (no italic headings); italics only inside body
-copy for emphasis. Indonesian copy throughout; keep sentences short (≤ 12 words).
+**Aturan:** judul selalu roman (tidak ada judul miring); huruf miring hanya digunakan di dalam salinan teks untuk penekanan. Salinan bahasa Indonesia secara menyeluruh; pertahankan kalimat-kalimat pendek (≤ 12 kata).
 
-**Javanese glyph font:** self-hosted **Noto Sans Javanese** (Unicode block
-U+A980–U+A9DF) for rendering reference glyphs. Fallback font-stack on canvas:
-`'Noto Sans Javanese', sans-serif`. (Earliest glyph loads are precached by the SW.)
+**Font mesin terbang (glyph) bahasa Jawa:** dihosting mandiri (self-hosted) **Noto Sans Javanese** (Blok Unicode U+A980–U+A9DF) untuk merender mesin terbang referensi. Tumpukan font cadangan pada kanvas:
+`'Noto Sans Javanese', sans-serif`. (Pemuatan mesin terbang paling awal dipra-tembolok oleh SW.)
 
-**Regional Stylistic Differences (Gagrak Surakarta vs Yogyakarta):**
-The application strictly uses pure **Noto Sans Javanese**, which is based on the **Gagrak Surakarta** style convention. Clients and users may notice that certain characters—specifically **ra (ꦫ)**, **da (ꦢ)**, and **dha (ꦝ)**—have slightly different shapes compared to standard school textbooks, which often use the **Gagrak Yogyakarta** style.
+**Perbedaan Gaya Regional (Gagrak Surakarta vs Yogyakarta):**
+Aplikasi ini secara ketat menggunakan **Noto Sans Javanese** murni, yang didasarkan pada konvensi gaya **Gagrak Surakarta**. Klien dan pengguna mungkin memperhatikan bahwa karakter tertentu—khususnya **ra (ꦫ)**, **da (ꦢ)**, dan **dha (ꦝ)**—memiliki bentuk yang sedikit berbeda dibandingkan dengan buku teks sekolah standar, yang sering kali menggunakan gaya **Gagrak Yogyakarta**.
 
-- **Why this happens (The Technical Constraint):** Javanese is a highly complex script. When a user types a base letter and adds a vowel mark (like *suku* or *wulu*), the font doesn't just place them next to each other. Instead, the font engine uses complex built-in rules (called GSUB or Glyph Substitution) to magically swap both pieces into a brand-new, beautifully drawn combined shape (a ligature). 
-- **The Design Decision:** If we tried to surgically swap just the base `ra`, `da`, or `dha` shapes to look like the textbook versions, those complex combination rules would instantly break. When a user tried to type, the letters would either disconnect, overlap incorrectly, or unexpectedly revert to the old shapes. 
-- **Business Rationale:** Rebuilding a custom Javanese font with thousands of new GSUB ligature rules for the Yogyakarta style is a massive, highly specialized typographic engineering effort that is out of scope for this project. Therefore, we deliberately chose to use the robust, industry-standard Noto Sans font. This guarantees that typing, rendering, and gameplay are 100% bug-free and functional, with the accepted trade-off of using the Surakarta regional style.
+- **Mengapa ini terjadi (Kendala Teknis):** Aksara Jawa adalah naskah yang sangat kompleks. Ketika seorang pengguna mengetik huruf dasar dan menambahkan tanda vokal (seperti *suku* atau *wulu*), font tersebut tidak hanya menempatkannya berdampingan. Sebaliknya, mesin font menggunakan aturan bawaan yang kompleks (disebut GSUB atau Substitusi Glyph) untuk secara ajaib menukar kedua bagian menjadi bentuk gabungan baru yang digambar dengan indah (ligatur).
+- **Keputusan Desain:** Jika kami mencoba menukar dengan teliti bentuk `ra`, `da`, atau `dha` dasar saja agar terlihat seperti versi buku teks, aturan kombinasi kompleks tersebut akan langsung rusak. Ketika pengguna mencoba mengetik, huruf-hurufnya akan terputus, tumpang tindih secara tidak benar, atau tiba-tiba kembali ke bentuk lama.
+- **Alasan Bisnis:** Membangun ulang font Aksara Jawa khusus dengan ribuan aturan ligatur GSUB baru untuk gaya Yogyakarta adalah upaya rekayasa tipografi yang sangat besar, sangat terspesialisasi, yang berada di luar cakupan proyek ini. Oleh karena itu, kami dengan sengaja memilih untuk menggunakan font Noto Sans yang kuat dan berstandar industri. Hal ini menjamin bahwa pengetikan, rendering, dan alur permainan 100% bebas dari kesalahan dan fungsional, dengan pertukaran (trade-off) yang dapat diterima dalam penggunaan gaya regional Surakarta.
 
-### 9.4 Spacing, radius, elevation
+### 9.4 Spasi, radius, elevasi
 
-- Spacing: 4px base scale (xs 4, sm 8, md 12, lg 16, xl 24, 2xl 32, 3xl 48 …).
-- Radius: sm 4 / md 8 / lg 16 — reuse, never invent.
-- Elevation: Material tonal elevation — cards = paper-2 on paper; modals use
-  `box-shadow` with glass blur (story interstitials only).
-- Touch targets: **min 48×48px**, interactive gap ≥ 8px.
+- Spasi: skala dasar 4px (xs 4, sm 8, md 12, lg 16, xl 24, 2xl 32, 3xl 48 …).
+- Radius: sm 4 / md 8 / lg 16 — gunakan kembali, jangan pernah menciptakan.
+- Elevasi: Elevasi tonal Material — kartu = paper-2 pada paper; modal menggunakan
+  `box-shadow` dengan kaca buram (hanya interstisial cerita).
+- Target sentuh: **minimal 48×48px**, celah interaktif ≥ 8px.
 
-### 9.5 Motion
+### 9.5 Gerakan (Motion)
 
-- Durations: fast 150ms (hover/micro), base 250ms, slow 400ms (screen transitions).
-- Easings: `cubic-bezier(0.16,1,0.3,1)` enter / `cubic-bezier(0.4,0,0.68,0.06)` exit.
-- All entrance/stagger/counter/loader animation through **anime.js v4** snippets,
-  each guarded by `prefers-reduced-motion`.
-- Story slides: crossfade + slight scale; gameplay feedback: quick spring on stroke-lock.
-- **Game feel:** confetti-ish particle burst on question completion and at level
-  rewards (Web Canvas, keep under 60 particles).
+- Durasi: cepat 150ms (melayang/mikro), dasar 250ms, lambat 400ms (transisi layar).
+- Pelonggaran (Easings): `cubic-bezier(0.16,1,0.3,1)` masuk / `cubic-bezier(0.4,0,0.68,0.06)` keluar.
+- Semua animasi masuk/goyangan/penghitung/pemuat melalui cuplikan **anime.js v4**,
+  masing-masing dijaga oleh `prefers-reduced-motion`.
+- Salindia cerita: transisi pudar menyilang (crossfade) + sedikit skala; umpan balik alur permainan: pegas cepat pada penguncian guratan.
+- **Rasa permainan:** ledakan partikel seperti konfeti pada penyelesaian pertanyaan dan di hadiah level (Kanvas Web, pertahankan di bawah 60 partikel).
 
-### 9.6 Iconography
+### 9.6 Ikonografi
 
-Font Awesome (free) per defaults; considered alternatives: Material Symbols,
-Lucide. Use spellings/visuals a child recognizes (shield, sword, home, arrow,
-question, star). All icon buttons carry `aria-label`.
+Font Awesome (gratis) menurut standar; alternatif yang dipertimbangkan: Material Symbols,
+Lucide. Gunakan ejaan/visual yang dikenali anak-anak (perisai, pedang, rumah, panah,
+pertanyaan, bintang). Semua tombol ikon membawa `aria-label`.
 
-### 9.7 Components (8-state discipline)
+### 9.7 Komponen (disiplin 8 status)
 
-| Component | States to style |
+| Komponen | Status ke gaya |
 |---|---|
-| `Button` (primary/ghost/danger) | default, hover, focus-visible, active, disabled, loading, error, success |
+| `Button` (primer/hantu/bahaya) | default, hover, focus-visible, active, disabled, loading, error, success |
 | `LevelCard` | default, hover, focus, active, locked, completed, current, disabled |
 | `PracticeCanvas` | idle, guiding, drawing, stroke-locked, feedback(ok/warn/error), cleared |
-| `IconButton` (back/undo/clear/replay) | all 8 states |
-| `Modal` (congrats, reset, update) | open/close anim + focus trap |
+| `IconButton` (kembali/undo/clear/replay) | semua 8 status |
+| `Modal` (selamat, reset, perbarui) | buka/tutup animasi + jebakan fokus |
 
 ---
 
-## 10. Domain Model & Data
+## 10. Model & Data Domain
 
-### 10.1 Aksara dataset (`src/data/aksara.ts`)
+### 10.1 Dataset Aksara (`src/data/aksara.ts`)
 
 ```ts
 type AksaraType = 'nglegena' | 'sandangan' | 'pasangan';
@@ -337,22 +327,22 @@ type AksaraType = 'nglegena' | 'sandangan' | 'pasangan';
 interface AksaraGlyph {
   id: string;                    // "ha", "na", "ca" ...
   type: AksaraType;
-  label: string;                 // romanization
-  hintID: string;                // Indonesian hint translation key
-  unicode: string;               // e.g. "\uA98F" (ha)
-  unicodePasangan?: string;      // pasangan glyph codepoint where applicable
-  /** Normalized vector strokes, in units of the write-box (0..1). */
-  strokes: Stroke[];             // ordered! = stroke-order/isomorphism
-  sound?: string;                // phoneme for future TTS
+  label: string;                 // romanisasi
+  hintID: string;                // kunci terjemahan petunjuk bahasa Indonesia
+  unicode: string;               // mis. "\uA98F" (ha)
+  unicodePasangan?: string;      // titik kode mesin terbang pasangan jika berlaku
+  /** Guratan vektor yang dinormalisasi, dalam satuan kotak tulis (0..1). */
+  strokes: Stroke[];             // diurutkan! = urutan-guratan/isomorfisme
+  sound?: string;                // fonem untuk TTS di masa depan
 }
 
 interface Stroke {
-  points: Array<{ x: number; y: number }>;  // polyline, 0..1 box coords
-  tolerance: number;                         // per-stroke looseness (default 0.12)
+  points: Array<{ x: number; y: number }>;  // polyline, koordinat kotak 0..1
+  tolerance: number;                         // kelonggaran per guratan (standar 0.12)
 }
 ```
 
-### 10.2 Level config
+### 10.2 Konfigurasi level
 
 ```ts
 interface LevelConfig {
@@ -367,127 +357,123 @@ interface Question {
   id: string;
   glyphId: string;        // → AksaraGlyph
   prompt: string;         // "Tulis aksara: HA (dasar)"
-  sentence?: string;      // full Javanese sentence for Fase-2 questions
+  sentence?: string;      // kalimat bahasa Jawa lengkap untuk soal Fase-2
 }
 ```
 
-### 10.3 Seed content (proposed; volumes = open questions)
+### 10.3 Konten benih (diusulkan; volume = pertanyaan terbuka)
 
-| Set | Type | Count |
+| Set | Tipe | Jumlah |
 |---|---|---|
-| Nglegena (dasar) | 20 + optional variants | used in L1, L3-Fase2 menu 1 |
-| Sandangan | 8 core (a→i,u,e,o, taling/tarung, pepet, cecak, etc.) | L2 (11 soal incl. combos), L3-F2 menu 2 |
-| Pasangan | pair of main + pasangan glyph | L3-F1 (20 soal), L3-F2 menu 3 |
+| Nglegena (dasar) | 20 + varian opsional | digunakan di L1, L3-Fase2 menu 1 |
+| Sandangan | 8 inti (a→i,u,e,o, taling/tarung, pepet, cecak, dll.) | L2 (11 soal termasuk kombo), L3-F2 menu 2 |
+| Pasangan | pasangan huruf utama + mesin terbang pasangan | L3-F1 (20 soal), L3-F2 menu 3 |
 
-Final counts per level confirmed in §4.3; question contents (which glyphs) are a
-**curriculum decision** — propose defaults §20.
+Jumlah akhir per level dikonfirmasi di §4.3; isi pertanyaan (mesin terbang mana) adalah sebuah **keputusan kurikulum** — usulkan standar §20.
 
 ---
 
-## 11. Stroke Engine Design (core challenge)
+## 11. Desain Mesin Guratan (tantangan inti)
 
-### 11.1 Capture
-- `<canvas>` full viewport of the write-box; **Pointer Events** (`pointerdown/move/up`)
-  unified for touch + stylus + mouse; `touch-action: none` to stop scrolling.
-- Points downsampled (≥ 10px spacing) and normalized into the 0..1 write-box.
-- HiDPI: canvas sized to `devicePixelRatio`, CSS box fixed.
+### 11.1 Pengambilan gambar (Capture)
+- `<canvas>` area pandang (viewport) penuh dari kotak tulis; **Pointer Events** (`pointerdown/move/up`) disatukan untuk sentuhan + stylus + mouse; `touch-action: none` untuk menghentikan pengguliran.
+- Titik-titik diturunkan sampelnya (spasi ≥ 10px) dan dinormalisasi ke dalam kotak tulis 0..1.
+- HiDPI: ukuran kanvas ke `devicePixelRatio`, kotak CSS ditetapkan.
 
-### 11.2 Stroke-guide rendering
-- Draw each reference `Stroke` polyline as faint target guide.
-- Animated progress along the path = the classic "arrow head" tracer (anime.js or
-  requestAnimationFrame), replayable via **Replay** button.
-- Next expected sub-stroke highlighted; completed strokes rendered solid + check.
+### 11.2 Rendering panduan guratan
+- Gambar setiap referensi polyline `Stroke` sebagai panduan target samar.
+- Kemajuan animasi di sepanjang jalur = pelacak "kepala panah" klasik (anime.js atau `requestAnimationFrame`), dapat diputar ulang melalui tombol **Putar Ulang (Replay)**.
+- Panduan sub-guratan berikutnya yang diharapkan disorot; guratan yang selesai digambar padat + tanda centang.
 
-### 11.3 Online matching (offline, deterministic, fast)
-Approach to keep 0 weight and run on-device:
-1. **Normalize** the input stroke (resample to N=32 points, scale to 0..1, translate
-   to center, keep proportional aspect).
-2. **Direction signature:** per-segment angle buckets (e.g., 8 bins).
-3. **Raster Coverage** (Geometric Outline Matcher) distance to the reference normalized stroke (proxy: resampled dense polylines calculating intersection over expected perimeter area).
-4. **Order = truth:** strokes must be completed in the reference order; a reversal
-   triggers the "wrong direction" feedback even if the shape matches.
-5. Score → `pass / warn / retry` via per-stroke tolerance.
+### 11.3 Pencocokan online (luring, deterministik, cepat)
+Pendekatan untuk mempertahankan bobot 0 dan berjalan di perangkat:
+1. **Normalisasikan** masukan guratan (sampel ulang ke N=32 titik, skalakan ke 0..1, terjemahkan
+   ke tengah, jaga aspek proporsional).
+2. **Tanda arah:** keranjang sudut per segmen (misalnya, 8 keranjang).
+3. **Cakupan Raster** Jarak (Pencocok Garis Besar Geometris) ke guratan rujukan yang dinormalisasi (proksi: polylines padat yang disampel ulang menghitung perpotongan terhadap area perimeter yang diharapkan).
+4. **Urutan = kebenaran:** guratan harus diselesaikan dalam urutan rujukan; pembalikan
+   memicu umpan balik "arah salah" meskipun bentuknya cocok.
+5. Skor → `lulus / peringatan / ulangi` melalui toleransi per-guratan.
 
-Optional future upgrade: a tiny **ONNX/TFLite** model (`12 class output`,
-< 500 KB) trained on augmentations of the 32 reference glyphs, run via
-`@xenova/transformers` or plain TensorFlow.js — swapped behind the same
-`StrokeMatcher` interface. **Not in MVP.**
+Peningkatan kemampuan opsional di masa depan: model **ONNX/TFLite** mungil (`12 class output`,
+< 500 KB) dilatih pada augmentasi dari 32 mesin terbang referensi, berjalan melalui
+`@xenova/transformers` atau TensorFlow.js polos — ditukar di balik antarmuka `StrokeMatcher`
+yang sama. **Bukan dalam MVP.**
 
-### 11.4 Feedback mapping
-| Signal | Meaning | Color |
+### 11.4 Pemetaan umpan balik
+| Sinyal | Arti | Warna |
 |---|---|---|
-| pass | stroke matched shape+order | green (`accent-2`) |
-| warn | shape ok, slight drift | gold (`warn`) |
-| retry | wrong direction / order | red (`error`) |
+| lulus (pass) | guratan sesuai bentuk+urutan | hijau (`accent-2`) |
+| peringatan (warn) | bentuk oke, sedikit bergeser | emas (`warn`) |
+| ulangi (retry) | arah / urutan salah | merah (`error`) |
 
 ---
 
-## 12. PWA & Architecture
+## 12. PWA & Arsitektur
 
-### 12.1 Recommended stack
+### 12.1 Tumpukan (Stack) yang direkomendasikan
 
-| Concern | Choice |
+| Perhatian | Pilihan |
 |---|---|
-| Language | **TypeScript (strict)** |
-| Build | **Vite** |
-| UI framework | **React 18** (or Svelte if a lighter runtime is preferred — see §20) |
-| Styling | **Tailwind CSS v4** with CSS custom-property tokens (OKLCH) |
-| State | Zustand with `persist` middleware (localStorage) |
-| Routing | `react-router` + **hash routing** (offline-friendly, no server rewrites needed) |
-| PWA | `vite-plugin-pwa` (Workbox): manifest + SW precache + offline fallback |
-| Canvas/game | Native Canvas 2D + anime.js v4 (motion) |
-| Icons | Font Awesome (free) |
-| Data-local | JSON/TS dataset (§10) + `localStorage` for progress |
-| Tests | Vitest + Testing Library; Playwright (E2E, offline simulate) |
-| Lint/format | ESLint (flat) + Prettier (matches existing `.pre-commit-config.yaml`) |
-| Icons/app assets | inline SVG (kirik) so SW precache stays small |
+| Bahasa | **TypeScript (strict)** |
+| Pembuatan (Build) | **Vite** |
+| Kerangka UI | **React 18** (atau Svelte jika runtime yang lebih ringan lebih disukai — lihat §20) |
+| Gaya (Styling) | **Tailwind CSS v4** dengan token kustom-properti CSS (OKLCH) |
+| Keadaan (State) | Zustand dengan perangkat tengah (middleware) `persist` (localStorage) |
+| Perutean (Routing) | `react-router` + **perutean hash** (ramah luring, tidak diperlukan penulisan ulang server) |
+| PWA | `vite-plugin-pwa` (Workbox): manifes + pra-tembolok SW + cadangan luring |
+| Kanvas/permainan | Native Canvas 2D + anime.js v4 (gerakan) |
+| Ikon | Font Awesome (gratis) |
+| Data lokal | Dataset JSON/TS (§10) + `localStorage` untuk kemajuan |
+| Pengujian | Vitest + Testing Library; Playwright (E2E, simulasi luring) |
+| Lint/format | ESLint (flat) + Prettier (cocok dengan `.pre-commit-config.yaml` yang ada) |
+| Ikon/aset aplikasi | inline SVG (kirik) agar pra-tembolok SW tetap kecil |
 
-### 12.2 Layered architecture
+### 12.2 Arsitektur berlapis
 
 ```
 ┌───────────────────────────────────────────────┐
-│ UI Layer        React components, routes,      │
-│                 screens, story slides          │
+│ Lapisan UI      Komponen React, rute,         │
+│                 layar, salindia cerita        │
 ├───────────────────────────────────────────────┤
-│ Application     LevelFSM, Question session,    │
-│                 progress store, reward logic   │
+│ Aplikasi        LevelFSM, Sesi pertanyaan,    │
+│                 toko kemajuan, logika hadiah  │
 ├───────────────────────────────────────────────┤
-│ Domain          aksara.ts dataset, Stroke      │
-│                 matcher interface, scoring     │
+│ Domain          dataset aksara.ts, Antarmuka  │
+│                 pencocok Stroke, penilaian    │
 ├───────────────────────────────────────────────┤
-│ Infrastructure  CanvasEngine (capture+guide), │
-│                 Raster Coverage, Zustand persist,│
-│                 PWA/SW, audio (gamelan blips)  │
+│ Infrastruktur   CanvasEngine (tangkapan+paduan),│
+│                 Cakupan Raster, Zustand persis, │
+│                 PWA/SW, audio (bunyi gamelan) │
 └───────────────────────────────────────────────┘
 ```
 
-### 12.3 State model (Zustand `useProgress`)
+### 12.3 Model Status (Zustand `useProgress`)
 
 ```ts
 interface ProgressState {
   completedLevels: number[];        // [1,2,3]
   rewards: string[];                // ['pedang','perisai']
-  bestByQuestion: Record<string, number>; // questionId -> percent score
-  currentLevel?: number;            // resume point
-  unfinished: string[];             // unresolved question ids in current level
+  bestByQuestion: Record<string, number>; // questionId -> skor persen
+  currentLevel?: number;            // titik lanjutan
+  unfinished: string[];             // ID pertanyaan yang belum terselesaikan di level saat ini
   settings: { sound: boolean; dark: boolean };
 }
 ```
 
-### 12.4 Offline & SW strategy
+### 12.4 Strategi Luring & SW
 
-- **Precache (build-time, hashed):** HTML shell, JS/CSS chunks, Javanese font
-  (woff2), dataset, inline SVG icons — the entire app works with network off.
-- **Runtime cache:** none required for MVP (all local); precache covers everything.
-- **Update flow:** `registerSW` + prompt-to-refresh banner when `updatedready`.
-- **No backend:** zero API calls; CSP tightened; no analytics.
-- Manifest: name "Petualangan Ajisaka", `display: standalone`,
-  `orientation: portrait` (writing optimised), theme color = `--color-paper`,
-  icon set incl. `512px` maskable.
+- **Pra-tembolok (build-time, hash):** shell HTML, potongan JS/CSS, font Jawa (woff2),
+  dataset, ikon SVG inline — seluruh aplikasi berfungsi tanpa jaringan.
+- **Tembolok Runtime:** tidak diperlukan untuk MVP (semua lokal); pra-tembolok mencakup semuanya.
+- **Alur pembaruan:** `registerSW` + spanduk dorongan untuk menyegarkan saat `updatedready`.
+- **Tanpa backend:** nol panggilan API; CSP diperketat; tanpa analitik.
+- Manifes: nama "Petualangan Ajisaka", `display: standalone`, `orientation: portrait` (dioptimalkan
+  untuk penulisan), warna tema = `--color-paper`, set ikon termasuk maskable `512px`.
 
 ---
 
-## 13. Proposed Project Structure
+## 13. Struktur Proyek yang Diusulkan
 
 ```
 javanese_learning_app/
@@ -511,96 +497,96 @@ javanese_learning_app/
 
 ---
 
-## 14. Testing Strategy
+## 14. Strategi Pengujian
 
-- **Unit:** `dtw.ts` (match/fail cases), `normalize.ts`, progress-store transitions,
-  question scoring, level-unlock gating.
-- **Component:** practice screen states (empty/guiding/warn/error/success), canvas
-  button labels, modal focus trap.
-- **E2E (Playwright):** flow Home→L1 completed→L2 unlocked; reload mid-level resumes;
-  **offline emulation** verifies full playthrough with no network.
-- **Manual device matrix:** iPad, Android tablet (Chrome), desktop (portrait mobile view).
-- **A11y:** axe-core scan in CI.
-- Pre-commit (existing hooks) keep running; add `eslint`/`prettier`/`tsc --noEmit` there.
+- **Unit:** `dtw.ts` (kasus cocok/gagal), `normalize.ts`, transisi toko kemajuan,
+  penilaian pertanyaan, gerbang pembukaan level.
+- **Komponen:** status layar latihan (kosong/panduan/peringatan/kesalahan/sukses), label tombol kanvas,
+  jebakan fokus modal.
+- **E2E (Playwright):** alur Beranda→L1 selesai→L2 terbuka; muat ulang di pertengahan level dilanjutkan;
+  **simulasi luring** memverifikasi pemutaran penuh tanpa jaringan.
+- **Matriks perangkat manual:** iPad, tablet Android (Chrome), desktop (tampilan seluler potret).
+- **A11y:** pemindaian axe-core di CI.
+- Pra-komit (hook yang ada) tetap berjalan; tambahkan `eslint`/`prettier`/`tsc --noEmit` di sana.
 
 ---
 
-## 15. Performance Budget (offline-first)
+## 15. Anggaran Kinerja (luring-pertama)
 
-| Metric | Budget |
+| Metrik | Anggaran |
 |---|---|
-| First load (offline cache hit) | ≤ 1.5 MB JS + assets; font ≤ 600 KB woff2 |
-| TTI on mid-range tablet | ≤ 3 s |
-| SW precache total | ≤ 4–5 MB |
-| Canvas frame during tracing | 60 fps |
-| Recognition latency | < 50 ms (Raster Coverage on 0.02 step resample) |
+| Beban pertama (hit tembolok luring) | ≤ 1.5 MB JS + aset; font ≤ 600 KB woff2 |
+| TTI di tablet kelas menengah | ≤ 3 dtk |
+| Total pra-tembolok SW | ≤ 4–5 MB |
+| Bingkai kanvas selama penelusuran | 60 fps |
+| Latensi pengenalan | < 50 md (Cakupan Raster pada resampel langkah 0.02) |
 
 ---
 
-## 16. Accessibility (WCAG 2.1 AA)
+## 16. Aksesibilitas (WCAG 2.1 AA)
 
-- Color is never the only signal: pass/warn/error carry icons + text.
-- Focus-visible ring `--color-focus`, `outline-offset: 2px`; skip-link; landmark tags.
-- Keyboard operable (arrows on story slides; Enter/Space on controls); canvas has
-  an accessible fallback description for each question.
-- `prefers-reduced-motion` disables stroke-guide animation, particles, slide fx.
-- Contrast: body text ≥ 4.5:1; UI ≥ 3:1 (verify with WebAIM checker on final hex).
-- All Indonesian copy short, plain; alt text on illustrated scenes.
+- Warna tidak pernah menjadi satu-satunya sinyal: lulus/peringatan/kesalahan membawa ikon + teks.
+- Cincin fokus-terlihat `--color-focus`, `outline-offset: 2px`; tautan-lewati; tag penanda.
+- Dioperasikan dengan papan ketik (panah pada salindia cerita; Enter/Spasi pada kontrol); kanvas memiliki
+  deskripsi cadangan yang dapat diakses untuk setiap pertanyaan.
+- `prefers-reduced-motion` menonaktifkan animasi panduan guratan, partikel, efek salindia.
+- Kontras: teks tubuh ≥ 4.5:1; UI ≥ 3:1 (verifikasi dengan pemeriksa WebAIM pada heksa akhir).
+- Semua salinan teks bahasa Indonesia pendek, polos; teks alternatif pada adegan bergambar.
 
 ---
 
-## 17. Security
+## 17. Keamanan
 
-- No user input is rendered as HTML (all content from bundled dataset).
+- Tidak ada masukan pengguna yang disajikan sebagai HTML (semua konten dari dataset yang digabungkan).
 - CSP: `default-src 'self'; script-src 'self'; font-src 'self'; img-src 'self' data:;`
-  (no external CDNs at runtime — everything precached).
-- No secrets/keys in client (none needed); no network traffic to leak.
-- Canvas input validated/ignored outside the write-box; multi-touch suppresses stray strokes.
+  (tidak ada CDN eksternal saat runtime — semuanya dipra-tembolok).
+- Tidak ada rahasia/kunci dalam klien (tidak dibutuhkan); tidak ada lalu lintas jaringan yang bocor.
+- Masukan kanvas divalidasi/diabaikan di luar kotak tulis; multi-sentuh menekan guratan nyasar.
 
 ---
 
-## 18. Roadmap / Milestones
+## 18. Peta Jalan / Tonggak Pencapaian (Milestones)
 
-| Milestone | Scope |
+| Tonggak Pencapaian | Cakupan |
 |---|---|
-| **M0 — Seed & shell** | Vite+TS app, tokens, routes, dashboard, manifest/SW, empty practice screen |
-| **M1 — Stroke engine** | Canvas capture, guide animation, Raster Coverage matcher, feedback mapping |
-| **M2 — Content** | Full dataset (Nglegena 20+ / Sandangan 8+ / Pasangan pairs), level configs, story copy in Indonesian |
-| **M3 — Game flow** | Level FSM, rewards, Dora/villager joins, ending, progress persistence |
-| **M4 — Polish QA** | Particles, sound, offline E2E, a11y scan, device matrix, update banner |
+| **M0 — Benih & cangkang** | Aplikasi Vite+TS, token, rute, dasbor, manifes/SW, layar latihan kosong |
+| **M1 — Mesin guratan** | Tangkapan kanvas, animasi panduan, Pencocok Cakupan Raster, pemetaan umpan balik |
+| **M2 — Konten** | Dataset penuh (Nglegena 20+ / Sandangan 8+ / pasangan Pasangan), konfigurasi level, salinan cerita dalam bahasa Indonesia |
+| **M3 — Alur permainan** | Level FSM, hadiah, Dora/penduduk desa bergabung, akhir, ketekunan kemajuan |
+| **M4 — Penyelesaian QA** | Partikel, suara, E2E luring, pemindaian a11y, matriks perangkat, spanduk pembaruan |
 
 ---
 
-## 19. Future Work (after MVP)
+## 19. Pekerjaan Masa Depan (setelah MVP)
 
-- Transliteration / text-to-Aksara input; pronunciation (gamelan + TTS).
-- Cloud sync & teacher analytics (rename: "Guru" report).
-- Android APK via TWA; wider glyph set (Angka, Murda, Swara).
-- ML stroke classifier upgrade behind the matcher interface.
+- Input Transliterasi / teks-ke-Aksara; pengucapan (gamelan + TTS).
+- Sinkronisasi Cloud & analitik guru (ganti nama: Laporan "Guru").
+- APK Android via TWA; set mesin terbang yang lebih luas (Angka, Murda, Swara).
+- Peningkatan pengklasifikasi guratan ML di balik antarmuka pencocok.
 
 ---
 
-## 20. Open Questions & Assumptions
+## 20. Pertanyaan Terbuka & Asumsi
 
-| # | Question | Proposed default / status |
+| # | Pertanyaan | Default/status yang diusulkan |
 |---|---|---|
-| 1 | Level 1 question count | Propose **10–12** Nglegena; confirm with curriculum. |
-| 2 | Exact question contents per set | Propose starter sets; finalize with teacher input. |
-| 3 | Full Level-1 sinopsis paragraph | Missing from PDF extraction — supply copy. |
-| 4 | Reward/asset art source | Inline SVG illustrations; replaceable later. |
-| 5 | UI framework | Recommend **React**; Svelte alternative if bundle size is critical. |
-| 6 | Portrait-only PWA OK? | Yes (writing orientation); desktop shows rotated mock. |
+| 1 | Jumlah pertanyaan Level 1 | Mengusulkan **10–12** Nglegena; konfirmasi dengan kurikulum. |
+| 2 | Isi pertanyaan pasti per set | Mengusulkan set pemula; selesaikan dengan masukan guru. |
+| 3 | Paragraf sinopsis lengkap Level-1 | Hilang dari ekstraksi PDF — berikan salinan. |
+| 4 | Sumber hadiah/seni aset | Ilustrasi SVG inline; dapat diganti nanti. |
+| 5 | Kerangka UI | Merekomendasikan **React**; alternatif Svelte jika ukuran bundel sangat penting. |
+| 6 | PWA Potret saja OK? | Ya (orientasi menulis); desktop menunjukkan tiruan yang diputar. |
 
 ---
 
-## 21. References
+## 21. Referensi
 
-- Source narrative: `projek Isif.pdf` (Naskah Lengkap Aplikasi Petualangan Ajisaka).
-- Font: Noto Sans Javanese (OFL) — self-hosted.
-- Standards: WCAG 2.1 AA; PWA installability criteria (Chrome/Android, iOS 16+).
-- Design system basis: playful *Carnival* token set (paper/accent OKLCH architecture)
-  re-hued to the keraton palette in §9.2.
+- Narasi sumber: `projek Isif.pdf` (Naskah Lengkap Aplikasi Petualangan Ajisaka).
+- Font: Noto Sans Javanese (OFL) — di-hosting sendiri.
+- Standar: WCAG 2.1 AA; kriteria pemasangan PWA (Chrome/Android, iOS 16+).
+- Dasar sistem desain: Set token *Karnaval* yang menyenangkan (arsitektur kertas/aksen OKLCH)
+  diubah warnanya menjadi palet keraton dalam §9.2.
 
 ---
 
-*End of document. Next step: confirm §20 decisions, then scaffold M0.*
+*Akhir dokumen. Langkah selanjutnya: konfirmasi keputusan §20, lalu siapkan M0.*

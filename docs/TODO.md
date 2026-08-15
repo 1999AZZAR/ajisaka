@@ -1,134 +1,134 @@
-# Petualangan Ajisaka — Todo Pengembangan (P0–P3)
+# Petualangan Ajisaka — Daftar Tugas Pengembangan (P0–P3)
 
 Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
-*Diperbarui setelah M0+M1 PoC build (2026-08-12).*
+*Diperbarui setelah pembuatan (build) PoC M0+M1 (12-08-2026).*
 
 **Skala prioritas**
-- **P0 — Kritis:** tanpa ini aplikasi tidak bisa rilis / tidak bisa dimainkan.
-- **P1 — Penting:** wajib untuk peluncuran yang baik, dapat ditunda jika terdesak.
-- **P2 — Peningkatan:** nilai tambah setelah rilis inti stabil.
-- **P3 — Masa depan:** di luar scop MVP, direncanakan kemudian.
+- **P0 — Kritis:** Tanpa ini aplikasi tidak bisa dirilis / tidak bisa dimainkan.
+- **P1 — Penting:** Wajib untuk peluncuran yang baik, dapat ditunda jika terdesak.
+- **P2 — Peningkatan:** Nilai tambah setelah rilis inti stabil.
+- **P3 — Masa depan:** Di luar cakupan MVP, direncanakan kemudian.
 
-- [x] = selesai & terverifikasi (build/lint/test hijau)
+- [x] = selesai & terverifikasi (pembuatan/lint/pengujian hijau)
 - [~] = sebagian / versi PoC / butuh kurasi
 
 ---
 
-## P0 — Kritis (rintisan rilis)
+## P0 — Kritis (Rintisan rilis)
 
-### Fondasi & shell — ✅ DONE (M0)
-- [x] Scaffold Vite + TypeScript strict + Tailwind v4 — `src/`
+### Fondasi & kerangka — ✅ SELESAI (M0)
+- [x] Perancah (Scaffold) Vite + TypeScript ketat + Tailwind v4 — `src/`
 - [x] Token desain keraton (OKLCH) §9.2 — `src/src/index.css` (@theme)
-- [x] Routing hash: `/`, `/menu`, `/prolog`, `/level/1..3`, `/ending` — App.tsx
-- [x] Halaman Home (judul + tombol PLAY) — FR-1.1 (Redesigned with playful UX)
-- [x] Dashboard 5 menu dengan state locked/unlock — FR-1.3, FR-1.4 (Redesigned with Gamified LevelCards)
-- [x] Manifest PWA + icons (192/512/maskable/apple-touch) + installable
-- [ ] Finalisasi keputusan §20 (jumlah soal L1, isi dataset, framework ✅React, aset ilustrasi) — sebagian tetap terbuka
+- [x] Perutean hash: `/`, `/menu`, `/prolog`, `/level/1..3`, `/ending` — App.tsx
+- [x] Halaman Beranda (judul + tombol MAIN) — FR-1.1 (Didesain ulang dengan UX yang menyenangkan)
+- [x] Dasbor 5 menu dengan status terkunci/terbuka — FR-1.3, FR-1.4 (Didesain ulang dengan Kartu Level yang digamifikasi)
+- [x] Manifes PWA + ikon (192/512/maskable/apple-touch) + dapat diinstal
+- [ ] Finalisasi keputusan §20 (jumlah soal L1, isi set data, kerangka kerja ✅React, aset ilustrasi) — sebagian tetap terbuka
 
-### Stroke engine — PIVOT: DTW → VECTOR GEOMETRY
-- [x] Hook canvas Pointer Events, HiDPI, `touch-action: none`, live-ink — useCanvasCapture
-- [x] Normalisasi + resample (engine/geometry) — dipakai rendering
-- [x] Matcher **Vector Geometry (Chamfer Dist)** — engine/raster.ts (Skala dinamis, cegah exploit coretan)
-- [x] Uji matcher sintetis (square/fill/miss/offset) + 20 glyph contours — vitest 8 tests
-- [x] Umpan balik warna per guratan (green/amber/red) — §11.4
-- [x] Kontrol Clear ("Bersihkan") — FR-3.6
-- [x] Kalibrasi toleransi coverage (COVERAGE_PASS/WARN) dgn uji tablet nyata — sudah dinamis per luas/tebal glyph
+### Mesin Guratan (Stroke Engine) — PIVOT: DTW → GEOMETRI VEKTOR
+- [x] Hook kanvas Kejadian Penunjuk (Pointer Events), HiDPI, `touch-action: none`, tinta-langsung — useCanvasCapture
+- [x] Normalisasi + pengambilan sampel ulang (mesin/geometri) — dipakai untuk perenderan
+- [x] Pencocok (Matcher) **Geometri Vektor (Jarak Chamfer)** — engine/raster.ts (Skala dinamis, mencegah eksploitasi coretan)
+- [x] Uji pencocok sintetis (kotak/isi/meleset/bergeser) + 20 kontur mesin terbang (glyph) — vitest 8 pengujian
+- [x] Umpan balik warna per guratan (hijau/kuning/merah) — §11.4
+- [x] Kontrol Bersihkan — FR-3.6
+- [x] Kalibrasi toleransi cakupan (CAKUPAN_LULUS/PERINGATAN) dengan uji tablet nyata — sudah dinamis berdasarkan luas/ketebalan mesin terbang (glyph)
 
 ### Konten
-- [x] Dataset Nglegena **20 contour** (dari Noto Sans Javanese, Y-corrected, 80-pt) — src/data/nglegena_contours.json
-- [x] Dataset Sandangan 8+ core + kombinasi — §10.1 (Label & Dotted Circle diperbaiki)
-- [x] Dataset Pasangan (20 pasang) — §10.1 (Berhasil diekstrak ulang penuh dengan loops via FontTools Python script)
-- [x] Level config L1–L3 bukti: starter ha/na/ca/ra/ka; soal 11/20/3×5 belum terisi penuh — §10.2 (Dataset penuh digunakan untuk L1-L3)
-- [x] Copy cerita Indonesia penuh (dari `NASKAH_AJISAKA.md`) ke tiap level — Selesai via i18n layer
-- [x] Precache font Javanese (woff2, 89KB, self-host) — FR-6.2
-- [ ] **Stroke data kurasi internal (guide pen-stroke ori)** — kanvas guide saat ini solid-fill contour; untuk guratan internal/order diajarkan butuh data kurator (§20)
+- [x] Set data Nglegena **20 kontur** (dari Noto Sans Javanese, terkoreksi-Y, 80-pt) — src/data/nglegena_contours.json
+- [x] Set data Sandangan 8+ inti + kombinasi — §10.1 (Label & Lingkaran Putus-putus diperbaiki)
+- [x] Set data Pasangan (20 pasang) — §10.1 (Berhasil diekstrak ulang secara penuh dengan perulangan melalui skrip Python FontTools)
+- [x] Konfigurasi level L1–L3 bukti: set awal ha/na/ca/ra/ka; soal 11/20/3×5 belum terisi penuh — §10.2 (Set data penuh digunakan untuk L1-L3)
+- [x] Salinan cerita Indonesia penuh (dari `NASKAH_AJISAKA.md`) ke tiap level — Selesai melalui lapisan i18n
+- [x] Prakasai (Precache) fon Javanese (woff2, 89KB, dihosting sendiri) — FR-6.2
+- [ ] **Kurasi internal data guratan (panduan guratan pena asli)** — panduan kanvas saat ini berupa kontur terisi padat; untuk guratan internal/urutan yang diajarkan membutuhkan data kurator (§20)
 
-### Game flow & state
-- [x] Level FSM path: intro screen → practice → done page
-- [x] Reward Pedang Pusaka (L1) / Perisai Sakti (L2) / Raja (L3) — LevelDone
-- [x] Event "Dora bergabung" & "warga bergabung" (copy) — LevelDone
-- [x] Unlock chain + tombol Next Level — FR-4.3
-- [x] Interstitial Fase 1 / Fase 2 pilihan menu non-linear di Level 3 — FR-4.4 (Selesai, tracking granular per phase)
-- [x] Ending dinobatkan Raja terhubung setelah L3 Fase 1 & 2 selesai — Selesai
-- [x] Persist progress (Zustand persist): completedLevels, completedPhases, rewards — FR-5.1
-- [ ] Resume level saat reload — FR-5.2 (progress tersimpan, tapi resume per-pertanyaan di tengah jalan belum)
-- [ ] Latihan soal L1: mulai dari soal 1 → reward→ level 2 dsb (starter set dipakai ulang utk L2/L3 sementara)
+### Alur & status permainan
+- [x] Jalur FSM Level: layar intro → latihan → halaman selesai
+- [x] Hadiah Pedang Pusaka (L1) / Perisai Sakti (L2) / Raja (L3) — LevelSelesai
+- [x] Acara "Dora bergabung" & "warga bergabung" (salinan) — LevelSelesai
+- [x] Rantai pembukaan kunci + tombol Level Selanjutnya — FR-4.3
+- [x] Menu pilihan interstitial Fase 1 / Fase 2 non-linear di Level 3 — FR-4.4 (Selesai, pelacakan terperinci per fase)
+- [x] Akhir cerita dinobatkan sebagai Raja terhubung setelah L3 Fase 1 & 2 selesai — Selesai
+- [x] Pertahankan kemajuan (Zustand persist): levelSelesai, faseSelesai, hadiah — FR-5.1
+- [ ] Lanjutkan level saat dimuat ulang — FR-5.2 (kemajuan tersimpan, tetapi melanjutkan per pertanyaan di tengah jalan belum)
+- [ ] Latihan soal L1: mulai dari soal 1 → hadiah → level 2 dsb. (set awal dipakai ulang untuk L2/L3 sementara)
 
-### Fitur Tambahan & UX Polish — ✅ DONE
-- [x] Localization penuh: Indonesia, English, Basa Jawa (Krama Inggil) via i18next + ekstraksi data layer
-- [x] Audio engine Gamelan Web Audio API (Ombak, saron, gong ageng, keprak, detuned partials)
-- [x] Hide global scrollbars untuk PWA fullscreen feel
-- [x] Mengunci Orientasi Layar (Portrait PWA Lock)
+### Fitur Tambahan & Pemolesan UX — ✅ SELESAI
+- [x] Pelokalan penuh: Indonesia, Inggris, Basa Jawa (Krama Inggil) melalui i18next + lapisan ekstraksi data
+- [x] API Audio Web Gamelan mesin audio (Ombak, saron, gong ageng, keprak, parsial tidak selaras)
+- [x] Sembunyikan bilah gulir (scrollbars) global untuk nuansa PWA layar penuh
+- [x] Mengunci Orientasi Layar (Kunci PWA Potret)
 
-### PWA & offline
-- [x] Service worker (Workbox) precache penuh (~500 KB, 14 entries) — FR-6.2
-- [x] Update banner prompt-refresh — FR-6.3 (registerSW onNeedRefresh, diperbarui ke autoUpdate)
-- [x] Uji playthrough offline penuh di perangkat (IOS icons + user-scalable=no)
+### PWA & luring (offline)
+- [x] Pekerja layanan (Workbox) prakasai penuh (~500 KB, 14 entri) — FR-6.2
+- [x] Perbarui spanduk permintaan penyegaran — FR-6.3 (registerSW onNeedRefresh, diperbarui ke autoUpdate)
+- [x] Uji coba bermain luring penuh di perangkat (Ikon iOS + user-scalable=no)
 
-### QA rilis
-- [x] Unit test matcher/raster + geometry + dtw (8 tests) — vitest
-- [ ] Coverage ≥90% utk engine (target paket tambahan)
-- [ ] E2E Playwright: Home→L1 selesai→L2 unlock; reload mid-level
-- [ ] Matrix perangkat (iPad, Android tablet, desktop) — §14
-
----
-
-## P1 — Penting (peluncuran berkualitas)
-
-- [x] Partikel sukses per soal & reward (≤60 particle) — §9.5 (Selesai via Anime.js confetti)
-- [x] Suara gamelan ringan (Web Audio) (engine audio.ts selesai) — §12.2
-- [x] Transisi antarmuka & animasi UI (menggunakan animejs dgn bounce/stagger)
-- [x] Transisi slide sinopsis (Prolog.tsx) — FR-2.2
-- [x] Modal congrats/fokus trap — §9.7
-- [x] Audit a11y axe (P0 kritikal/serius = 0, kontras AA) — §16
-- [x] Skip-link + landmark announcement + `:focus-visible` penuh — §16
-- [x] Aksesibilitas (a11y) interaktif: Canvas memiliki `aria-label`/deskripsi, modal congrats focus-trapped — §9.7
-- [x] Suport keyboard (story slides, Enter/Space) — §16 (Selesai untuk Prolog, Practice, Phase2, LevelDone)
-- [ ] Alternatif aksesibel untuk canvas (deskripsi soal lengkap) — §16
-- [ ] Optimasi bundle ≤1,5 MB + font ≤600 KB (saat ini ±500 KB total precache) — §15
-- [ ] Pola 60fps saat menulis dgn guide menyala (rAF + dpr scaling)— §15
-- [~] Kanvas toggle panduan (Tampilkan/Sembunyikan Contoh) — selesai, verifikasi UX
-- [ ] E2E offline emulation penuh (Playwright)
+### Penjaminan Kualitas (QA) rilis
+- [x] Pengujian unit pencocok/raster + geometri + dtw (8 pengujian) — vitest
+- [ ] Cakupan ≥90% untuk mesin (target paket tambahan)
+- [ ] Ujung-ke-Ujung (E2E) Playwright: Beranda→L1 selesai→L2 terbuka; muat ulang di tengah level
+- [ ] Matriks perangkat (iPad, tablet Android, desktop) — §14
 
 ---
 
-## P2 — Peningkatan (setelah rilis inti stabil)
+## P1 — Penting (Peluncuran berkualitas)
 
-- [ ] TTS pengucapan fonem + pelafalan nama aksara (lokal, gabung dgn suara)
-- [x] Transliterasi teks → Aksara Jawa (masukan bebas) — Selesai via "Free Type"
-- [ ] Set glyph lanjutan: Angka, Murda, Swara
-- [ ] Peningkatan model matcher → classifier ML (ONNX/TFLite <500 KB) — §11.3
-- [ ] Statistik per latihan tambahan (skor, waktu, retry)
-- [ ] Kuis pengetahuan cepat (bukan hanya menulis) sbg penguat
+- [x] Partikel sukses per soal & hadiah (≤60 partikel) — §9.5 (Selesai melalui konfeti Anime.js)
+- [x] Suara gamelan ringan (Audio Web) (mesin audio.ts selesai) — §12.2
+- [x] Transisi antarmuka & animasi UI (menggunakan animejs dengan pantulan/berurutan)
+- [x] Transisi salindia (slide) sinopsis (Prolog.tsx) — FR-2.2
+- [x] Modal ucapan selamat/perangkap fokus — §9.7
+- [x] Audit aksesibilitas (a11y) axe (P0 kritikal/serius = 0, kontras AA) — §16
+- [x] Tautan lewati + pengumuman markah tanah + `:focus-visible` penuh — §16
+- [x] Aksesibilitas (a11y) interaktif: Kanvas memiliki `aria-label`/deskripsi, modal ucapan selamat diperangkap fokus — §9.7
+- [x] Dukungan papan ketik (salindia cerita, Enter/Spasi) — §16 (Selesai untuk Prolog, Latihan, Fase2, LevelSelesai)
+- [ ] Alternatif aksesibel untuk kanvas (deskripsi soal lengkap) — §16
+- [ ] Optimasi bundel ≤1,5 MB + fon ≤600 KB (saat ini total prakasai ±500 KB) — §15
+- [ ] Pola 60fps saat menulis dengan panduan menyala (rAF + penskalaan dpr)— §15
+- [~] Kanvas alih panduan (Tampilkan/Sembunyikan Contoh) — selesai, verifikasi UX
+- [ ] Emulasi luring Ujung-ke-Ujung (E2E) penuh (Playwright)
+
+---
+
+## P2 — Peningkatan (Setelah rilis inti stabil)
+
+- [ ] Pengucapan fonem TTS + pelafalan nama aksara (lokal, digabung dengan suara)
+- [x] Transliterasi teks → Aksara Jawa (masukan bebas) — Selesai melalui "Ketik Bebas"
+- [ ] Set mesin terbang (glyph) lanjutan: Angka, Murda, Swara
+- [ ] Peningkatan pencocok model → pengklasifikasi ML (ONNX/TFLite <500 KB) — §11.3
+- [ ] Statistik per latihan tambahan (skor, waktu, coba lagi)
+- [ ] Kuis pengetahuan cepat (bukan hanya menulis) sebagai penguat
 - [ ] Mode bantuan ekstra anak kecil (petunjuk lebih besar, warna kontras tinggi)
 - [ ] Pengaturan lanjutan (volume, mode kontras tinggi, ukuran teks)
 
 ---
 
-## P3 — Masa depan (di luar MVP)
+## P3 — Masa depan (Di luar cakupan MVP)
 
-- [x] Dockerization untuk hosting production yang mandiri
-- [ ] Cloud sync & laporan guru ("Guru Report") — §19
-- [ ] Leaderboard lokal/kelas + akun opsional — G5, §19
-- [ ] APK Android via TWA; wrapper iPad — §19
-- [x] Multi-bahasa (Jawa–Indonesia–English) — Selesai (i18n ditambahkan ke MVP)
-- [ ] Editor stroke konten untuk guru (impor data aksara baru)
-- [ ] Ekspor sertifikat penyelesaian (printer-friendly)
+- [x] Kontainerisasi Docker untuk hosting produksi yang mandiri
+- [ ] Sinkronisasi awan (cloud) & laporan guru ("Laporan Guru") — §19
+- [ ] Papan peringkat lokal/kelas + akun opsional — G5, §19
+- [ ] APK Android melalui TWA; pembungkus iPad — §19
+- [x] Multi-bahasa (Jawa–Indonesia–Inggris) — Selesai (i18n ditambahkan ke MVP)
+- [ ] Editor konten guratan untuk guru (impor data aksara baru)
+- [ ] Ekspor sertifikat penyelesaian (ramah-pencetak)
 
 ---
 
 ## Notulensi Pengunci Keputusan
 
-| # | Keputusan | Status | Deadlines |
+| # | Keputusan | Status | Tenggat Waktu |
 |---|---|---|---|
-| 1 | Jumlah soal Level 1 (starter: 5 glyph ha/na/ca/ra/ka) | ⏳ terbuka | sebelum isi dataset penuh |
-| 2 | Isi dataset (glyph mana saja per level) | ⏳ terbuka | sebelum dataset lengkap |
-| 3 | Sinopsis L1 (copy lengkap dari PDF hilang) | ⏳ terbuka | sebelum copy cerita penuh |
-| 4 | Framework React vs Svelte | ✅ **React** (diputuskan) | — |
-| 5 | Aset ilustrasi (SVG inline) | ⏳ terbuka | akhir minggu 2 |
-| 6 | Model evaluasi menulis | ✅ **Raster coverage** (DTW outline diganti) | — |
-| 7 | Sumber data pen-stroke kurasi (guide internal) | ⏳ terbuka | P1 |
+| 1 | Jumlah soal Level 1 (set awal: 5 mesin terbang ha/na/ca/ra/ka) | ⏳ terbuka | sebelum isi set data penuh |
+| 2 | Isi set data (mesin terbang mana saja per level) | ⏳ terbuka | sebelum set data lengkap |
+| 3 | Sinopsis L1 (salinan lengkap dari PDF hilang) | ⏳ terbuka | sebelum salinan cerita penuh |
+| 4 | Kerangka kerja React vs Svelte | ✅ **React** (diputuskan) | — |
+| 5 | Aset ilustrasi (SVG sebaris) | ⏳ terbuka | akhir minggu 2 |
+| 6 | Model evaluasi menulis | ✅ **Cakupan raster** (garis luar DTW diganti) | — |
+| 7 | Sumber data kurasi guratan pena (panduan internal) | ⏳ terbuka | P1 |
 
 ---
 
-*Perbarui notulensi § berdasarkan keputusan TIMELINE.md; kotak cek dicoret saat selesai.*
+*Perbarui notulensi § berdasarkan keputusan TIMELINE.md; kotak centang dicoret saat selesai.*
