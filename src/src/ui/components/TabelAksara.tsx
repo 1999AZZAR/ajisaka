@@ -25,8 +25,6 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string,
   'tha': { jv: 'ꦧꦛꦫ', la: 'bathara', id: 'dewa', en: 'god' },
   'nga': { jv: 'ꦔꦔ', la: 'nganga', id: 'menganga', en: 'agape' },
 
-  'nga': { jv: 'ꦔꦔ', la: 'nganga', id: 'menganga', en: 'agape' },
-
   // Sandangan (PURE: Emphasizes the sandangan)
   'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu', en: 'one', desc: 'vokal i' },
   'suku': { jv: 'ꦧꦸꦏꦸ', la: 'buku', id: 'buku', en: 'book', desc: 'vokal u' },
@@ -43,7 +41,7 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string,
   'pada lungsi': { jv: 'ꦧꦸꦏꦸ꧉', la: 'buku.', id: 'buku.', en: 'book.', desc: 'tanda titik (.)' },
   'pada pangkat': { jv: '꧇꧑꧇', la: ':1:', id: ':1:', en: ':1:', desc: 'titik dua / pengapit angka' },
   'pada adeg-adeg': { jv: '꧋ꦧꦸꦏꦸ', la: 'Buku', id: 'Buku', en: 'Book', desc: 'pembuka kalimat / paragraf' },
-  'cakra ra': { jv: 'ꦏꦿꦠꦺꦴꦤ꧀', la: 'kraton', id: 'kraton', en: 'palace', desc: 'sisipan ...ra' },
+  'cakra': { jv: 'ꦏꦿꦠꦺꦴꦤ꧀', la: 'kraton', id: 'kraton', en: 'palace', desc: 'sisipan ...ra' },
   'cakra keret': { jv: 'ꦏꦽꦠꦼꦏ꧀', la: 'kretek', id: 'kretek', en: 'bridge', desc: 'sisipan ...rê' },
   'cakra la': { jv: 'ꦏ꧀ꦭꦱ', la: 'klasa', id: 'klasa', en: 'mat', desc: 'sisipan ...la' },
   'cakra wa': { jv: 'ꦏ꧀ꦮꦶꦠꦤ꧀ꦱꦶ', la: 'kwitansi', id: 'kwitansi', en: 'receipt', desc: 'sisipan ...wa' },
@@ -220,9 +218,9 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
               <h2 className="font-display text-2xl text-text capitalize">
                 {selected.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
               </h2>
-              {EXAMPLES[selected.id]?.desc && (
+              {(EXAMPLES[selected.id]?.desc || selected.hint) && (
                 <p className="text-sm font-medium text-text-2 mt-1">
-                  ({EXAMPLES[selected.id].desc})
+                  ({EXAMPLES[selected.id]?.desc || selected.hint})
                 </p>
               )}
             </div>

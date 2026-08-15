@@ -91,7 +91,7 @@ const resources = {
         "play_phase1": "Fase 1: Tulis",
         "play_phase2": "Fase 2: Ketik",
         "play": "Mulai Tantangan",
-        "story1": "Untuk membuka segel dan mengambil pedang, pemain wajib menyelesaikan tantangan praktik menulis Aksara Dasar (Nglegena).",
+        "story1": "Untuk membuka segel dan mengambil pedang, pemain wajib menyelesaikan tantangan praktik menulis Nglegena.",
         "story2": "Ajisaka dan Dora mengarungi Pulau Adi Jaya untuk mencari Perisai Sakti. Warga lokal mengujimu sebelum memberikannya.",
         "story3": "Dalam perjalanan laut menuju pusat kerajaan musuh, kapal kalian dicegat oleh dua utusan Raksasa Hijau. Kalahkan mereka dengan Aksara Pasangan!"
       },
@@ -110,7 +110,7 @@ const resources = {
         "question": "Pertanyaan",
         "phase": "Fase",
         "draw": "Tulis",
-        "base": "Aksara Dasar",
+        "base": "Nglegena",
         "sandangan": "Sandangan",
         "pasangan": "Pasangan",
         "next": "Lanjut",
@@ -165,7 +165,7 @@ const resources = {
           },
           "3": {
             "title": "Tiga Jenis Huruf",
-            "body": "Kita akan belajar Aksara Dasar (Nglegena), Sandangan penanda vokal, dan Pasangan untuk konsonan mati."
+            "body": "Kita akan belajar Nglegena, Sandangan penanda vokal, dan Pasangan untuk konsonan mati."
           }
         }
       }
@@ -333,7 +333,7 @@ const resources = {
           },
           "3": {
             "title": "Three Types of Letters",
-            "body": "We will learn the Basic Script (Nglegena), Vowel Modifiers (Sandangan), and Consonant Pairs (Pasangan) for dead consonants."
+            "body": "We will learn the Nglegena, Vowel Modifiers (Sandangan), and Consonant Pairs (Pasangan) for dead consonants."
           }
         }
       }
@@ -446,7 +446,7 @@ const resources = {
         "question": "Pitakenan",
         "phase": "Fase",
         "draw": "Srat",
-        "base": "Aksara Dasar",
+        "base": "Nglegena",
         "sandangan": "Sandhangan",
         "pasangan": "Pasangan",
         "next": "Lajeng",
@@ -501,7 +501,7 @@ const resources = {
           },
           "3": {
             "title": "Tiga Jinising Huruf",
-            "body": "Kita badhe sinau Aksara Dasar (Nglegena), Sandhangan panandha vokal, saha Pasangan kagem konsonan mati."
+            "body": "Kita badhe sinau Nglegena, Sandhangan panandha vokal, saha Pasangan kagem konsonan mati."
           }
         }
       }
