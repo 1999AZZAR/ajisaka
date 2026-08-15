@@ -72,7 +72,6 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string 
   'pa.murda': { jv: 'ꦦꦭꦺꦱ꧀ꦠꦶꦤ', la: 'Palestina', id: 'Palestina', en: 'Palestine' },
   'nya.murda': { jv: 'ꦘꦲꦶ', la: 'Nyai', id: 'Nyai', en: 'Nyai' },
   'ga.murda': { jv: 'ꦓꦤꦶ', la: 'Ghani', id: 'Ghani', en: 'Ghani' },
-  'ba.murda': { jv: 'ꦨꦭꦶ', la: 'Bali', id: 'Bali', en: 'Bali' },
 
   // Swara
   'A': { jv: 'ꦄꦒꦸꦱ꧀', la: 'Agus', id: 'Agus', en: 'Agus' },

@@ -108,7 +108,6 @@ export const MURDA: AksaraGlyph[] = [
   { id: 'pa.murda', unicode: 'ꦦ' },
   { id: 'nya.murda', unicode: 'ꦘ' },
   { id: 'ga.murda', unicode: 'ꦓ' },
-  { id: 'ba.murda', unicode: 'ꦨ' },
 ].map((e) => build({ ...e, contour: [] }, 'murda', `${e.id.replace('.murda', '')} (murda)`))
 
 export const SWARA: AksaraGlyph[] = [
