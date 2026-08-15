@@ -95,7 +95,7 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
   }
 }
 
-export const NGGLEGENA: AksaraGlyph[] = (nglegenaContours as ContourEntry[]).map((e) => build(e, 'nglegena'))
+const NGGLEGENA: AksaraGlyph[] = (nglegenaContours as ContourEntry[]).map((e) => build(e, 'nglegena'))
 const SANDANGAN_UNICODES: Record<string, string> = {
   pangkon: '꧀',
   'pada lingsa': '꧈',
@@ -109,7 +109,7 @@ const SANDANGAN_UNICODES: Record<string, string> = {
   'nga lelet': 'ꦊ'
 }
 
-export const SANDANGAN: AksaraGlyph[] = [
+const SANDANGAN: AksaraGlyph[] = [
   ...(sandanganContours as (ContourEntry & { roman?: string })[]).map((e) =>
     build({ ...e, unicode: e.unicode || SANDANGAN_UNICODES[e.id] }, 'sandangan', `${e.id} ${e.roman ? `(${e.roman})` : ''}`.trim(), e.roman),
   ),
@@ -118,7 +118,7 @@ export const SANDANGAN: AksaraGlyph[] = [
     { id: 'cakra wa', unicode: '\u200D\uA9C0\uA9AE' },
   ].map((e) => build({ ...e, contour: [] }, 'sandangan', e.id)),
 ]
-export const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map((e) =>
+const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map((e) =>
   build(e, 'pasangan', `${e.id} (pasangan)`),
 )
 const REKAN: AksaraGlyph[] = (rekanContours as ContourEntry[]).map((e) => build(e, 'rekan'))
