@@ -57,6 +57,20 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string 
   'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar', en: 'market' },
   'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah', en: 'elephant' },
 
+  // Sandangan and Punctuation Extensions
+  'pangkon': { jv: 'ꦧꦥꦏ꧀', la: 'bapak', id: 'bapak', en: 'father' },
+  'pada lingsa': { jv: 'ꦧꦸꦏꦸ꧈', la: 'buku,', id: 'buku,', en: 'book,' },
+  'pada lungsi': { jv: 'ꦧꦸꦏꦸ꧉', la: 'buku.', id: 'buku.', en: 'book.' },
+  'pada pangkat': { jv: '꧇꧑꧇', la: ':1:', id: ':1:', en: ':1:' },
+  'pada adeg-adeg': { jv: '꧋ꦧꦸꦏꦸ', la: 'Buku', id: 'Buku', en: 'Book' },
+  'cakra ra': { jv: 'ꦏꦿꦠꦺꦴꦤ꧀', la: 'kraton', id: 'kraton', en: 'palace' },
+  'cakra keret': { jv: 'ꦏꦽꦠꦼꦏ꧀', la: 'kretek', id: 'kretek', en: 'bridge' },
+  'cakra la': { jv: 'ꦏ꧀ꦭꦱ', la: 'klasa', id: 'klasa', en: 'mat' },
+  'cakra wa': { jv: 'ꦏ꧀ꦮꦶꦠꦤ꧀ꦱꦶ', la: 'kwitansi', id: 'kwitansi', en: 'receipt' },
+  'pengkal': { jv: 'ꦏꦾꦲꦶ', la: 'kyai', id: 'kyai', en: 'cleric' },
+  'pa ceret': { jv: 'ꦉꦧꦺꦴ', la: 'rebo', id: 'Rabu', en: 'Wednesday' },
+  'nga lelet': { jv: 'ꦊꦩꦃ', la: 'lemah', id: 'tanah', en: 'soil' },
+
   // Rekan
   'kha': { jv: 'ꦏ꦳ꦠꦩ꧀', la: 'khatam', id: 'khatam', en: 'finished' },
   'dza': { jv: 'ꦢ꦳ꦶꦏꦶꦂ', la: 'dzikir', id: 'dzikir', en: 'dhikr' },
