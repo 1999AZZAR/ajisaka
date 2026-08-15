@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Noto Sans Javanese';
-  src: url('/fonts/NotoSansJavanese[wght].woff2') format('woff2-variations');
+  src: url('/fonts/NotoSansJavanese-Custom.ttf') format('truetype');
   font-weight: 400 700;
   font-display: swap;
 }
