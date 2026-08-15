@@ -88,7 +88,7 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
     id: entry.id,
     type,
     label: label ?? entry.id,
-    hint: type === 'pasangan' ? `Ikuti bentuk pasangan ${entry.id}` : (HINTS[entry.id] ?? (type === 'sandangan' ? `Tanda baca ${roman ?? entry.id}` : 'Ikuti bentuk huruf')),
+    hint: type === 'pasangan' ? `Ikuti bentuk pasangan ${entry.id.replace('.pas', '')}` : (HINTS[entry.id] ?? (type === 'sandangan' ? `Tanda baca ${roman ?? entry.id}` : 'Ikuti bentuk huruf')),
     unicode: displayUnicode,
     contour: entry.contour as unknown as Point[][],
     closed: true,
@@ -119,7 +119,7 @@ const SANDANGAN: AksaraGlyph[] = [
   ].map((e) => build({ ...e, contour: [] }, 'sandangan', e.id)),
 ]
 const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map((e) =>
-  build(e, 'pasangan', `${e.id} (pasangan)`),
+  build(e, 'pasangan', e.id.replace('.pas', '')),
 )
 const REKAN: AksaraGlyph[] = (rekanContours as ContourEntry[]).map((e) => build(e, 'rekan'))
 

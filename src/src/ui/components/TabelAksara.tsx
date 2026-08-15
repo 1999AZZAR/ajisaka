@@ -241,25 +241,25 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
               <h2 className="font-display text-2xl text-text capitalize">
                 {selected.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
               </h2>
-              {((selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.desc || selected.hint) && (
+              {(EXAMPLES[selected.id]?.desc || selected.hint) && (
                 <p className="text-sm font-medium text-text-2 mt-1">
-                  ({(selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.desc || selected.hint})
+                  ({EXAMPLES[selected.id]?.desc || selected.hint})
                 </p>
               )}
             </div>
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
               <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
-                {(selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.jv || selected.unicode}
+                {EXAMPLES[selected.id]?.jv || selected.unicode}
               </span>
             </div>
             
             <div className="flex flex-col gap-1 text-center bg-paper-2 px-6 py-4 rounded-xl border border-border w-full">
               <span className="font-display text-lg text-accent-deep tracking-wide">
-                "{(selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.la || selected.id.replace('.murda', '')}"
+                "{EXAMPLES[selected.id]?.la || selected.id.replace('.murda', '')}"
               </span>
               <span className="text-sm font-medium text-text-2">
-                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? ((selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.en || '...') : ((selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.id || '...')}
+                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.id]?.en || '...') : (EXAMPLES[selected.id]?.id || '...')}
               </span>
             </div>
 
