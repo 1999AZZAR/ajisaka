@@ -284,6 +284,11 @@ copy for emphasis. Indonesian copy throughout; keep sentences short (≤ 12 word
 U+A980–U+A9DF) for rendering reference glyphs. Fallback font-stack on canvas:
 `'Noto Sans Javanese', sans-serif`. (Earliest glyph loads are precached by the SW.)
 
+**Regional Stylistic Differences (Gagrak Surakarta vs Yogyakarta):**
+The app strictly uses pure Noto Sans Javanese, which follows the **Gagrak Surakarta** style convention. Users may notice that certain characters—specifically **ra**, **da**, and **dha**—have a slightly different shape compared to what is typically found in standard school textbooks (which often use the **Gagrak Yogyakarta** style or specific handwritten Tuladha Jejeg styles).
+- **Design Decision**: We enforce pure Noto Sans Javanese across the entire application (dictionary, drawing guides, and typing logic) to ensure 100% functional parity.
+- **Technical Constraint**: Attempting to surgically replace individual base characters (e.g., swapping Surakarta `ra` for Yogyakarta `ra`) breaks the font's complex GSUB (Glyph Substitution) and GPOS rules. Javanese is a complex script where adding a *sandangan* (like *suku* or *wulu*) to a base character triggers the font engine to dynamically swap both into a pre-drawn ligature. Using a customized/mixed font causes the ligatures to break or revert styles unexpectedly during typing. Therefore, strict visual uniformity under the Surakarta style is maintained.
+
 ### 9.4 Spacing, radius, elevation
 
 - Spacing: 4px base scale (xs 4, sm 8, md 12, lg 16, xl 24, 2xl 32, 3xl 48 …).
