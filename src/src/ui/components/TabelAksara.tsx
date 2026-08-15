@@ -56,6 +56,28 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string,
   'za': { jv: 'ꦗ꦳ꦩꦤ꧀', la: 'zaman', id: 'zaman', en: 'era' },
   'gha': { jv: 'ꦒ꦳ꦲꦶꦧ꧀', la: 'ghaib', id: 'gaib', en: 'unseen' },
 
+  // Pasangan
+  'ha.pas': { jv: 'ꦲꦤꦏ꧀ꦲꦤ꧀ꦠꦸ', la: 'anak hantu', id: 'anak hantu', en: 'ghost child' },
+  'na.pas': { jv: 'ꦩꦔꦤ꧀ꦤꦤꦱ꧀', la: 'mangan nanas', id: 'makan nanas', en: 'eat pineapple' },
+  'ca.pas': { jv: 'ꦩꦔꦤ꧀ꦕꦕꦶꦁ', la: 'mangan cacing', id: 'makan cacing', en: 'eat worm' },
+  'ra.pas': { jv: 'ꦲꦤꦏ꧀ꦫꦗ', la: 'anak raja', id: 'anak raja', en: 'king\'s child' },
+  'ka.pas': { jv: 'ꦲꦤꦏ꧀ꦏꦸꦕꦶꦁ', la: 'anak kucing', id: 'anak kucing', en: 'kitten' },
+  'da.pas': { jv: 'ꦩꦔꦤ꧀ꦢꦸꦏꦸ', la: 'mangan duku', id: 'makan duku', en: 'eat duku fruit' },
+  'ta.pas': { jv: 'ꦩꦔꦤ꧀ꦠꦲꦸ', la: 'mangan tahu', id: 'makan tahu', en: 'eat tofu' },
+  'sa.pas': { jv: 'ꦩꦔꦤ꧀ꦱꦭꦏ꧀', la: 'mangan salak', id: 'makan salak', en: 'eat salak fruit' },
+  'wa.pas': { jv: 'ꦧꦥꦏ꧀ꦮꦭꦶ', la: 'bapak wali', id: 'bapak wali', en: 'guardian father' },
+  'la.pas': { jv: 'ꦲꦤꦏ꧀ꦭꦤꦁ', la: 'anak lanang', id: 'anak laki-laki', en: 'son' },
+  'pa.pas': { jv: 'ꦩꦔꦤ꧀ꦥꦫꦶ', la: 'mangan pari', id: 'makan padi', en: 'eat paddy / rice' },
+  'dha.pas': { jv: 'ꦧꦥꦏ꧀ꦝꦭꦁ', la: 'bapak dhalang', id: 'bapak dalang', en: 'puppeteer father' },
+  'ja.pas': { jv: 'ꦩꦔꦤ꧀ꦗꦗꦤ꧀', la: 'mangan jajan', id: 'makan jajan', en: 'eat snacks' },
+  'ya.pas': { jv: 'ꦲꦤꦏ꧀ꦪꦠꦶꦩ꧀', la: 'anak yatim', id: 'anak yatim', en: 'orphan child' },
+  'nya.pas': { jv: 'ꦩꦔꦤ꧀ꦚꦩꦸꦏ꧀', la: 'mangan nyamuk', id: 'makan nyamuk', en: 'eat mosquito' },
+  'ma.pas': { jv: 'ꦲꦤꦏ꧀ꦩꦕꦤ꧀', la: 'anak macan', id: 'anak harimau', en: 'tiger cub' },
+  'ga.pas': { jv: 'ꦩꦔꦤ꧀ꦒꦸꦭ', la: 'mangan gula', id: 'makan gula', en: 'eat sugar' },
+  'ba.pas': { jv: 'ꦲꦤꦏ꧀ꦧꦧꦶ', la: 'anak babi', id: 'anak babi', en: 'piglet' },
+  'tha.pas': { jv: 'ꦧꦥꦏ꧀ꦛꦸꦏꦸꦭ꧀', la: 'bapak thukul', id: 'bapak thukul', en: 'father thukul' },
+  'nga.pas': { jv: 'ꦧꦥꦏ꧀ꦔꦩꦸꦏ꧀', la: 'bapak ngamuk', id: 'bapak mengamuk', en: 'angry father' },
+
   // Murda
   'na.murda': { jv: 'ꦟꦸꦃ', la: 'Nuh', id: 'Nuh', en: 'Noah' },
   'ka.murda': { jv: 'ꦑꦢꦶꦗꦃ', la: 'Khadijah', id: 'Khadijah', en: 'Khadijah' },
@@ -219,25 +241,25 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
               <h2 className="font-display text-2xl text-text capitalize">
                 {selected.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
               </h2>
-              {(EXAMPLES[selected.id]?.desc || selected.hint) && (
+              {((selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.desc || selected.hint) && (
                 <p className="text-sm font-medium text-text-2 mt-1">
-                  ({EXAMPLES[selected.id]?.desc || selected.hint})
+                  ({(selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.desc || selected.hint})
                 </p>
               )}
             </div>
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
               <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
-                {EXAMPLES[selected.id]?.jv || selected.unicode}
+                {(selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.jv || selected.unicode}
               </span>
             </div>
             
             <div className="flex flex-col gap-1 text-center bg-paper-2 px-6 py-4 rounded-xl border border-border w-full">
               <span className="font-display text-lg text-accent-deep tracking-wide">
-                "{EXAMPLES[selected.id]?.la || selected.id.replace('.murda', '')}"
+                "{(selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.la || selected.id.replace('.murda', '')}"
               </span>
               <span className="text-sm font-medium text-text-2">
-                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.id]?.en || '...') : (EXAMPLES[selected.id]?.id || '...')}
+                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? ((selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.en || '...') : ((selected.type === 'pasangan' ? EXAMPLES[`${selected.id}.pas`] : EXAMPLES[selected.id])?.id || '...')}
               </span>
             </div>
 
