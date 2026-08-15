@@ -66,9 +66,12 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
   let u = decodeUnicode(entry.unicode)
   
   if (type === 'pasangan') {
-    // If the unicode is empty, construct it from Pangkon + base
-    if (!entry.unicode || entry.unicode === '\\u0000') {
-      const baseId = entry.id.replace('.pas', '') // handle if id has .pas
+    if (entry.id === 'ra') {
+      u = '\uA9BF' // Cakra is the pasangan for Ra
+    } else if (entry.id === 'ya') {
+      u = '\uA9BE' // Pengkal is the pasangan for Ya
+    } else if (!entry.unicode || entry.unicode === '\\u0000') {
+      const baseId = entry.id.replace('.pas', '')
       const base = (nglegenaContours as ContourEntry[]).find(n => n.id === baseId)
       if (base) u = '\uA9C0' + decodeUnicode(base.unicode)
     }
@@ -76,7 +79,8 @@ function build(entry: ContourEntry, type: AksaraType, label?: string, roman?: st
 
   // Prepend Dotted Circle (\u25CC) to sandangan so they render nicely.
   // Prepend ZWJ (\u200D) to pasangan so they shape into their subjoined form standalone!
-  const displayUnicode = type === 'sandangan' 
+  const isMedialSign = type === 'pasangan' && (entry.id === 'ra' || entry.id === 'ya')
+  const displayUnicode = (type === 'sandangan' || isMedialSign)
     ? '\u25CC' + u 
     : (type === 'pasangan' ? '\u200D' + u : u)
 
