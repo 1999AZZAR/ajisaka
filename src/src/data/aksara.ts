@@ -100,7 +100,7 @@ const SANDANGAN_UNICODES: Record<string, string> = {
   pangkon: '꧀',
   'pada lingsa': '꧈',
   'pada lungsi': '꧉',
-  'pada pangkat': '꧇', // wait, is it A9CA or A9C7? A9C7 is pada pangkat? A9CA is pada piseleh? Let me check unicode standard. Actually I'll just use the unicode they had!
+  'pada pangkat': '꧇',
   'pada adeg-adeg': '꧋',
   'cakra': 'ꦿ',
   'cakra keret': 'ꦽ',
@@ -164,7 +164,6 @@ export const LIBRARY: Record<AksaraType, AksaraGlyph[]> = {
   angka: ANGKA,
 }
 
-/** Level 1: 10 Aksara Dasar pertama (ha-la) */
 /** Level 1: Semua 20 Nglegena */
 export const STARTER_QUESTIONS = NGGLEGENA
 
