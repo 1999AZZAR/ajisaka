@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { LIBRARY, type AksaraType, type AksaraGlyph } from '../../data/aksara'
 import { useTranslation } from 'react-i18next'
 
-const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string }> = {
+const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string, desc?: string }> = {
   // Nglegena (PURE: Only characters with inherent 'a' vowel, no sandangan, no pasangan, no pangkon)
   'ha': { jv: 'ꦲꦤ', la: 'hana', id: 'ada', en: 'there is' },
   'na': { jv: 'ꦤꦩ', la: 'nama', id: 'nama', en: 'name' },
@@ -48,28 +48,28 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string 
   'nga.pas': { jv: 'ꦏꦼꦧꦏ꧀ꦔꦺꦭ꧀ꦩꦸ', la: 'kebak ngelmu', id: 'penuh ilmu', en: 'full of knowledge' },
 
   // Sandangan (PURE: Emphasizes the sandangan)
-  'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu', en: 'one' },
-  'suku': { jv: 'ꦧꦸꦏꦸ', la: 'buku', id: 'buku', en: 'book' },
-  'pepet': { jv: 'ꦱꦼꦒ', la: 'sega', id: 'nasi', en: 'rice' },
-  'taling': { jv: 'ꦭꦺꦭꦺ', la: 'lélé', id: 'ikan lele', en: 'catfish' },
-  'tarung': { jv: 'ꦱꦺꦴꦠꦺꦴ', la: 'soto', id: 'soto', en: 'soto' },
-  'cecak': { jv: 'ꦏꦕꦁ', la: 'kacang', id: 'kacang', en: 'peanut' },
-  'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar', en: 'market' },
-  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah', en: 'elephant' },
+  'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu', en: 'one', desc: 'vokal i' },
+  'suku': { jv: 'ꦧꦸꦏꦸ', la: 'buku', id: 'buku', en: 'book', desc: 'vokal u' },
+  'pepet': { jv: 'ꦱꦼꦒ', la: 'sega', id: 'nasi', en: 'rice', desc: 'vokal ê' },
+  'taling': { jv: 'ꦭꦺꦭꦺ', la: 'lélé', id: 'ikan lele', en: 'catfish', desc: 'vokal é/è' },
+  'tarung': { jv: 'ꦱꦺꦴꦠꦺꦴ', la: 'soto', id: 'soto', en: 'soto', desc: 'vokal o' },
+  'cecak': { jv: 'ꦏꦕꦁ', la: 'kacang', id: 'kacang', en: 'peanut', desc: 'konsonan ng mati' },
+  'layar': { jv: 'ꦥꦱꦂ', la: 'pasar', id: 'pasar', en: 'market', desc: 'konsonan r mati' },
+  'wignyan': { jv: 'ꦒꦗꦃ', la: 'gajah', id: 'gajah', en: 'elephant', desc: 'konsonan h mati' },
 
   // Sandangan and Punctuation Extensions
-  'pangkon': { jv: 'ꦧꦥꦏ꧀', la: 'bapak', id: 'bapak', en: 'father' },
-  'pada lingsa': { jv: 'ꦧꦸꦏꦸ꧈', la: 'buku,', id: 'buku,', en: 'book,' },
-  'pada lungsi': { jv: 'ꦧꦸꦏꦸ꧉', la: 'buku.', id: 'buku.', en: 'book.' },
-  'pada pangkat': { jv: '꧇꧑꧇', la: ':1:', id: ':1:', en: ':1:' },
-  'pada adeg-adeg': { jv: '꧋ꦧꦸꦏꦸ', la: 'Buku', id: 'Buku', en: 'Book' },
-  'cakra ra': { jv: 'ꦏꦿꦠꦺꦴꦤ꧀', la: 'kraton', id: 'kraton', en: 'palace' },
-  'cakra keret': { jv: 'ꦏꦽꦠꦼꦏ꧀', la: 'kretek', id: 'kretek', en: 'bridge' },
-  'cakra la': { jv: 'ꦏ꧀ꦭꦱ', la: 'klasa', id: 'klasa', en: 'mat' },
-  'cakra wa': { jv: 'ꦏ꧀ꦮꦶꦠꦤ꧀ꦱꦶ', la: 'kwitansi', id: 'kwitansi', en: 'receipt' },
-  'pengkal': { jv: 'ꦏꦾꦲꦶ', la: 'kyai', id: 'kyai', en: 'cleric' },
-  'pa ceret': { jv: 'ꦉꦧꦺꦴ', la: 'rebo', id: 'Rabu', en: 'Wednesday' },
-  'nga lelet': { jv: 'ꦊꦩꦃ', la: 'lemah', id: 'tanah', en: 'soil' },
+  'pangkon': { jv: 'ꦧꦥꦏ꧀', la: 'bapak', id: 'bapak', en: 'father', desc: 'paten / pemati huruf' },
+  'pada lingsa': { jv: 'ꦧꦸꦏꦸ꧈', la: 'buku,', id: 'buku,', en: 'book,', desc: 'tanda koma (,)' },
+  'pada lungsi': { jv: 'ꦧꦸꦏꦸ꧉', la: 'buku.', id: 'buku.', en: 'book.', desc: 'tanda titik (.)' },
+  'pada pangkat': { jv: '꧇꧑꧇', la: ':1:', id: ':1:', en: ':1:', desc: 'titik dua / pengapit angka' },
+  'pada adeg-adeg': { jv: '꧋ꦧꦸꦏꦸ', la: 'Buku', id: 'Buku', en: 'Book', desc: 'pembuka kalimat / paragraf' },
+  'cakra ra': { jv: 'ꦏꦿꦠꦺꦴꦤ꧀', la: 'kraton', id: 'kraton', en: 'palace', desc: 'sisipan ...ra' },
+  'cakra keret': { jv: 'ꦏꦽꦠꦼꦏ꧀', la: 'kretek', id: 'kretek', en: 'bridge', desc: 'sisipan ...rê' },
+  'cakra la': { jv: 'ꦏ꧀ꦭꦱ', la: 'klasa', id: 'klasa', en: 'mat', desc: 'sisipan ...la' },
+  'cakra wa': { jv: 'ꦏ꧀ꦮꦶꦠꦤ꧀ꦱꦶ', la: 'kwitansi', id: 'kwitansi', en: 'receipt', desc: 'sisipan ...wa' },
+  'pengkal': { jv: 'ꦏꦾꦲꦶ', la: 'kyai', id: 'kyai', en: 'cleric', desc: 'sisipan ...ya' },
+  'pa ceret': { jv: 'ꦉꦧꦺꦴ', la: 'rebo', id: 'Rabu', en: 'Wednesday', desc: 'suku kata rê' },
+  'nga lelet': { jv: 'ꦊꦩꦃ', la: 'lemah', id: 'tanah', en: 'soil', desc: 'suku kata lê' },
 
   // Rekan
   'kha': { jv: 'ꦏ꦳ꦠꦩ꧀', la: 'khatam', id: 'khatam', en: 'finished' },
@@ -236,9 +236,16 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
       {selected && (
         <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/40 p-6 backdrop-blur-sm" onClick={() => setSelected(null)}>
           <div className="flex w-full max-w-sm flex-col items-center gap-4 rounded-[2rem] border-4 border-white bg-paper p-8 text-center shadow-2xl" onClick={e => e.stopPropagation()}>
-            <h2 className="font-display text-2xl text-text capitalize">
-              {selected.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
-            </h2>
+            <div className="flex flex-col items-center">
+              <h2 className="font-display text-2xl text-text capitalize">
+                {selected.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
+              </h2>
+              {EXAMPLES[selected.id]?.desc && (
+                <p className="text-sm font-medium text-text-2 mt-1">
+                  ({EXAMPLES[selected.id].desc})
+                </p>
+              )}
+            </div>
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
               <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
