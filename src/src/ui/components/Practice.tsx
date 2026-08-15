@@ -86,7 +86,7 @@ export default function Practice() {
         }
         else if (m.status === 'warn') a.playStrokeError()
         else if (m.status === 'retry') a.playStrokeError()
-        else a.playStrokeSuccess() // For valid but incomplete strokes if implemented
+        else a.playStrokeSuccess() // Sub-stroke valid
       })
     },
     [strokes, glyph],
