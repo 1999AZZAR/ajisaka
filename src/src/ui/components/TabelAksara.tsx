@@ -221,9 +221,15 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
                 onClick={() => setSelected(glyph)}
                 className="flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-border bg-white p-4 shadow-sm transition-transform hover:bg-paper-2 active:scale-95"
               >
-                <span className="text-5xl text-accent" style={{ fontFamily: 'var(--font-javanese)' }}>
-                  {glyph.unicode}
-                </span>
+                {glyph.contour && glyph.contour.length > 0 ? (
+                  <svg viewBox="0 0 1 1" className="w-12 h-12 fill-current text-accent" style={{ transform: 'scale(1.1)' }}>
+                    <path d={glyph.contour.map((sp: any) => sp.map((p: any, i: number) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ') + ' Z').join(' ')} />
+                  </svg>
+                ) : (
+                  <span className="text-5xl text-accent" style={{ fontFamily: 'var(--font-javanese)' }}>
+                    {glyph.unicode}
+                  </span>
+                )}
                 <span className="font-display text-base text-text capitalize">
                   {glyph.id.replace('.pas', '').replace('.ns', '').replace('.murda', '')}
                 </span>
@@ -249,9 +255,21 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
             </div>
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
-              <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
-                {EXAMPLES[selected.id]?.jv || selected.unicode}
-              </span>
+              {EXAMPLES[selected.id]?.jv ? (
+                <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
+                  {EXAMPLES[selected.id].jv}
+                </span>
+              ) : (
+                selected.contour && selected.contour.length > 0 ? (
+                  <svg viewBox="0 0 1 1" className="w-24 h-24 fill-current text-accent" style={{ transform: 'scale(1.1)' }}>
+                    <path d={selected.contour.map((sp: any) => sp.map((p: any, i: number) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ') + ' Z').join(' ')} />
+                  </svg>
+                ) : (
+                  <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
+                    {selected.unicode}
+                  </span>
+                )
+              )}
             </div>
             
             <div className="flex flex-col gap-1 text-center bg-paper-2 px-6 py-4 rounded-xl border border-border w-full">
