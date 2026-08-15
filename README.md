@@ -1,70 +1,70 @@
 # Petualangan Ajisaka 👑
 
-![Ajisaka Blotcat Illustration](public/assets/ajisaka-blotcat.jpg)
+![Ilustrasi Ajisaka Blotcat](public/assets/ajisaka-blotcat.jpg)
 
-Petualangan Ajisaka is an offline-first Progressive Web App (PWA) built to teach Aksara Jawa (Javanese script). It structures the learning process as a journey across three islands, moving from basic letters to complex consonant pairings.
+Petualangan Ajisaka adalah Progressive Web App (PWA) berbasis luring-pertama (*offline-first*) yang dibangun untuk mengajarkan Aksara Jawa. Aplikasi ini menyusun proses pembelajaran sebagai sebuah perjalanan melintasi tiga pulau, bergerak dari pengenalan huruf dasar hingga pasangan konsonan yang kompleks.
 
-Instead of relying on simple multiple-choice questions or pixel-perfect canvas matching, we built a custom stroke evaluation engine and an additive synthesizer for audio feedback. The app runs entirely in the browser and requires no internet connection after the initial load.
+Alih-alih mengandalkan pertanyaan pilihan ganda sederhana atau pencocokan kanvas *pixel-perfect*, kami membangun mesin evaluasi guratan kustom dan penyintesis aditif untuk umpan balik audio. Aplikasi ini berjalan sepenuhnya di dalam peramban (*browser*) dan tidak memerlukan koneksi internet setelah pemuatan awal.
 
-## Architecture & Mechanics
+## Arsitektur & Mekanika
 
-- **Vector Geometry Stroke Recognition**: The drawing canvas captures user inputs as coordinate paths, normalizes them, and evaluates them against reference contours using a Chamfer Distance algorithm. This prevents players from cheating by scribbling over the entire canvas and ensures the evaluation scales correctly across any screen resolution.
-- **Physical Modeling Gamelan Audio**: The app synthesizes its own sound effects using the native Web Audio API. When a player completes a stroke, it triggers a modeled Gamelan strike complete with a mallet exciter, dynamically damped low-pass filters, and the characteristic *Ombak* (acoustic beating) of resonating bronze.
-- **Granular State Tracking**: Game progress is tracked and persisted locally via Zustand. Players can leave the app mid-level and return without losing their unlocked phases, islands, or items.
-- **Three-Way Localization**: The UI, story, and drawing hints are fully translated into Indonesian, English, and Javanese Krama Inggil.
-- **Free Type Mode**: A dedicated sandbox where users can test out the virtual keyboard and see their Javanese characters transliterated into Latin text in real time.
+- **Pengenalan Guratan Geometri Vektor**: Kanvas menggambar menangkap masukan pengguna sebagai jalur koordinat, menormalisasikannya, dan mengevaluasinya terhadap kontur referensi menggunakan algoritma Jarak Chamfer (*Chamfer Distance*). Hal ini mencegah pemain berbuat curang dengan mencoret-coret seluruh kanvas dan memastikan evaluasi diskalakan dengan benar di berbagai resolusi layar.
+- **Audio Gamelan Pemodelan Fisik**: Aplikasi ini menyintesis efek suaranya sendiri menggunakan Web Audio API bawaan. Saat pemain menyelesaikan sebuah guratan, hal ini memicu pukulan Gamelan yang dimodelkan lengkap dengan *exciter* pemukul, filter *low-pass* yang diredam secara dinamis, dan karakteristik *Ombak* (ketukan akustik) dari perunggu yang beresonansi.
+- **Pelacakan Status Granular**: Kemajuan permainan dilacak dan disimpan secara lokal melalui Zustand. Pemain dapat meninggalkan aplikasi di pertengahan level dan kembali tanpa kehilangan fase, pulau, atau item yang telah terbuka.
+- **Pelokalan Tiga Bahasa**: Antarmuka, cerita, dan petunjuk menggambar sepenuhnya diterjemahkan ke dalam bahasa Indonesia, Inggris, dan Jawa Krama Inggil.
+- **Mode Ketik Bebas**: Kotak pasir khusus di mana pengguna dapat menguji papan ketik virtual dan melihat karakter Aksara Jawa mereka ditransliterasikan ke dalam teks Latin secara *real-time*.
 
-## Technical Details
+## Detail Teknis
 
-The codebase is structured around React 18 and Vite.
+Basis kode ini disusun menggunakan React 18 dan Vite.
 
-- **Frontend Framework**: React 18 (TypeScript)
-- **Styling**: Tailwind CSS v4, built on an OKLCH color token system for theme consistency.
-- **State**: Zustand with localStorage persistence.
-- **Routing**: React Router using HashRouter to ensure stable offline navigation without server-side rewrite rules.
-- **Offline Capabilities**: Workbox precaches the HTML bundle, custom Javanese font (WOFF2), and minimal assets. 
+- **Kerangka Frontend**: React 18 (TypeScript)
+- **Gaya**: Tailwind CSS v4, dibangun di atas sistem token warna OKLCH untuk konsistensi tema.
+- **Status (State)**: Zustand dengan persistensi `localStorage`.
+- **Perutean (Routing)**: React Router menggunakan HashRouter untuk memastikan navigasi luring yang stabil tanpa aturan penulisan ulang sisi peladen (*server-side*).
+- **Kemampuan Luring**: Workbox melakukan pra-tembolok (*precache*) pada bundel HTML, font Aksara Jawa kustom (WOFF2), dan aset minimal.
 
-## Running the App
+## Menjalankan Aplikasi
 
-You need Node.js (v18 or newer) to run the development server.
+Anda membutuhkan Node.js (v18 atau lebih baru) untuk menjalankan server pengembangan.
 
-1. Clone the repository:
+1. Klon repositori:
    ```bash
    git clone https://github.com/1999AZZAR/ajisaka.git
    cd ajisaka
    ```
-2. Install dependencies:
+2. Instal dependensi:
    ```bash
    npm install
    ```
-3. Start the Vite dev server:
+3. Mulai server pengembangan Vite:
    ```bash
    npm run dev
    ```
 
-To test the touch interactions on a mobile device on your local network, start the server with `npm run dev -- --host` and navigate to the provided local IP address on your phone.
+Untuk menguji interaksi sentuh pada perangkat seluler di jaringan lokal Anda, jalankan server dengan `npm run dev -- --host` dan buka alamat IP lokal yang disediakan di ponsel Anda.
 
-### Using Docker
+### Menggunakan Docker
 
-If you prefer using Docker, you can build and run the production image using the included multi-stage Dockerfile:
+Jika Anda lebih suka menggunakan Docker, Anda dapat membangun dan menjalankan citra produksi menggunakan Dockerfile multi-tahap yang disertakan:
 
-1. Build the image:
+1. Bangun citra (*image*):
    ```bash
    docker build -t ajisaka .
    ```
-2. Run the container:
+2. Jalankan kontainer:
    ```bash
    docker run -p 8080:80 ajisaka
    ```
-The app will be available at `http://localhost:8080`.
+Aplikasi akan tersedia di `http://localhost:8080`.
 
-## Repository Layout
+## Tata Letak Repositori
 
-- `src/engine/` - Mathematical logic for the canvas stroke geometry (`raster.ts`, `geometry.ts`) and the physical modeling audio synthesizer (`audio.ts`).
-- `src/state/` - Zustand stores for tracking progress and user configuration.
-- `src/ui/` - React views, UI components, and the virtual keyboard.
-- `src/data/` - Static configurations for the three levels and the JSON definitions for the Javanese script SVG contours.
-- `docs/` - Planning documents, scripts, and task tracking.
+- `src/engine/` - Logika matematis untuk geometri guratan kanvas (`raster.ts`, `geometry.ts`) dan penyintesis audio pemodelan fisik (`audio.ts`).
+- `src/state/` - Penyimpanan Zustand untuk melacak kemajuan dan konfigurasi pengguna.
+- `src/ui/` - Tampilan React, komponen UI, dan papan ketik virtual.
+- `src/data/` - Konfigurasi statis untuk ketiga level dan definisi JSON untuk kontur SVG Aksara Jawa.
+- `docs/` - Dokumen perencanaan, skrip, dan pelacakan tugas.
 
-## License
-Private Repository. Copyright © 2026 Azzar. All Rights Reserved.
+## Lisensi
+Repositori Pribadi. Hak Cipta © 2026 Azzar. Hak Cipta Dilindungi Undang-Undang.
