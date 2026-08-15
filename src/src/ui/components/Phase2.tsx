@@ -41,23 +41,23 @@ const KEYBOARD = [
 
 const QUESTIONS = [
   // Menu 1: Dasar
-  { word: 'bata', target: 'ꦧꦠ', menu: 'Menu 1: Dasar' },
-  { word: 'mata', target: 'ꦩꦠ', menu: 'Menu 1: Dasar' },
-  { word: 'saka', target: 'ꦱꦏ', menu: 'Menu 1: Dasar' },
-  { word: 'cara', target: 'ꦕꦫ', menu: 'Menu 1: Dasar' },
-  { word: 'naga', target: 'ꦤꦒ', menu: 'Menu 1: Dasar' },
+  { word: 'bata', target: 'ꦧꦠ', menuKey: 'practice.base' },
+  { word: 'mata', target: 'ꦩꦠ', menuKey: 'practice.base' },
+  { word: 'saka', target: 'ꦱꦏ', menuKey: 'practice.base' },
+  { word: 'cara', target: 'ꦕꦫ', menuKey: 'practice.base' },
+  { word: 'naga', target: 'ꦤꦒ', menuKey: 'practice.base' },
   // Menu 2: Sandangan
-  { word: 'buku', target: 'ꦧꦸꦏꦸ', menu: 'Menu 2: Sandangan' },
-  { word: 'pari', target: 'ꦥꦫꦶ', menu: 'Menu 2: Sandangan' },
-  { word: 'soto', target: 'ꦱꦺꦴꦠꦺꦴ', menu: 'Menu 2: Sandangan' },
-  { word: 'lali', target: 'ꦭꦭꦶ', menu: 'Menu 2: Sandangan' },
-  { word: 'sepi', target: 'ꦱꦼꦥꦶ', menu: 'Menu 2: Sandangan' },
+  { word: 'buku', target: 'ꦧꦸꦏꦸ', menuKey: 'practice.sandangan' },
+  { word: 'pari', target: 'ꦥꦫꦶ', menuKey: 'practice.sandangan' },
+  { word: 'soto', target: 'ꦱꦺꦴꦠꦺꦴ', menuKey: 'practice.sandangan' },
+  { word: 'lali', target: 'ꦭꦭꦶ', menuKey: 'practice.sandangan' },
+  { word: 'sepi', target: 'ꦱꦼꦥꦶ', menuKey: 'practice.sandangan' },
   // Menu 3: Pasangan
-  { word: 'sabtu', target: 'ꦱꦧ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
-  { word: 'mandi', target: 'ꦩꦤ꧀ꦢꦶ', menu: 'Menu 3: Pasangan' },
-  { word: 'bantu', target: 'ꦧꦤ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
-  { word: 'pintu', target: 'ꦥꦶꦤ꧀ꦠꦸ', menu: 'Menu 3: Pasangan' },
-  { word: 'kunci', target: 'ꦏꦸꦚ꧀ꦕꦶ', menu: 'Menu 3: Pasangan' }
+  { word: 'sabtu', target: 'ꦱꦧ꧀ꦠꦸ', menuKey: 'practice.pasangan' },
+  { word: 'mandi', target: 'ꦩꦤ꧀ꦢꦶ', menuKey: 'practice.pasangan' },
+  { word: 'bantu', target: 'ꦧꦤ꧀ꦠꦸ', menuKey: 'practice.pasangan' },
+  { word: 'pintu', target: 'ꦥꦶꦤ꧀ꦠꦸ', menuKey: 'practice.pasangan' },
+  { word: 'kunci', target: 'ꦏꦸꦚ꧀ꦕꦶ', menuKey: 'practice.pasangan' }
 ]
 
 export default function Phase2() {
@@ -125,7 +125,7 @@ export default function Phase2() {
   return (
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-4 pb-4 pt-6 overflow-hidden">
       <header className="mb-4 shrink-0 flex items-center justify-between">
-        <h1 className="font-display text-xl text-text">{currentQ.menu}</h1>
+        <h1 className="font-display text-xl text-text">{t(currentQ.menuKey)}</h1>
         <span className="rounded-full bg-paper border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">
           {t('practice.phase')} 2/2 - {t('practice.question')} {qIndex + 1}/{QUESTIONS.length}
         </span>

@@ -88,7 +88,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <section className="mb-8 overflow-hidden rounded-[1.5rem] border-2 border-white/60 bg-white/70 p-5 shadow-card backdrop-blur-md" aria-label="Progres">
+        <section className="mb-8 overflow-hidden rounded-[1.5rem] border-2 border-white/60 bg-white/70 p-5 shadow-card backdrop-blur-md" aria-label={t('dashboard.progress_title')}>
           <div className="flex items-center justify-between text-[0.95rem]">
             <span className="font-display tracking-wide text-text">{t('dashboard.progress_title')}</span>
             <span className="font-bold text-accent-2">{t('dashboard.progress_complete', { count: completedLevels.length })}</span>
@@ -107,7 +107,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <nav ref={navRef} className="flex flex-1 flex-col gap-4" aria-label="Menu utama">
+        <nav ref={navRef} className="flex flex-1 flex-col gap-4" aria-label={t('dashboard.title')}>
           <LevelCard
             level={0}
             title={t('dashboard.prolog')}

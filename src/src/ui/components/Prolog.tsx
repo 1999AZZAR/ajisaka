@@ -128,7 +128,7 @@ export default function Prolog() {
               : 'bg-gradient-to-b from-accent-2 to-[oklch(0.65_0.13_80)] shadow-[0_6px_0_oklch(0.65_0.13_80),0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_0_oklch(0.65_0.13_80),0_15px_25px_rgba(0,0,0,0.2)] active:shadow-[0_0px_0_oklch(0.65_0.13_80)]'} 
             hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_rgba(0,0,0,0)]`}
         >
-          {!isDone ? 'Lanjut' : 'Mulai Petualangan! ➡️'}
+          {t(!isDone ? 'prolog_page.next' : 'prolog_page.play')}
         </button>
       </footer>
     </main>
