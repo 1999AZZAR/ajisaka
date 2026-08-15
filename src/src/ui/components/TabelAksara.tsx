@@ -25,27 +25,7 @@ const EXAMPLES: Record<string, { jv: string, la: string, id: string, en: string,
   'tha': { jv: 'ꦧꦛꦫ', la: 'bathara', id: 'dewa', en: 'god' },
   'nga': { jv: 'ꦔꦔ', la: 'nganga', id: 'menganga', en: 'agape' },
 
-  // Pasangan
-  'ha.pas': { jv: 'ꦩꦤꦸꦏ꧀ꦲꦤ꧀ꦠꦸ', la: 'manuk hantu', id: 'burung hantu', en: 'owl' },
-  'na.pas': { jv: 'ꦲꦤꦏ꧀ꦤꦏꦭ꧀', la: 'anak nakal', id: 'anak nakal', en: 'naughty child' },
-  'ca.pas': { jv: 'ꦏꦚ꧀ꦕ', la: 'kanca', id: 'teman', en: 'friend' },
-  'ra.pas': { jv: 'ꦲꦤꦏ꧀ꦫꦗ', la: 'anak raja', id: 'anak raja', en: 'royal child' },
-  'ka.pas': { jv: 'ꦤꦱ꧀ꦏꦃ', la: 'naskah', id: 'naskah', en: 'manuscript' },
-  'da.pas': { jv: 'ꦭꦤ꧀ꦢꦼꦥ꧀', la: 'landep', id: 'tajam', en: 'sharp' },
-  'ta.pas': { jv: 'ꦭꦶꦤ꧀ꦠꦁ', la: 'lintang', id: 'bintang', en: 'star' },
-  'sa.pas': { jv: 'ꦥꦏ꧀ꦱ', la: 'paksa', id: 'paksa', en: 'force' },
-  'wa.pas': { jv: 'ꦱꦠ꧀ꦮ', la: 'satwa', id: 'hewan', en: 'animal' },
-  'la.pas': { jv: 'ꦩꦏ꧀ꦭꦸꦩ꧀', la: 'maklum', id: 'maklum', en: 'understand' },
-  'pa.pas': { jv: 'ꦠꦤ꧀ꦥ', la: 'tanpa', id: 'tanpa', en: 'without' },
-  'dha.pas': { jv: 'ꦏꦤ꧀ꦝ', la: 'kandha', id: 'berkata', en: 'say' },
-  'ja.pas': { jv: 'ꦧꦚ꧀ꦗꦶꦂ', la: 'banjir', id: 'banjir', en: 'flood' },
-  'ya.pas': { jv: 'ꦲꦤꦏ꧀ꦪꦠꦶꦩ꧀', la: 'anak yatim', id: 'anak yatim', en: 'orphan' },
-  'nya.pas': { jv: 'ꦏꦼꦧꦏ꧀ꦚꦩꦸꦏ꧀', la: 'kebak nyamuk', id: 'banyak nyamuk', en: 'full of mosquitoes' },
-  'ma.pas': { jv: 'ꦱꦸꦏ꧀ꦩ', la: 'sukma', id: 'jiwa', en: 'soul' },
-  'ga.pas': { jv: 'ꦲꦤꦏ꧀ꦒꦗꦃ', la: 'anak gajah', id: 'anak gajah', en: 'elephant calf' },
-  'ba.pas': { jv: 'ꦏꦼꦩ꧀ꦧꦁ', la: 'kembang', id: 'bunga', en: 'flower' },
-  'tha.pas': { jv: 'ꦏꦤ꧀ꦛꦶ', la: 'kanthi', id: 'dengan', en: 'with' },
-  'nga.pas': { jv: 'ꦏꦼꦧꦏ꧀ꦔꦺꦭ꧀ꦩꦸ', la: 'kebak ngelmu', id: 'penuh ilmu', en: 'full of knowledge' },
+  'nga': { jv: 'ꦔꦔ', la: 'nganga', id: 'menganga', en: 'agape' },
 
   // Sandangan (PURE: Emphasizes the sandangan)
   'wulu': { jv: 'ꦱꦶꦗꦶ', la: 'siji', id: 'satu', en: 'one', desc: 'vokal i' },
@@ -249,16 +229,16 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
             
             <div className="flex flex-col items-center justify-center rounded-2xl bg-white w-full py-8 px-4 shadow-inner border border-border">
               <span className="text-6xl text-accent leading-tight" style={{ fontFamily: 'var(--font-javanese)' }}>
-                {EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.jv || selected.unicode}
+                {EXAMPLES[selected.id]?.jv || selected.unicode}
               </span>
             </div>
             
             <div className="flex flex-col gap-1 text-center bg-paper-2 px-6 py-4 rounded-xl border border-border w-full">
               <span className="font-display text-lg text-accent-deep tracking-wide">
-                "{EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.la || selected.id.replace('.murda', '')}"
+                "{EXAMPLES[selected.id]?.la || selected.id.replace('.murda', '')}"
               </span>
               <span className="text-sm font-medium text-text-2">
-                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.en || '...') : (EXAMPLES[selected.type === 'pasangan' ? `${selected.id}.pas` : selected.id]?.id || '...')}
+                {t('kamus_modal.meaning')} {i18n.resolvedLanguage === 'en' ? (EXAMPLES[selected.id]?.en || '...') : (EXAMPLES[selected.id]?.id || '...')}
               </span>
             </div>
 
