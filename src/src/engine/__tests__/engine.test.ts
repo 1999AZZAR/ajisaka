@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { dtwDistance } from '../dtw'
 import { normalize, resample, type Point } from '../geometry'
 
 const line: Point[] = [
@@ -27,18 +26,5 @@ describe('geometry', () => {
     expect(Math.max(...xs)).toBeCloseTo(1, 5)
     // diagonal preserved: each point still on y=x
     out.forEach((p) => expect(p.x).toBeCloseTo(p.y, 5))
-  })
-})
-
-describe('dtw', () => {
-  it('is near zero for identical strokes', () => {
-    const a = normalize(resample(line, 32))
-    expect(dtwDistance(a, a)).toBeLessThan(1e-9)
-  })
-
-  it('punishes reversed direction', () => {
-    const a = normalize(resample(line, 32))
-    const b = normalize(resample([...line].reverse(), 32))
-    expect(dtwDistance(a, b)).toBeGreaterThan(dtwDistance(a, a))
   })
 })

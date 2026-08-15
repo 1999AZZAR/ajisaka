@@ -118,9 +118,9 @@ export const SANDANGAN: AksaraGlyph[] = [
 export const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map((e) =>
   build(e, 'pasangan', `${e.id} (pasangan)`),
 )
-export const REKAN: AksaraGlyph[] = (rekanContours as ContourEntry[]).map((e) => build(e, 'rekan'))
+const REKAN: AksaraGlyph[] = (rekanContours as ContourEntry[]).map((e) => build(e, 'rekan'))
 
-export const MURDA: AksaraGlyph[] = [
+const MURDA: AksaraGlyph[] = [
   { id: 'na.murda', unicode: 'ꦟ' },
   { id: 'ka.murda', unicode: 'ꦑ' },
   { id: 'ta.murda', unicode: 'ꦡ' },
@@ -130,7 +130,7 @@ export const MURDA: AksaraGlyph[] = [
   { id: 'ga.murda', unicode: 'ꦓ' },
 ].map((e) => build({ ...e, contour: [] }, 'murda', `${e.id.replace('.murda', '')} (murda)`))
 
-export const SWARA: AksaraGlyph[] = [
+const SWARA: AksaraGlyph[] = [
   { id: 'A', unicode: 'ꦄ' },
   { id: 'I', unicode: 'ꦆ' },
   { id: 'U', unicode: 'ꦈ' },
@@ -138,7 +138,7 @@ export const SWARA: AksaraGlyph[] = [
   { id: 'O', unicode: 'ꦎ' },
 ].map((e) => build({ ...e, contour: [] }, 'swara', `${e.id} (swara)`))
 
-export const ANGKA: AksaraGlyph[] = [
+const ANGKA: AksaraGlyph[] = [
   { id: '1', unicode: '꧑' },
   { id: '2', unicode: '꧒' },
   { id: '3', unicode: '꧓' },

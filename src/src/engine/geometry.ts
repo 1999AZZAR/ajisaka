@@ -3,13 +3,7 @@ export interface Point {
   y: number
 }
 
-export function pathLength(pts: Point[]): number {
-  let len = 0
-  for (let i = 1; i < pts.length; i++) {
-    len += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y)
-  }
-  return len
-}
+
 
 function cumulativeLengths(pts: Point[]): number[] {
   const out = [0]

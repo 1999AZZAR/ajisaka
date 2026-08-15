@@ -1,6 +1,6 @@
 import type { Point } from './geometry'
 
-export type StrokeStatus = 'pass' | 'warn' | 'retry'
+type StrokeStatus = 'pass' | 'warn' | 'retry'
 
 export interface RasterMatch {
   status: StrokeStatus
