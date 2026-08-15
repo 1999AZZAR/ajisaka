@@ -148,12 +148,11 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
 
   const TABS: { id: AksaraType; label: string }[] = [
     { id: 'nglegena', label: t('kamus_modal.nglegena') || 'Nglegena' },
-    { id: 'pasangan', label: t('kamus_modal.pasangan') || 'Pasangan' },
     { id: 'sandangan', label: t('kamus_modal.sandangan') || 'Sandangan' },
-    { id: 'rekan', label: t('kamus_modal.rekan') || 'Rekan' },
+    { id: 'angka', label: t('kamus_modal.angka') || 'Angka' },
     { id: 'murda', label: t('kamus_modal.murda') || 'Murda' },
     { id: 'swara', label: t('kamus_modal.swara') || 'Swara' },
-    { id: 'angka', label: t('kamus_modal.angka') || 'Angka' },
+    { id: 'rekan', label: t('kamus_modal.rekan') || 'Rekan' },
   ]
 
   const items = LIBRARY[activeTab]
