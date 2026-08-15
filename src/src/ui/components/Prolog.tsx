@@ -12,13 +12,28 @@ const slides = [
   },
   {
     titleKey: 'prolog_page.slides.2.title',
-    icon: '✒️',
+    icon: '👑',
     bodyKey: 'prolog_page.slides.2.body',
   },
   {
     titleKey: 'prolog_page.slides.3.title',
-    icon: '🗂️',
+    icon: '🗡️',
     bodyKey: 'prolog_page.slides.3.body',
+  },
+  {
+    titleKey: 'prolog_page.slides.4.title',
+    icon: '⚔️',
+    bodyKey: 'prolog_page.slides.4.body',
+  },
+  {
+    titleKey: 'prolog_page.slides.5.title',
+    icon: '🥀',
+    bodyKey: 'prolog_page.slides.5.body',
+  },
+  {
+    titleKey: 'prolog_page.slides.6.title',
+    icon: '✨',
+    bodyKey: 'prolog_page.slides.6.body',
   },
 ]
 

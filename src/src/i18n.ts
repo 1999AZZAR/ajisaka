@@ -157,15 +157,27 @@ const resources = {
         "slides": {
           "1": {
             "title": "Aksara Jawa",
-            "body": "Aksara Jawa adalah sistem tulisan turunan dari aksara Brahmi yang dipakai masyarakat Jawa sejak abad ke-9."
+            "body": "Aksara Jawa dipercaya diciptakan oleh seorang ksatria sakti bernama Aji Saka."
           },
           "2": {
-            "title": "Leluhur Hanacaraka",
-            "body": "Huruf-hurufnya dikenal lewat cerita Ajisaka — kisah yang melahirkan urutan ha, na, ca, ra, ka."
+            "title": "Dua Abdi Setia",
+            "body": "Aji Saka memiliki dua abdi yang sangat setia bernama Dora dan Sembada."
           },
           "3": {
-            "title": "Tiga Jenis Huruf",
-            "body": "Kita akan belajar Nglegena, Sandangan penanda vokal, dan Pasangan untuk konsonan mati."
+            "title": "Titah Sang Ksatria",
+            "body": "Saat pergi, Aji Saka menitipkan pusakanya pada Sembada dengan pesan rahasia: jangan berikan kepada siapapun kecuali Aji Saka sendiri."
+          },
+          "4": {
+            "title": "Kesalahpahaman",
+            "body": "Namun, Aji Saka mengutus Dora untuk mengambil pusaka itu. Sembada menolak karena memegang amanah, Dora memaksa karena perintah."
+          },
+          "5": {
+            "title": "Pertarungan Sengit",
+            "body": "Keduanya bertarung hebat. Karena sama-sama kuat, kedua abdi setia itu akhirnya gugur bersama."
+          },
+          "6": {
+            "title": "Lahirnya Hanacaraka",
+            "body": "Untuk mengenang kesetiaan mereka, diciptakanlah Aksara Jawa: Ha-Na-Ca-Ra-Ka (Ada utusan), Da-Ta-Sa-Wa-La (Mereka bertengkar), Pa-Dha-Ja-Ya-Nya (Sama sakti), Ma-Ga-Ba-Tha-Nga (Di sinilah menjadi mayat)."
           }
         }
       }
@@ -325,15 +337,27 @@ const resources = {
         "slides": {
           "1": {
             "title": "Javanese Script",
-            "body": "Javanese script is a writing system derived from the Brahmi script, used by the Javanese people since the 9th century."
+            "body": "The Javanese script is believed to have been created by a powerful knight named Aji Saka."
           },
           "2": {
-            "title": "Hanacaraka Origins",
-            "body": "The letters are known through the story of Ajisaka — a tale that birthed the sequence ha, na, ca, ra, ka."
+            "title": "Two Loyal Servants",
+            "body": "Aji Saka had two incredibly loyal servants named Dora and Sembada."
           },
           "3": {
-            "title": "Three Types of Letters",
-            "body": "We will learn the Nglegena, Vowel Modifiers (Sandangan), and Consonant Pairs (Pasangan) for dead consonants."
+            "title": "The Knight's Decree",
+            "body": "Before leaving, Aji Saka entrusted his sacred keris to Sembada, commanding him to give it to absolutely no one but Aji Saka himself."
+          },
+          "4": {
+            "title": "A Misunderstanding",
+            "body": "Later, Aji Saka sent Dora to retrieve the keris. Sembada refused to break his oath, while Dora insisted on fulfilling his orders."
+          },
+          "5": {
+            "title": "The Fierce Battle",
+            "body": "A fierce duel ensued. Because they were equally matched in strength, both loyal servants tragically fell in battle."
+          },
+          "6": {
+            "title": "Birth of Hanacaraka",
+            "body": "To honor their loyalty, Aji Saka created the script: Ha-Na-Ca-Ra-Ka (There were messengers), Da-Ta-Sa-Wa-La (They fought), Pa-Dha-Ja-Ya-Nya (Equally strong), Ma-Ga-Ba-Tha-Nga (Here they lie dead)."
           }
         }
       }
@@ -493,15 +517,27 @@ const resources = {
         "slides": {
           "1": {
             "title": "Aksara Jawa",
-            "body": "Aksara Jawa minangka seratan turunan saking aksara Brahmi ingkang dipun ginakaken masarakat Jawa wiwit abad kaping-9."
+            "body": "Aksara Jawa dipun cariyosaken karipta dening satriya sakti mandraguna asma Aji Saka."
           },
           "2": {
-            "title": "Leluhur Hanacaraka",
-            "body": "Aksaranipun misuwur lumantar cariyos Ajisaka — lelampahan ingkang nglairaken urutan ha, na, ca, ra, ka."
+            "title": "Kalih Abdi Setya",
+            "body": "Aji Saka kagungan kalih abdi ingkang tansah setya tuhu asma Dora lan Sembada."
           },
           "3": {
-            "title": "Tiga Jinising Huruf",
-            "body": "Kita badhe sinau Nglegena, Sandhangan panandha vokal, saha Pasangan kagem konsonan mati."
+            "title": "Paringing Dawuh",
+            "body": "Nalika tindak, Aji Saka nitipaken pusaka dhumateng Sembada kanthi piweling: sampun ngantos kaparingaken dhumateng sinten kemawon kajawi Aji Saka piyambak."
+          },
+          "4": {
+            "title": "Sulanaya",
+            "body": "Nanging, Aji Saka ngutus Dora mundhut pusaka kalawau. Sembada puguh ngugemi amanah, mangka Dora meksa nindakaken dhawuh."
+          },
+          "5": {
+            "title": "Paprangan Ageng",
+            "body": "Kekalihipun pancakara. Awit sami-sami sekti, kalih abdi setya kalawau pungkasanipun palastra sareng."
+          },
+          "6": {
+            "title": "Lairipun Hanacaraka",
+            "body": "Kagem pengetan kasetyanipun, karipta Aksara Jawa: Ha-Na-Ca-Ra-Ka (Wonten utusan), Da-Ta-Sa-Wa-La (Sami pancakara), Pa-Dha-Ja-Ya-Nya (Sami digdaya), Ma-Ga-Ba-Tha-Nga (Dadi bathang)."
           }
         }
       }
