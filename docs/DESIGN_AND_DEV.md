@@ -285,9 +285,11 @@ U+A980–U+A9DF) for rendering reference glyphs. Fallback font-stack on canvas:
 `'Noto Sans Javanese', sans-serif`. (Earliest glyph loads are precached by the SW.)
 
 **Regional Stylistic Differences (Gagrak Surakarta vs Yogyakarta):**
-The app strictly uses pure Noto Sans Javanese, which follows the **Gagrak Surakarta** style convention. Users may notice that certain characters—specifically **ra**, **da**, and **dha**—have a slightly different shape compared to what is typically found in standard school textbooks (which often use the **Gagrak Yogyakarta** style or specific handwritten Tuladha Jejeg styles).
-- **Design Decision**: We enforce pure Noto Sans Javanese across the entire application (dictionary, drawing guides, and typing logic) to ensure 100% functional parity.
-- **Technical Constraint**: Attempting to surgically replace individual base characters (e.g., swapping Surakarta `ra` for Yogyakarta `ra`) breaks the font's complex GSUB (Glyph Substitution) and GPOS rules. Javanese is a complex script where adding a *sandangan* (like *suku* or *wulu*) to a base character triggers the font engine to dynamically swap both into a pre-drawn ligature. Using a customized/mixed font causes the ligatures to break or revert styles unexpectedly during typing. Therefore, strict visual uniformity under the Surakarta style is maintained.
+The application strictly uses pure **Noto Sans Javanese**, which is based on the **Gagrak Surakarta** style convention. Clients and users may notice that certain characters—specifically **ra (ꦫ)**, **da (ꦢ)**, and **dha (ꦝ)**—have slightly different shapes compared to standard school textbooks, which often use the **Gagrak Yogyakarta** style.
+
+- **Why this happens (The Technical Constraint):** Javanese is a highly complex script. When a user types a base letter and adds a vowel mark (like *suku* or *wulu*), the font doesn't just place them next to each other. Instead, the font engine uses complex built-in rules (called GSUB or Glyph Substitution) to magically swap both pieces into a brand-new, beautifully drawn combined shape (a ligature). 
+- **The Design Decision:** If we tried to surgically swap just the base `ra`, `da`, or `dha` shapes to look like the textbook versions, those complex combination rules would instantly break. When a user tried to type, the letters would either disconnect, overlap incorrectly, or unexpectedly revert to the old shapes. 
+- **Business Rationale:** Rebuilding a custom Javanese font with thousands of new GSUB ligature rules for the Yogyakarta style is a massive, highly specialized typographic engineering effort that is out of scope for this project. Therefore, we deliberately chose to use the robust, industry-standard Noto Sans font. This guarantees that typing, rendering, and gameplay are 100% bug-free and functional, with the accepted trade-off of using the Surakarta regional style.
 
 ### 9.4 Spacing, radius, elevation
 
