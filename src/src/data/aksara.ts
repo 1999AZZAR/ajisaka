@@ -114,9 +114,9 @@ const SANDANGAN: AksaraGlyph[] = [
     build({ ...e, unicode: e.unicode || SANDANGAN_UNICODES[e.id] }, 'sandangan', `${e.id} ${e.roman ? `(${e.roman})` : ''}`.trim(), e.roman),
   ),
   ...[
-    { id: 'cakra la', unicode: '\u200D\uA9C0\uA9AD' },
-    { id: 'cakra wa', unicode: '\u200D\uA9C0\uA9AE' },
-  ].map((e) => build({ ...e, contour: [] }, 'sandangan', e.id)),
+    { id: 'cakra la', unicode: '\u200D\uA9C0\uA9AD', contour: (pasanganContours as ContourEntry[]).find(c => c.id === 'la.pas')?.contour },
+    { id: 'cakra wa', unicode: '\u200D\uA9C0\uA9AE', contour: (pasanganContours as ContourEntry[]).find(c => c.id === 'wa.pas')?.contour },
+  ].map((e) => build({ ...e, contour: e.contour || [] }, 'sandangan', e.id)),
 ]
 const PASANGAN: AksaraGlyph[] = (pasanganContours as ContourEntry[]).map((e) =>
   build(e, 'pasangan', e.id.replace('.pas', '')),
