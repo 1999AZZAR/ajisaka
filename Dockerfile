@@ -17,6 +17,9 @@ FROM nginx:alpine
 # Copy the static assets from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Cache-control headers: never cache sw.js/index.html, immutable hashed assets
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose port 80 for the web server
 EXPOSE 80
 
