@@ -162,10 +162,11 @@ export const LIBRARY: Record<AksaraType, AksaraGlyph[]> = {
 }
 
 /** Level 1: 10 Aksara Dasar pertama (ha-la) */
-export const STARTER_QUESTIONS = NGGLEGENA.slice(0, 10)
+/** Level 1: Semua 20 Nglegena */
+export const STARTER_QUESTIONS = NGGLEGENA
 
-/** Level 2: Semua 8 Sandangan + 5 Rekan */
-export const SANDANGAN_QUESTIONS = [...SANDANGAN, ...REKAN]
+/** Level 2: Sandangan (Vowels & Punctuation) */
+export const SANDANGAN_QUESTIONS = SANDANGAN
 
-/** Level 3: 10 Pasangan pertama (ha-la) */
-export const PASANGAN_QUESTIONS = PASANGAN.slice(0, 10)
+/** Level 3: Semua 20 Pasangan */
+export const PASANGAN_QUESTIONS = PASANGAN
