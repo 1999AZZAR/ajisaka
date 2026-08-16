@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next'
 
 const menu = [
   { level: 0, titleKey: 'dashboard.prolog', subtitleKey: 'dashboard.prolog_desc', icon: '📜', route: '/prolog', reward: undefined, rewardIcon: undefined },
-  { level: 1, titleKey: 'dashboard.level1_title', subtitleKey: 'dashboard.level1_desc', icon: '🗡️', reward: 'pedang', rewardIcon: '🗡️' },
-  { level: 2, titleKey: 'dashboard.level2_title', subtitleKey: 'dashboard.level2_desc', icon: '🛡️', reward: 'perisai', rewardIcon: '🛡️' },
-  { level: 3, titleKey: 'dashboard.level3_title', subtitleKey: 'dashboard.level3_desc', icon: '⚔️', reward: undefined, rewardIcon: '👑' },
+  { level: 1, titleKey: 'dashboard.level1_title', subtitleKey: 'dashboard.level1_desc', icon: '🏝️', reward: 'pedang', rewardIcon: '🗡️' },
+  { level: 2, titleKey: 'dashboard.level2_title', subtitleKey: 'dashboard.level2_desc', icon: '⛰️', reward: 'perisai', rewardIcon: '🛡️' },
+  { level: 3, titleKey: 'dashboard.level3_title', subtitleKey: 'dashboard.level3_desc', icon: '👹', reward: undefined, rewardIcon: '👑' },
 ] as const
 
 export default function Dashboard() {

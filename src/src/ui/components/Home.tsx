@@ -57,7 +57,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 animate-ping rounded-full bg-accent-2/40 opacity-75 blur-md" />
               <div className="relative flex h-28 w-28 items-center justify-center rounded-[2rem] bg-gradient-to-br from-accent to-[oklch(0.48_0.14_25)] text-6xl shadow-[0_8px_0_oklch(0.4_0.14_25)] ring-4 ring-white">
-                <span className="drop-shadow-md">🗡️</span>
+                <span className="drop-shadow-md">📜</span>
               </div>
             </div>
             

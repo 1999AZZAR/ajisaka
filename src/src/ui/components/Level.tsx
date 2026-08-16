@@ -8,7 +8,7 @@ import { playStartGame } from '../../engine/audio'
 const levelMeta: Record<string, { titleKey: string; subtitleKey: string; icon: string }> = {
   '1': { titleKey: 'dashboard.level1_title', subtitleKey: 'dashboard.level1_desc', icon: '🏝️' },
   '2': { titleKey: 'dashboard.level2_title', subtitleKey: 'dashboard.level2_desc', icon: '⛰️' },
-  '3': { titleKey: 'dashboard.level3_title', subtitleKey: 'dashboard.level3_desc', icon: '🌋' },
+  '3': { titleKey: 'dashboard.level3_title', subtitleKey: 'dashboard.level3_desc', icon: '👹' },
 }
 
 export default function Level() {

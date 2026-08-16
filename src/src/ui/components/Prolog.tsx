@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next'
 const slides = [
   {
     titleKey: 'prolog_page.slides.1.title',
-    icon: '📜',
+    icon: '🪶',
     bodyKey: 'prolog_page.slides.1.body',
   },
   {
     titleKey: 'prolog_page.slides.2.title',
-    icon: '👑',
+    icon: '👥',
     bodyKey: 'prolog_page.slides.2.body',
   },
   {
@@ -22,17 +22,17 @@ const slides = [
   },
   {
     titleKey: 'prolog_page.slides.4.title',
-    icon: '⚔️',
+    icon: '⚡',
     bodyKey: 'prolog_page.slides.4.body',
   },
   {
     titleKey: 'prolog_page.slides.5.title',
-    icon: '🥀',
+    icon: '⚔️',
     bodyKey: 'prolog_page.slides.5.body',
   },
   {
     titleKey: 'prolog_page.slides.6.title',
-    icon: '✨',
+    icon: '📜',
     bodyKey: 'prolog_page.slides.6.body',
   },
 ]
