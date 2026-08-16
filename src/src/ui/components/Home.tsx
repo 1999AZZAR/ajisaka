@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-paper to-[oklch(0.95_0.02_78)] px-6 py-10">
+      <main className="relative flex min-h-full flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-paper to-[oklch(0.95_0.02_78)] px-6 py-10">
         {/* Decorative floating Aksara letters */}
         <div ref={bgRef} aria-hidden="true" className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20">
           <span className="absolute top-10 left-10 text-8xl text-accent" style={{ fontFamily: 'var(--font-javanese)' }}>ꦲ</span>

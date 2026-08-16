@@ -75,7 +75,7 @@ export default function LevelDone() {
   }, [navigate, isLast, next])
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
+    <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
       <section className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-8 text-center shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
         
         {/* Playful background sunburst */}

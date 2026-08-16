@@ -122,7 +122,10 @@ export default function PracticeCanvas({ glyph, feedback, showArrows, onStroke, 
   return (
     <div className="flex flex-col h-full gap-3">
       <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-        <div className="relative aspect-square w-full shadow-inner rounded-3xl bg-white overflow-hidden border border-border">
+        <div 
+          className="relative shadow-inner rounded-3xl bg-white overflow-hidden border border-border"
+          style={{ width: '100%', maxHeight: '100%', maxWidth: '100%', aspectRatio: '1 / 1' }}
+        >
           <canvas
             ref={canvasRef}
             className="absolute inset-0 h-full w-full touch-none cursor-crosshair"

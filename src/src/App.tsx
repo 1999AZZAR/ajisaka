@@ -17,7 +17,7 @@ export default function App() {
     <>
       <PwaUpdater />
       <HashRouter>
-        <Suspense fallback={<div className="flex h-screen items-center justify-center bg-paper text-accent"><span className="text-xl font-display animate-pulse">Memuat...</span></div>}>
+        <Suspense fallback={<div className="flex h-full items-center justify-center bg-paper text-accent"><span className="text-xl font-display animate-pulse">Memuat...</span></div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Dashboard />} />

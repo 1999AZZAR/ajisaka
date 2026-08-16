@@ -11,7 +11,7 @@ interface ShellProps {
 
 export function Shell({ title, subtitle, right, children, footer, centered }: ShellProps) {
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-5 pb-8 pt-6 sm:pt-10">
+    <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-5 pb-8 pt-6 sm:pt-10">
       {title && (
         <header className="mb-6 flex items-start justify-between gap-4">
           <div>

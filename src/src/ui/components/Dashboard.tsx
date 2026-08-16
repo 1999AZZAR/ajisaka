@@ -62,7 +62,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 pb-10 pt-8 bg-paper">
+      <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-6 pb-10 pt-8 bg-paper">
         <header ref={headerRef} className="mb-6 flex items-center justify-between gap-4 opacity-0">
           <div>
             <h1 className="font-display text-[2rem] leading-tight text-text">{t('dashboard.title')}</h1>
