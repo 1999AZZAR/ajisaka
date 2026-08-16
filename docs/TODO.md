@@ -51,7 +51,7 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Menu pilihan interstitial Fase 1 / Fase 2 non-linear di Level 3 — FR-4.4 (Selesai, pelacakan terperinci per fase)
 - [x] Akhir cerita dinobatkan sebagai Raja terhubung setelah L3 Fase 1 & 2 selesai — Selesai
 - [x] Pertahankan kemajuan (Zustand persist): levelSelesai, faseSelesai, hadiah — FR-5.1
-- [ ] Lanjutkan level saat dimuat ulang — FR-5.2 (kemajuan tersimpan, tetapi melanjutkan per pertanyaan di tengah jalan belum)
+- [x] Lanjutkan level saat dimuat ulang — FR-5.2 (kemajuan tersimpan otomatis secara real-time dan di-restore tanpa prompt)
 - [ ] Latihan soal L1: mulai dari soal 1 → hadiah → level 2 dsb. (set awal dipakai ulang untuk L2/L3 sementara)
 
 ### Fitur Tambahan & Pemolesan UX — ✅ SELESAI
