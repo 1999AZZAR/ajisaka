@@ -13,23 +13,40 @@ const Slendro = {
 }
 
 let audioCtx: AudioContext | null = null;
+let masterGain: GainNode | null = null;
+let masterCompressor: DynamicsCompressorNode | null = null;
 
 function getContext() {
   if (typeof window === 'undefined') return null;
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    
+    // Master Bus for anti-clipping
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0.9;
+    
+    masterCompressor = audioCtx.createDynamicsCompressor();
+    masterCompressor.threshold.value = -5; // db
+    masterCompressor.knee.value = 15;
+    masterCompressor.ratio.value = 12;
+    masterCompressor.attack.value = 0.002;
+    masterCompressor.release.value = 0.15;
+
+    masterGain.connect(masterCompressor);
+    masterCompressor.connect(audioCtx.destination);
   }
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
-  return audioCtx;
+  return { ctx: audioCtx, out: masterGain! };
 }
 
 function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error' = 'saron', vol: number = 0.3) {
   try {
-    const ctx = getContext();
-    if (!ctx) return;
-    const t = ctx.currentTime;
+    const audioState = getContext();
+    if (!audioState) return;
+    const { ctx, out } = audioState;
+    const t = ctx.currentTime + 0.01;
 
     if (type === 'error') {
       const osc1 = ctx.createOscillator();
@@ -41,8 +58,9 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       osc2.frequency.setValueAtTime(215, t);
       gain.gain.setValueAtTime(0, t);
       gain.gain.linearRampToValueAtTime(vol * 0.8, t + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
-      osc1.connect(gain); osc2.connect(gain); gain.connect(ctx.destination);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+      gain.gain.linearRampToValueAtTime(0, t + 0.2);
+      osc1.connect(gain); osc2.connect(gain); gain.connect(out);
       osc1.start(t); osc1.stop(t + 0.2); osc2.start(t); osc2.stop(t + 0.2);
       return;
     }
@@ -54,9 +72,10 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       osc.frequency.setValueAtTime(800, t);
       osc.frequency.exponentialRampToValueAtTime(100, t + 0.05);
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(vol * 1.2, t + 0.005);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
-      osc.connect(gain); gain.connect(ctx.destination);
+      gain.gain.linearRampToValueAtTime(vol * 1.2, t + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+      gain.gain.linearRampToValueAtTime(0, t + 0.08);
+      osc.connect(gain); gain.connect(out);
       osc.start(t); osc.stop(t + 0.08);
       return;
     }
@@ -72,14 +91,17 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
     strikeOsc.frequency.exponentialRampToValueAtTime(type === 'gong' ? 50 : 300, t + 0.05);
     strikeFilter.type = 'bandpass';
     strikeFilter.frequency.setValueAtTime(type === 'gong' ? 400 : 2000, t);
+    
+    const strikeDuration = type === 'gong' ? 0.1 : 0.05;
     strikeGain.gain.setValueAtTime(0, t);
     strikeGain.gain.linearRampToValueAtTime(vol * (type === 'gong' ? 0.3 : 0.15), t + 0.005);
-    strikeGain.gain.exponentialRampToValueAtTime(0.001, t + (type === 'gong' ? 0.1 : 0.05));
+    strikeGain.gain.exponentialRampToValueAtTime(0.001, t + strikeDuration - 0.01);
+    strikeGain.gain.linearRampToValueAtTime(0, t + strikeDuration);
     
     strikeOsc.connect(strikeFilter);
     strikeFilter.connect(strikeGain);
-    strikeGain.connect(ctx.destination);
-    strikeOsc.start(t); strikeOsc.stop(t + 0.1);
+    strikeGain.connect(out);
+    strikeOsc.start(t); strikeOsc.stop(t + strikeDuration);
 
     // 2. Bronze Resonance (Body) - Inharmonic partials with Ombak
     // Saron has very strong bright partials. Gong has massive deep resonance.
@@ -113,15 +135,17 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       pGain.gain.setValueAtTime(0, t);
       const attack = type === 'gong' ? 0.05 : 0.015;
       pGain.gain.linearRampToValueAtTime(vol * p.a * 0.4, t + attack);
-      pGain.gain.exponentialRampToValueAtTime(0.0001, t + attack + p.d);
+      pGain.gain.exponentialRampToValueAtTime(0.001, t + attack + p.d - 0.05);
+      pGain.gain.linearRampToValueAtTime(0, t + attack + p.d);
 
       osc1.connect(pFilter);
       osc2.connect(pFilter);
       pFilter.connect(pGain);
-      pGain.connect(ctx.destination);
+      pGain.connect(out);
 
-      osc1.start(t); osc1.stop(t + duration);
-      osc2.start(t); osc2.stop(t + duration);
+      const totalDuration = attack + p.d;
+      osc1.start(t); osc1.stop(t + totalDuration);
+      osc2.start(t); osc2.stop(t + totalDuration);
     });
   } catch (e) {
     // Ignore autoplay policies
@@ -130,17 +154,20 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
 
 function playTone(freq: number, type: OscillatorType = 'sine', duration: number = 0.5, vol: number = 0.3) {
   try {
-    const ctx = getContext();
-    if (!ctx) return;
+    const audioState = getContext();
+    if (!audioState) return;
+    const { ctx, out } = audioState;
+    const t = ctx.currentTime + 0.01;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = type;
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-    gain.gain.setValueAtTime(0, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.start(); osc.stop(ctx.currentTime + duration);
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + duration - 0.02);
+    gain.gain.linearRampToValueAtTime(0, t + duration);
+    osc.connect(gain); gain.connect(out);
+    osc.start(t); osc.stop(t + duration);
   } catch (e) {}
 }
 
