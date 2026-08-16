@@ -61,7 +61,17 @@ const QUESTIONS = [
 ]
 
 export default function Phase2() {
-  const [qIndex, setQIndex] = useState(0)
+  const sessionId = 'phase2'
+  const [qIndex, setQIndex] = useState(() => {
+    const state = useProgress.getState()
+    const saved = state.savedSessions?.[sessionId] || 0
+    return saved < QUESTIONS.length ? saved : 0
+  })
+
+  useEffect(() => {
+    useProgress.getState().saveSession(sessionId, qIndex)
+  }, [qIndex, sessionId])
+
   const [input, setInput] = useState('')
   const navigate = useNavigate()
   const completeLevel = useProgress((s) => s.completeLevel)
@@ -90,6 +100,7 @@ export default function Phase2() {
   }
 
   const handleFinish = () => {
+    useProgress.getState().clearSession(sessionId)
     const p = useProgress.getState().completedPhases
     if (!p.includes('3_2')) useProgress.getState().completePhase('3_2')
     

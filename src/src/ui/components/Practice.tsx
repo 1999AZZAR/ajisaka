@@ -21,17 +21,28 @@ export default function Practice() {
   const completeLevel = useProgress((s) => s.completeLevel)
   const { t } = useTranslation()
 
-  const [qIndex, setQIndex] = useState(0)
-  const [strokes, setStrokes] = useState<Point[][]>([])
-  const [feedback, setFeedback] = useState<StrokeFeedback | null>(null)
-
   const levelNum = (level ?? '1') as keyof typeof SETS
   const TYPE_LABEL = { '1': t('practice.base'), '2': t('practice.sandangan'), '3': t('practice.pasangan') } as Record<string, string>
   const questions = SETS[levelNum] ?? STARTER_QUESTIONS
+
+  const sessionId = `practice_${levelNum}`
+  const [qIndex, setQIndex] = useState(() => {
+    const state = useProgress.getState()
+    const saved = state.savedSessions?.[sessionId] || 0
+    return saved < questions.length ? saved : 0
+  })
+
+  useEffect(() => {
+    useProgress.getState().saveSession(sessionId, qIndex)
+  }, [qIndex, sessionId])
+
+  const [strokes, setStrokes] = useState<Point[][]>([])
+  const [feedback, setFeedback] = useState<StrokeFeedback | null>(null)
   
   const glyph = questions[qIndex % questions.length]
 
   const handleDone = () => {
+    useProgress.getState().clearSession(sessionId)
     if (levelNum === '3') {
       const p = useProgress.getState().completedPhases
       if (!p.includes('3_1')) useProgress.getState().completePhase('3_1')
