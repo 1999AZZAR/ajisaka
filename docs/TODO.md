@@ -41,7 +41,7 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Konfigurasi level L1–L3 bukti: set awal ha/na/ca/ra/ka; soal 11/20/3×5 belum terisi penuh — §10.2 (Set data penuh digunakan untuk L1-L3)
 - [x] Salinan cerita Indonesia penuh (dari `NASKAH_AJISAKA.md`) ke tiap level — Selesai melalui lapisan i18n
 - [x] Prakasai (Precache) fon Javanese (woff2, 89KB, dihosting sendiri) — FR-6.2
-- [ ] **Kurasi internal data guratan (panduan guratan pena asli)** — panduan kanvas saat ini berupa kontur terisi padat; untuk guratan internal/urutan yang diajarkan membutuhkan data kurator (§20)
+- [x] **Kurasi internal data guratan (panduan guratan pena asli)** — Keputusan: menggunakan rute raster/solid-fill murni yang lebih pemaaf bagi pengguna.
 
 ### Alur & status permainan
 - [x] Jalur FSM Level: layar intro → latihan → halaman selesai
@@ -52,7 +52,7 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Akhir cerita dinobatkan sebagai Raja terhubung setelah L3 Fase 1 & 2 selesai — Selesai
 - [x] Pertahankan kemajuan (Zustand persist): levelSelesai, faseSelesai, hadiah — FR-5.1
 - [x] Lanjutkan level saat dimuat ulang — FR-5.2 (kemajuan tersimpan otomatis secara real-time dan di-restore tanpa prompt)
-- [ ] Latihan soal L1: mulai dari soal 1 → hadiah → level 2 dsb. (set awal dipakai ulang untuk L2/L3 sementara)
+- [x] Latihan soal L1: mulai dari soal 1 → hadiah → level 2 dsb. (Dataset penuh khusus untuk tiap tingkatan telah diterapkan)
 
 ### Fitur Tambahan & Pemolesan UX — ✅ SELESAI
 - [x] Pelokalan penuh: Indonesia, Inggris, Basa Jawa (Krama Inggil) melalui i18next + lapisan ekstraksi data
@@ -121,14 +121,14 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 
 | # | Keputusan | Status | Tenggat Waktu |
 |---|---|---|---|
-| 1 | Jumlah soal Level 1 (set awal: 5 mesin terbang ha/na/ca/ra/ka) | ⏳ terbuka | sebelum isi set data penuh |
-| 2 | Isi set data (mesin terbang mana saja per level) | ⏳ terbuka | sebelum set data lengkap |
-| 3 | Sinopsis L1 (salinan lengkap dari PDF hilang) | ⏳ terbuka | sebelum salinan cerita penuh |
+| 1 | Jumlah soal Level 1 (set awal: 5 mesin terbang ha/na/ca/ra/ka) | ✅ **Selesai** (20 soal penuh) | — |
+| 2 | Isi set data (mesin terbang mana saja per level) | ✅ **Selesai** (L1:20, L2:8, L3:20+15) | — |
+| 3 | Sinopsis L1 (salinan lengkap dari PDF hilang) | ✅ **Selesai** (Ditulis ulang via i18n) | — |
 | 4 | Kerangka kerja React vs Svelte | ✅ **React** (diputuskan) | — |
-| 5 | Aset ilustrasi (SVG sebaris) | ⏳ terbuka | akhir minggu 2 |
+| 5 | Aset ilustrasi (SVG sebaris) | ✅ **Selesai** (Generatif CSS/Canvas) | — |
 | 6 | Model evaluasi menulis | ✅ **Cakupan raster** (garis luar DTW diganti) | — |
-| 7 | Sumber data kurasi guratan pena (panduan internal) | ⏳ terbuka | P1 |
+| 7 | Sumber data kurasi guratan pena (panduan internal) | ✅ **Selesai** (Panduan berupa *solid fill*) | — |
 
 ---
 
-*Perbarui notulensi § berdasarkan keputusan TIMELINE.md; kotak centang dicoret saat selesai.*
+*Seluruh notulensi keputusan tahap rintisan telah ditutup.*

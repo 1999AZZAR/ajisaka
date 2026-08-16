@@ -566,16 +566,16 @@ javanese_learning_app/
 
 ---
 
-## 20. Pertanyaan Terbuka & Asumsi
+## 20. Keputusan Akhir (Telah Diselesaikan)
 
-| # | Pertanyaan | Default/status yang diusulkan |
+| # | Pertanyaan | Keputusan Final |
 |---|---|---|
-| 1 | Jumlah pertanyaan Level 1 | Mengusulkan **10–12** Nglegena; konfirmasi dengan kurikulum. |
-| 2 | Isi pertanyaan pasti per set | Mengusulkan set pemula; selesaikan dengan masukan guru. |
-| 3 | Paragraf sinopsis lengkap Level-1 | Hilang dari ekstraksi PDF — berikan salinan. |
-| 4 | Sumber hadiah/seni aset | Ilustrasi SVG inline; dapat diganti nanti. |
-| 5 | Kerangka UI | Merekomendasikan **React**; alternatif Svelte jika ukuran bundel sangat penting. |
-| 6 | PWA Potret saja OK? | Ya (orientasi menulis); desktop menunjukkan tiruan yang diputar. |
+| 1 | Jumlah pertanyaan Level 1 | ✅ **20 Soal Nglegena Lengkap**. Seluruh 20 aksara dasar dimasukkan agar pemain berlatih semua bentuk dasar sebelum lanjut ke sandangan. |
+| 2 | Isi pertanyaan pasti per set | ✅ **Dataset Penuh**. L1 (20 Nglegena), L2 (8 Sandangan), L3 Fase 1 (20 Pasangan), L3 Fase 2 (15 Kuis Ketik). |
+| 3 | Paragraf sinopsis lengkap Level-1 | ✅ **Selesai**. Cerita telah ditulis lengkap dan ditranslasikan secara i18n (Indonesia, Inggris, Krama Inggil) di dalam komponen. |
+| 4 | Sumber hadiah/seni aset | ✅ **Seni CSS/Canvas Generatif**. Menggunakan bentuk-bentuk estetis murni kode (Pedang, Perisai, Mahkota) untuk menghemat ukuran bundel. |
+| 5 | Kerangka UI | ✅ **React 18 + Vite** dengan status dari Zustand dan gaya via Tailwind CSS v4. |
+| 6 | PWA Potret saja OK? | ✅ **Ya**. Orientasi potret dikunci via manifes PWA (`orientation: portrait`), paling optimal untuk kanvas menulis. |
 
 ---
 
