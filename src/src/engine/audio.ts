@@ -109,7 +109,6 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       ? [ {r: 1, a: 1, d: 5.0}, {r: 1.52, a: 0.6, d: 3.5}, {r: 2.46, a: 0.4, d: 2.0}, {r: 3.43, a: 0.2, d: 1.0}, {r: 4.1, a: 0.1, d: 0.5} ]
       : [ {r: 1, a: 1, d: 1.5}, {r: 2.76, a: 0.45, d: 0.7}, {r: 5.40, a: 0.25, d: 0.3}, {r: 8.90, a: 0.1, d: 0.15}, {r: 11.3, a: 0.05, d: 0.05} ];
 
-    const duration = type === 'gong' ? 5.0 : 1.5;
     const beatHz = type === 'gong' ? 1.2 : 3.5;
 
     partials.forEach((p) => {
