@@ -6,29 +6,51 @@ on:
       - '**'
 
 jobs:
-  zip-and-upload:
+  release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Generate Filename and Zip
+      - name: Generate Filename, Zip, and SHA
         run: |
-          # Buat format nama: ddmmyy-HHMM-xxxx.zip (xxxx = 4 karakter hex acak)
+          # Buat format nama: ddmmyy-HHMM-xxxx.zip
           TIMESTAMP=$(date +"%d%m%y-%H%M")
           RANDOM_STR=$(openssl rand -hex 2)
-          FILENAME="${TIMESTAMP}-${RANDOM_STR}.zip"
+          BASE_NAME="${TIMESTAMP}-${RANDOM_STR}"
+          ZIP_FILENAME="${BASE_NAME}.zip"
+          SHA_FILENAME="${BASE_NAME}.sha256"
           
-          # Zip semua berkas, kecualikan direktori .git agar tidak membengkak
-          zip -r "$FILENAME" . -x "*.git*"
+          # Zip semua berkas, kecualikan direktori .git
+          zip -r "$ZIP_FILENAME" . -x "*.git*"
           
-          # Simpan nama berkas ke environment variable GitHub
-          echo "ZIP_FILENAME=$FILENAME" >> $GITHUB_ENV
+          # Hasilkan SHA-256 checksum
+          sha256sum "$ZIP_FILENAME" > "$SHA_FILENAME"
+          
+          # Ekspor variabel untuk tag dan upload
+          echo "BASE_NAME=$BASE_NAME" >> $GITHUB_ENV
+          echo "ZIP_FILENAME=$ZIP_FILENAME" >> $GITHUB_ENV
+          echo "SHA_FILENAME=$SHA_FILENAME" >> $GITHUB_ENV
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ${{ env.ZIP_FILENAME }}
-          path: ${{ env.ZIP_FILENAME }}
-          retention-days: 14
+          tag_name: build-${{ env.BASE_NAME }}
+          name: Build ${{ env.BASE_NAME }}
+          body: |
+            Automated source code snapshot for commit ${{ github.sha }}.
+            
+            ### Build Details
+            - **Commit**: [`${{ github.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            - **Branch**: `${{ github.ref_name }}`
+            - **Triggered by**: @${{ github.actor }}
+            
+            ### Downloadable Assets
+            - Source code archive (`.zip`)
+            - SHA-256 checksum file (`.sha256`) for integrity verification
+          files: |
+            ${{ env.ZIP_FILENAME }}
+            ${{ env.SHA_FILENAME }}
