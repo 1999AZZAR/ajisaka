@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import anime from 'animejs'
 import { useTranslation } from 'react-i18next'
 import { usePWAInstall } from '../../hooks/usePWAInstall'
