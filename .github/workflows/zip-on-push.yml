@@ -46,7 +46,7 @@ jobs:
           RANDOM_STR=$(openssl rand -hex 2)
           BASE_NAME="${TIMESTAMP}-${RANDOM_STR}"
           ZIP_FILENAME="${BASE_NAME}.zip"
-          APK_FILENAME="${BASE_NAME}.apk"
+          APK_FILENAME="ajisaka.apk"
           SHA_FILENAME="${BASE_NAME}.sha256"
           
           # Zip source code
