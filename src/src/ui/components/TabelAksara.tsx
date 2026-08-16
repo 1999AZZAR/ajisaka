@@ -175,6 +175,12 @@ export default function TabelAksara({ isOpen, onClose }: TabelAksaraProps) {
   return (
     <div 
       className="fixed inset-0 z-50 flex flex-col bg-paper/95 backdrop-blur-sm sm:items-center sm:justify-center"
+      style={{
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        paddingLeft: 'env(safe-area-inset-left)',
+        paddingRight: 'env(safe-area-inset-right)'
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="kamus-title"

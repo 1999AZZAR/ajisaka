@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProgress } from '../../state/progress'
 import { Button } from './Button'
+import { BackButton } from './BackButton'
 import SuccessParticles from './SuccessParticles'
 import { useTranslation } from 'react-i18next'
 import { playClick, playTypeSuccess, playTypeError } from '../../engine/audio'
@@ -136,9 +137,15 @@ export default function Phase2() {
   return (
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-4 pb-4 pt-6 overflow-hidden">
       <header className="mb-4 shrink-0 flex items-center justify-between">
-        <h1 className="font-display text-xl text-text">{t(currentQ.menuKey)}</h1>
-        <span className="rounded-full bg-paper border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm">
+        <div className="flex items-center gap-3">
+          <BackButton to="/menu" />
+          <h1 className="font-display text-xl text-text">{t(currentQ.menuKey)}</h1>
+        </div>
+        <span className="rounded-full bg-paper border border-border px-4 py-1.5 text-xs font-bold text-text-2 shadow-sm hidden sm:inline-block">
           {t('practice.phase')} 2/2 - {t('practice.question')} {qIndex + 1}/{QUESTIONS.length}
+        </span>
+        <span className="rounded-full bg-paper border border-border px-3 py-1.5 text-xs font-bold text-text-2 shadow-sm sm:hidden">
+          {qIndex + 1}/{QUESTIONS.length}
         </span>
       </header>
 
