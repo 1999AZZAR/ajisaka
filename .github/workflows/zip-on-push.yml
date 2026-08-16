@@ -15,24 +15,53 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Generate Filename, Zip, and SHA
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Build Web App & Sync Capacitor
         run: |
-          # Buat format nama: ddmmyy-HHMM-xxxx.zip
+          cd src
+          npm install
+          npm run build
+          npx cap sync android
+
+      - name: Build APK (Debug)
+        run: |
+          cd src/android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Generate Assets and SHAs
+        run: |
+          # Buat format nama: ddmmyy-HHMM-xxxx
           TIMESTAMP=$(date +"%d%m%y-%H%M")
           RANDOM_STR=$(openssl rand -hex 2)
           BASE_NAME="${TIMESTAMP}-${RANDOM_STR}"
           ZIP_FILENAME="${BASE_NAME}.zip"
+          APK_FILENAME="${BASE_NAME}.apk"
           SHA_FILENAME="${BASE_NAME}.sha256"
           
-          # Zip semua berkas, kecualikan direktori .git
+          # Zip source code
           zip -r "$ZIP_FILENAME" . -x "*.git*"
           
-          # Hasilkan SHA-256 checksum
-          sha256sum "$ZIP_FILENAME" > "$SHA_FILENAME"
+          # Pindahkan APK hasil build
+          cp src/android/app/build/outputs/apk/debug/app-debug.apk "$APK_FILENAME"
           
-          # Ekspor variabel untuk tag dan upload
+          # Hasilkan SHA-256 checksum untuk kedua file
+          sha256sum "$ZIP_FILENAME" "$APK_FILENAME" > "$SHA_FILENAME"
+          
+          # Ekspor variabel
           echo "BASE_NAME=$BASE_NAME" >> $GITHUB_ENV
           echo "ZIP_FILENAME=$ZIP_FILENAME" >> $GITHUB_ENV
+          echo "APK_FILENAME=$APK_FILENAME" >> $GITHUB_ENV
           echo "SHA_FILENAME=$SHA_FILENAME" >> $GITHUB_ENV
 
       - name: Create Release
@@ -41,7 +70,7 @@ jobs:
           tag_name: build-${{ env.BASE_NAME }}
           name: Build ${{ env.BASE_NAME }}
           body: |
-            Automated source code snapshot for commit ${{ github.sha }}.
+            Automated build and snapshot for commit ${{ github.sha }}.
             
             ### Build Details
             - **Commit**: [`${{ github.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
@@ -49,8 +78,10 @@ jobs:
             - **Triggered by**: @${{ github.actor }}
             
             ### Downloadable Assets
+            - Android Application (`.apk`)
             - Source code archive (`.zip`)
             - SHA-256 checksum file (`.sha256`) for integrity verification
           files: |
             ${{ env.ZIP_FILENAME }}
+            ${{ env.APK_FILENAME }}
             ${{ env.SHA_FILENAME }}

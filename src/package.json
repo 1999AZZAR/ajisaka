@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
     "@tailwindcss/vite": "^4.3.3",
     "animejs": "^3.2.2",
     "i18next": "^26.3.6",
@@ -23,6 +25,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.0",
     "@types/animejs": "^3.1.13",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
