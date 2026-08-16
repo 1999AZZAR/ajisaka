@@ -57,7 +57,7 @@ const QUESTIONS = [
   { word: 'mandi', target: 'ꦩꦤ꧀ꦢꦶ', menuKey: 'practice.pasangan' },
   { word: 'bantu', target: 'ꦧꦤ꧀ꦠꦸ', menuKey: 'practice.pasangan' },
   { word: 'pintu', target: 'ꦥꦶꦤ꧀ꦠꦸ', menuKey: 'practice.pasangan' },
-  { word: 'kunci', target: 'ꦏꦸꦚ꧀ꦕꦶ', menuKey: 'practice.pasangan' }
+  { word: 'kunci', target: 'ꦏꦸꦤ꧀ꦕꦶ', menuKey: 'practice.pasangan' }
 ]
 
 export default function Phase2() {
