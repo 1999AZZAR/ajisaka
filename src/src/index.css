@@ -94,7 +94,7 @@
   #root {
     height: 100%;
     width: 100%;
-    overflow-y: auto;
+    overflow: hidden;
     overflow-x: hidden;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;

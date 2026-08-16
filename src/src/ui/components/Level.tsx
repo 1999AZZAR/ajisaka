@@ -23,13 +23,13 @@ export default function Level() {
   const meta = levelMeta[level ?? ''] ?? levelMeta['1']
 
   return (
-    <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-5 pb-8 pt-6">
-      <header className="mb-6">
+    <main className="mx-auto flex h-full overflow-hidden w-full max-w-3xl flex-col px-5 pb-8 pt-6">
+      <header className="shrink-0 mb-6">
         <BackButton />
       </header>
 
-      <section className="flex flex-1 flex-col items-center justify-center">
-        <div className="relative mb-6 flex h-40 w-40 items-center justify-center rounded-[2.5rem] border-4 border-white bg-gradient-to-br from-paper-2 to-paper-3 text-7xl shadow-card ring-4 ring-black/5">
+      <section className="flex flex-1 min-h-0 overflow-y-auto flex-col items-center pb-4">
+        <div className="relative mt-auto mb-6 flex shrink-0 h-40 w-40 items-center justify-center rounded-[2.5rem] border-4 border-white bg-gradient-to-br from-paper-2 to-paper-3 text-7xl shadow-card ring-4 ring-black/5">
           {meta.icon}
           {isCompleted && (
             <div className="absolute -bottom-3 -right-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent-2 text-2xl shadow-md ring-4 ring-white">
@@ -38,7 +38,7 @@ export default function Level() {
           )}
         </div>
 
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col shrink-0 items-center text-center mb-auto">
           <span
             className={`mb-3 rounded-full px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest ${
               isCompleted
@@ -58,7 +58,7 @@ export default function Level() {
         </div>
       </section>
 
-      <footer className="mt-8 flex flex-col gap-3">
+      <footer className="shrink-0 mt-4 flex flex-col gap-3">
         {id === 3 ? (
           <div className="grid grid-cols-2 gap-3">
             <Link to={`/level/3/practice`} className={!isUnlocked ? 'pointer-events-none opacity-50' : ''}>

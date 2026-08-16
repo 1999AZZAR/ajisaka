@@ -75,15 +75,15 @@ export default function LevelDone() {
   }, [navigate, isLast, next])
 
   return (
-    <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
-      <section className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-8 text-center shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+    <main className="mx-auto flex h-full overflow-hidden w-full max-w-3xl flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
+      <section className="relative flex flex-1 min-h-0 flex-col items-center justify-center overflow-y-auto rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-8 text-center shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
         
         {/* Playful background sunburst */}
         <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30 pointer-events-none">
            <div className="w-[150%] aspect-square animate-spin-slow bg-[conic-gradient(var(--color-accent-2)_0deg_15deg,transparent_15deg_30deg)] rounded-full blur-2xl" style={{ animationDuration: '20s' }} />
         </div>
 
-        <div className="relative z-10">
+        <div className="relative z-10 my-auto">
           <span className="inline-block rounded-full bg-accent-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_3px_0_oklch(0.65_0.13_80)] mb-6">
             {t('level_done.success_label')}
           </span>
@@ -104,7 +104,7 @@ export default function LevelDone() {
         </div>
       </section>
 
-      <footer className="mt-8 flex flex-col gap-4">
+      <footer className="shrink-0 mt-8 flex flex-col gap-4">
         {!isLast && (
           <button 
             autoFocus

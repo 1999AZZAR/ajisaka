@@ -62,8 +62,8 @@ export default function Dashboard() {
 
   return (
     <>
-      <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-6 pb-10 pt-8 bg-paper">
-        <header ref={headerRef} className="mb-6 flex items-center justify-between gap-4 opacity-0">
+      <main className="mx-auto flex h-full overflow-hidden w-full max-w-3xl flex-col px-6 pb-10 pt-8 bg-paper">
+        <header ref={headerRef} className="shrink-0 mb-6 flex items-center justify-between gap-4 opacity-0">
           <div>
             <h1 className="font-display text-[2rem] leading-tight text-text">{t('dashboard.title')}</h1>
             <p className="mt-1 text-[0.95rem] font-medium text-text-2">{t('dashboard.subtitle')}</p>
@@ -88,7 +88,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <section className="mb-8 overflow-hidden rounded-[1.5rem] border-2 border-white/60 bg-white/70 p-5 shadow-card backdrop-blur-md" aria-label={t('dashboard.progress_title')}>
+        <section className="shrink-0 mb-8 overflow-hidden rounded-[1.5rem] border-2 border-white/60 bg-white/70 p-5 shadow-card backdrop-blur-md" aria-label={t('dashboard.progress_title')}>
           <div className="flex items-center justify-between text-[0.95rem]">
             <span className="font-display tracking-wide text-text">{t('dashboard.progress_title')}</span>
             <span className="font-bold text-accent-2">{t('dashboard.progress_complete', { count: completedLevels.length })}</span>
@@ -107,7 +107,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <nav ref={navRef} className="flex flex-1 flex-col gap-4" aria-label={t('dashboard.title')}>
+        <nav ref={navRef} className="flex flex-1 min-h-0 overflow-y-auto flex-col gap-4 pb-4" aria-label={t('dashboard.title')}>
           <LevelCard
             level={0}
             title={t('dashboard.prolog')}
