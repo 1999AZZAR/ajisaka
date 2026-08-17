@@ -183,7 +183,6 @@ export const playTypeError = () => {
 }
 
 export const playStartGame = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 100, 40, 200, 60]);
   playTone(Slendro.Lu, 'sine', 0.2, 0.15);
   setTimeout(() => playTone(Slendro.Nem, 'sine', 0.2, 0.15), 100);
   setTimeout(() => playTone(Slendro.JiHigh, 'sine', 0.5, 0.2), 200);
@@ -198,14 +197,12 @@ export const playStrokeError = () => {
 }
 
 export const playQuestionDone = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 150, 40, 300, 50]);
   playGamelanTone(Slendro.Lu, 'saron', 0.2);
   setTimeout(() => playGamelanTone(Slendro.Ma, 'saron', 0.3), 150);
   setTimeout(() => playGamelanTone(Slendro.Nem, 'saron', 0.4), 300);
 }
 
 export const playLevelDone = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([50, 150, 50, 150, 50, 150, 100, 150, 200]);
   // Majestic Gamelan Arpeggio + Final Gong
   playGamelanTone(Slendro.Ji, 'saron', 0.3);
   setTimeout(() => playGamelanTone(Slendro.Ro, 'saron', 0.3), 150);
