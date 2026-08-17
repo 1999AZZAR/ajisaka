@@ -51,8 +51,6 @@ export default function PracticeCanvas({ glyph, feedback, showArrows, onStroke, 
     let lastLen = -1
     let lastFeedback: any = undefined
     let lastGuide: boolean | undefined = undefined
-    let lastW = 0
-    let lastH = 0
 
     const draw = () => {
       rafRef.current = requestAnimationFrame(draw)
@@ -74,8 +72,6 @@ export default function PracticeCanvas({ glyph, feedback, showArrows, onStroke, 
           canvas.height = rect.height * dpr
         }
         
-        lastW = rect.width
-        lastH = rect.height
         lastLen = currentLen
         lastFeedback = feedback
         lastGuide = showGuide
