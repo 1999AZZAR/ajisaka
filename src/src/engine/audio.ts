@@ -171,17 +171,14 @@ function playTone(freq: number, type: OscillatorType = 'sine', duration: number 
 }
 
 export const playClick = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
   playTone(Slendro.Ro, 'sine', 0.15, 0.15);
 }
 
 export const playTypeSuccess = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(20);
   playTone(Slendro.JiHigh, 'sine', 0.2, 0.1);
 }
 
 export const playTypeError = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 40, 30]);
   playTone(150, 'sawtooth', 0.2, 0.1);
 }
 
@@ -193,12 +190,10 @@ export const playStartGame = () => {
 }
 
 export const playStrokeSuccess = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(30);
   playGamelanTone(Slendro.Nem, 'saron', 0.3);
 }
 
 export const playStrokeError = () => {
-  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([40, 60, 40]);
   playGamelanTone(0, 'error', 0.2);
 }
 
