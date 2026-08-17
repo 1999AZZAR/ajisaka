@@ -156,17 +156,19 @@ export default function Phase2() {
         />
       </div>
 
-      <section className="mb-4 shrink-0 flex flex-col items-center justify-center rounded-3xl border border-white/60 bg-white/70 p-6 shadow-card backdrop-blur-sm">
-        <span className="text-sm font-bold uppercase tracking-widest text-accent-deep mb-2">{t('practice.write_word')}</span>
-        <h2 className="font-display text-4xl text-text mb-6">{currentQ.word}</h2>
+      <section className="mb-4 shrink-0 flex flex-col items-center justify-center rounded-[2rem] border-2 border-white/80 bg-white/60 p-6 shadow-sm backdrop-blur-md">
+        <span className="rounded-md bg-accent/10 px-3 py-1 text-[0.7rem] font-black uppercase tracking-widest text-accent-deep mb-3">
+          {t('practice.write_word')}
+        </span>
+        <h2 className="font-display text-[2.5rem] leading-none text-text mb-6 drop-shadow-sm">{currentQ.word}</h2>
         
-        <div className={`w-full flex flex-col items-center justify-center rounded-2xl px-4 h-[140px] sm:h-[160px] shrink-0 relative transition-all ${
-          isTypo ? 'bg-warn/10 border-2 border-warn/50 animate-shake' : 'bg-paper-2 border-2 border-border'
+        <div className={`w-full flex flex-col items-center justify-center rounded-2xl px-4 h-[130px] sm:h-[150px] shrink-0 relative transition-all ${
+          isTypo ? 'bg-warn/10 border-2 border-warn/50 animate-shake' : 'bg-paper-2 shadow-inner border border-border'
         }`}>
-          <span className={`font-javanese text-5xl sm:text-6xl leading-normal whitespace-nowrap overflow-x-auto max-w-full px-4 no-scrollbar transition-colors ${
+          <span className={`font-javanese text-[3.5rem] sm:text-[4.5rem] leading-none whitespace-nowrap overflow-x-auto max-w-full px-4 no-scrollbar transition-colors ${
             isTypo ? 'text-warn' : 'text-text'
           }`}>{input || ' '}</span>
-          {!input && <span className="absolute text-text-2 opacity-50 font-medium pointer-events-none">{t('practice.type_here')}</span>}
+          {!input && <span className="absolute text-text-2 opacity-40 font-bold tracking-wide pointer-events-none">{t('practice.type_here')}</span>}
         </div>
       </section>
 

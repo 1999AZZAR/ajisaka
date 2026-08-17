@@ -135,19 +135,28 @@ export default function Practice() {
         />
       </div>
 
-      <section className="mb-4 shrink-0 overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-4 shadow-card backdrop-blur-sm">
-        <div className="flex items-center justify-center gap-4">
-          <span
-            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-b from-paper-2 to-paper-3 text-text shadow-sm"
-            style={{ fontFamily: 'var(--font-javanese)', fontSize: '3rem', lineHeight: 1 }}
-            aria-hidden="true"
-          >
-            {glyph.unicode}
-          </span>
-          <div className="flex flex-col items-start">
-            <span className="text-xs font-bold uppercase tracking-wider text-accent-deep">{t('practice.draw')} · {TYPE_LABEL[levelNum]}</span>
-            <h1 className="font-display text-2xl leading-none text-text">{glyph.label}</h1>
-            <p className="mt-1 text-xs leading-snug text-text-2">{t(`aksara_hints.${glyph.id}`, { defaultValue: glyph.hint })}</p>
+      <section className="mb-4 shrink-0 overflow-hidden rounded-[1.75rem] border-2 border-white/80 bg-white/60 p-4 shadow-sm backdrop-blur-md">
+        <div className="flex items-center gap-4">
+          <div className="relative flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-paper-2 to-paper-3 shadow-inner border border-border">
+            <span
+              className="text-text drop-shadow-sm"
+              style={{ fontFamily: 'var(--font-javanese)', fontSize: '3.5rem', lineHeight: 1 }}
+              aria-hidden="true"
+            >
+              {glyph.unicode}
+            </span>
+          </div>
+          <div className="flex flex-col items-start pr-2">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="rounded-md bg-accent/10 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-widest text-accent-deep">
+                {t('practice.draw')}
+              </span>
+              <span className="text-[0.65rem] font-bold uppercase tracking-wider text-text-2">
+                {TYPE_LABEL[levelNum]}
+              </span>
+            </div>
+            <h1 className="font-display text-[1.75rem] font-bold leading-tight text-text capitalize">{glyph.label}</h1>
+            <p className="mt-1 text-sm font-medium leading-snug text-text-2">{t(`aksara_hints.${glyph.id}`, { defaultValue: glyph.hint })}</p>
           </div>
         </div>
       </section>
