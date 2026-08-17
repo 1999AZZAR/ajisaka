@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import anime from 'animejs'
 import { useTranslation } from 'react-i18next'
-import { fireConfetti } from '../../engine/confetti'
 
 const rewardMeta = {
   '1': {
@@ -38,7 +37,6 @@ export default function LevelDone() {
     
     // Huge popping animation for the reward icon
     if (iconRef.current) {
-      fireConfetti()
       anime({
         targets: iconRef.current,
         scale: [0, 1.2, 1],

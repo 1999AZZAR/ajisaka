@@ -6,7 +6,6 @@ import { BackButton } from './BackButton'
 import SuccessParticles from './SuccessParticles'
 import { useTranslation } from 'react-i18next'
 import { playClick, playTypeSuccess, playTypeError } from '../../engine/audio'
-import { fireConfetti } from '../../engine/confetti'
 
 const KEYBOARD = [
   { id: 'ha', label: 'ha', char: 'ꦲ' },
@@ -89,7 +88,6 @@ export default function Phase2() {
       playTypeError()
     } else if (nextVal === currentQ.target) {
       playTypeSuccess()
-      fireConfetti()
     } else {
       playClick()
     }

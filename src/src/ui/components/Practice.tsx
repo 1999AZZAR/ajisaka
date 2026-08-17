@@ -4,7 +4,6 @@ import type { Point } from '../../engine/geometry'
 import { STARTER_QUESTIONS, SANDANGAN_QUESTIONS, PASANGAN_QUESTIONS } from '../../data/aksara'
 import { useProgress } from '../../state/progress'
 import { rasterMatch } from '../../engine/raster'
-import { fireConfetti } from '../../engine/confetti'
 import PracticeCanvas, { type StrokeFeedback } from './PracticeCanvas'
 import { BackButton } from './BackButton'
 import { Button } from './Button'
@@ -93,7 +92,6 @@ export default function Practice() {
       import('../../engine/audio').then(a => {
         if (m.status === 'pass') {
           a.playQuestionDone()
-          fireConfetti()
         }
         else if (m.status === 'warn') a.playStrokeError()
         else if (m.status === 'retry') a.playStrokeError()
