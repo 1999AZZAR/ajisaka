@@ -149,10 +149,10 @@ export default function Phase2() {
         </span>
       </header>
 
-      <div className="mb-4 h-2 shrink-0 overflow-hidden rounded-full bg-paper-3">
+      <div className="mb-4 h-2 shrink-0 overflow-hidden rounded-full bg-paper-3 relative">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-500"
-          style={{ width: `${((qIndex + (isCorrect ? 1 : 0)) / QUESTIONS.length) * 100}%` }}
+          className="absolute inset-0 origin-left bg-gradient-to-r from-accent to-accent-2 transition-transform duration-500 will-change-transform transform-gpu"
+          style={{ transform: `scaleX(${((qIndex + (isCorrect ? 1 : 0)) / QUESTIONS.length)})` }}
         />
       </div>
 

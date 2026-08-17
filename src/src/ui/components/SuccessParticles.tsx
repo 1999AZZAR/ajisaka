@@ -16,7 +16,7 @@ export default function SuccessParticles({ show }: { show: boolean }) {
         const p = document.createElement('div')
         // Random star or sparkle icon
         p.innerText = ['✨', '⭐', '🌟', '🎊'][Math.floor(Math.random() * 4)]
-        p.className = 'absolute text-2xl drop-shadow-md'
+        p.className = 'absolute text-2xl drop-shadow-md will-change-transform transform-gpu'
         p.style.left = '50%'
         p.style.top = '50%'
         p.style.transform = 'translate(-50%, -50%)'

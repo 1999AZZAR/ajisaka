@@ -48,71 +48,95 @@ export default function PracticeCanvas({ glyph, feedback, showArrows, onStroke, 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    let lastLen = -1
+    let lastFeedback: any = undefined
+    let lastGuide: boolean | undefined = undefined
+    let lastW = 0
+    let lastH = 0
+
     const draw = () => {
+      rafRef.current = requestAnimationFrame(draw)
+      
       const rect = canvas.getBoundingClientRect()
       const dpr = window.devicePixelRatio || 1
-      if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-        canvas.width = rect.width * dpr
-        canvas.height = rect.height * dpr
-      }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      ctx.clearRect(0, 0, rect.width, rect.height)
+      const currentLen = liveRef.current.length
+      
+      // Only redraw if something actually changed to save battery/CPU
+      if (
+        canvas.width !== rect.width * dpr || 
+        canvas.height !== rect.height * dpr || 
+        lastLen !== currentLen || 
+        lastFeedback !== feedback || 
+        lastGuide !== showGuide
+      ) {
+        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+          canvas.width = rect.width * dpr
+          canvas.height = rect.height * dpr
+        }
+        
+        lastW = rect.width
+        lastH = rect.height
+        lastLen = currentLen
+        lastFeedback = feedback
+        lastGuide = showGuide
+        
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+        ctx.clearRect(0, 0, rect.width, rect.height)
 
-      const s = Math.min(rect.width, rect.height)
-      const pad = 0.05
-      const box = { x: (rect.width - s) / 2, y: (rect.height - s) / 2, size: s }
-      const map = (p: Point): Point => ({
-        x: p.x * (s * (1 - 2 * pad)) + box.x + s * pad,
-        y: p.y * (s * (1 - 2 * pad)) + box.y + s * pad,
-      })
-
-      // Optional solid glyph reference (toggled by the user) — the letter shape
-      // itself to trace over, no exposed boundary.
-      if (showGuide) {
-        const path = new Path2D()
-        glyph.contour.forEach(subpath => {
-          subpath.forEach((p, i) => {
-            const q = map(p)
-            if (i === 0) path.moveTo(q.x, q.y)
-            else path.lineTo(q.x, q.y)
-          })
-          path.closePath()
+        const s = Math.min(rect.width, rect.height)
+        const pad = 0.05
+        const box = { x: (rect.width - s) / 2, y: (rect.height - s) / 2, size: s }
+        const map = (p: Point): Point => ({
+          x: p.x * (s * (1 - 2 * pad)) + box.x + s * pad,
+          y: p.y * (s * (1 - 2 * pad)) + box.y + s * pad,
         })
-        ctx.fillStyle = 'rgba(179, 64, 42, 0.22)'
-        ctx.fill(path)
 
-        if (showArrows && glyph.contour.length > 0 && glyph.contour[0].length > 5) {
-          const p1 = map(glyph.contour[0][0])
-          const p2 = map(glyph.contour[0][Math.floor(glyph.contour[0].length / 10)]) // Look ahead a bit
-          const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
-          
-          ctx.save()
-          ctx.translate(p1.x, p1.y)
-          ctx.rotate(angle)
-          ctx.beginPath()
-          ctx.moveTo(0, 0)
-          ctx.lineTo(-15, -10)
-          ctx.lineTo(-10, 0)
-          ctx.lineTo(-15, 10)
-          ctx.closePath()
-          ctx.fillStyle = '#b3402a'
-          ctx.fill()
-          ctx.restore()
+        // Optional solid glyph reference (toggled by the user) — the letter shape
+        // itself to trace over, no exposed boundary.
+        if (showGuide) {
+          const path = new Path2D()
+          glyph.contour.forEach(subpath => {
+            subpath.forEach((p, i) => {
+              const q = map(p)
+              if (i === 0) path.moveTo(q.x, q.y)
+              else path.lineTo(q.x, q.y)
+            })
+            path.closePath()
+          })
+          ctx.fillStyle = 'rgba(179, 64, 42, 0.22)'
+          ctx.fill(path)
+
+          if (showArrows && glyph.contour.length > 0 && glyph.contour[0].length > 5) {
+            const p1 = map(glyph.contour[0][0])
+            const p2 = map(glyph.contour[0][Math.floor(glyph.contour[0].length / 10)]) // Look ahead a bit
+            const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
+            
+            ctx.save()
+            ctx.translate(p1.x, p1.y)
+            ctx.rotate(angle)
+            ctx.beginPath()
+            ctx.moveTo(0, 0)
+            ctx.lineTo(-15, -10)
+            ctx.lineTo(-10, 0)
+            ctx.lineTo(-15, 10)
+            ctx.closePath()
+            ctx.fillStyle = '#b3402a'
+            ctx.fill()
+            ctx.restore()
+          }
+        }
+
+        // Live ink while drawing.
+        if (liveRef.current.length >= 2) {
+          drawPolyline(ctx, liveRef.current.map(map), INK, 4)
+        }
+
+        // Last completed trace colored by status.
+        if (feedback) {
+          const color = feedback.status === 'pass' ? PASS : feedback.status === 'warn' ? WARN : ERROR
+          drawPolyline(ctx, feedback.points.map(map), color, 4)
         }
       }
-
-      // Live ink while drawing.
-      if (liveRef.current.length >= 2) {
-        drawPolyline(ctx, liveRef.current.map(map), INK, 4)
-      }
-
-      // Last completed trace colored by status.
-      if (feedback) {
-        const color = feedback.status === 'pass' ? PASS : feedback.status === 'warn' ? WARN : ERROR
-        drawPolyline(ctx, feedback.points.map(map), color, 4)
-      }
-
-      rafRef.current = requestAnimationFrame(draw)
     }
 
     draw()
