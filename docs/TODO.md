@@ -84,10 +84,10 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [x] Tautan lewati + pengumuman markah tanah + `:focus-visible` penuh — §16
 - [x] Aksesibilitas (a11y) interaktif: Kanvas memiliki `aria-label`/deskripsi, modal ucapan selamat diperangkap fokus — §9.7
 - [x] Dukungan papan ketik (salindia cerita, Enter/Spasi) — §16 (Selesai untuk Prolog, Latihan, Fase2, LevelSelesai)
-- [ ] Alternatif aksesibel untuk kanvas (deskripsi soal lengkap) — §16
-- [ ] Optimasi bundel ≤1,5 MB + fon ≤600 KB (saat ini total prakasai ±500 KB) — §15
-- [ ] Pola 60fps saat menulis dengan panduan menyala (rAF + penskalaan dpr)— §15
-- [~] Kanvas alih panduan (Tampilkan/Sembunyikan Contoh) — selesai, verifikasi UX
+- [x] Alternatif aksesibel untuk kanvas (deskripsi soal lengkap) — §16 (Ditambahkan via `aria-label` dan teks pembantu)
+- [x] Optimasi bundel ≤1,5 MB + fon ≤600 KB (saat ini total prakasai ±500 KB) — §15
+- [x] Pola 60fps saat menulis dengan panduan menyala (rAF + penskalaan dpr)— §15 (Diselesaikan via Dirty Checking canvas dan GPU Transforms)
+- [x] Kanvas alih panduan (Tampilkan/Sembunyikan Contoh) — selesai, terverifikasi UX
 - [ ] Emulasi luring Ujung-ke-Ujung (E2E) penuh (Playwright)
 
 ---

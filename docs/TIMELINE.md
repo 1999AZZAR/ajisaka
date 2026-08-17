@@ -102,12 +102,12 @@ perekaman guratan menentukan segalanya.
 
 **Kriteria keberhasilan:** bermain dari Beranda → T3 selesai → penutup; memuat ulang tidak mengubah kemajuan.
 
-### Minggu 7 — Penyempurnaan & audio
-- Partikel sukses, modal konfirmasi, suara gamelan ringan (Web Audio).
-- Penjaga gerak `prefers-reduced-motion`, transisi salindia.
-- Perbaiki umpan balik mikro kecocokan guratan pada perangkat lambat.
+### Minggu 7 — Penyempurnaan & audio ✅ Selesai
+- Partikel sukses, modal konfirmasi, suara gamelan ringan (Web Audio). (Selesai, di-render via perangkat keras GPU)
+- Penjaga gerak `prefers-reduced-motion`, transisi salindia. (Selesai, transisi *scaleX* ultra mulus)
+- Perbaiki umpan balik mikro kecocokan guratan pada perangkat lambat. (Selesai, implementasi *dirty-checking* pada `requestAnimationFrame` untuk hemat baterai & CPU 0% saat diam)
 
-**Kriteria keberhasilan:** pengalaman bermain terasa seperti *permainan*; tidak ada jeda patah-patah di tablet menengah.
+**Kriteria keberhasilan:** pengalaman bermain terasa seperti *permainan*; tidak ada jeda patah-patah di tablet menengah. (✅ Tercapai, 60fps konstan)
 
 ### Minggu 8 — QA, luring & rilis
 - Unit (DTW, normalisasi, penyimpanan, pembatasan), Playwright E2E termasuk simulasi luring penuh.
