@@ -78,9 +78,13 @@ export default function LevelDone() {
     <main className="mx-auto flex h-full overflow-hidden w-full max-w-3xl flex-col px-6 pb-10 pt-10 bg-gradient-to-b from-paper to-white">
       <section className="relative flex flex-1 min-h-0 flex-col items-center justify-center overflow-y-auto rounded-[2.5rem] border-[3px] border-white/80 bg-white/70 p-8 text-center shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
         
-        {/* Playful background sunburst */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30 pointer-events-none">
-           <div className="w-[150%] aspect-square animate-spin-slow bg-[conic-gradient(var(--color-accent-2)_0deg_15deg,transparent_15deg_30deg)] rounded-full blur-2xl" style={{ animationDuration: '20s' }} />
+        {/* Majestic background sunburst */}
+        <div className="absolute inset-0 z-0 overflow-hidden rounded-[2.5rem] pointer-events-none">
+           <div className="absolute left-1/2 top-1/2 -ml-[100%] -mt-[100%] h-[200%] w-[200%] animate-spin-slow" style={{ animationDuration: '30s' }}>
+              <div className="h-full w-full opacity-15" style={{ background: 'repeating-conic-gradient(var(--color-accent) 0 10deg, transparent 10deg 20deg)' }} />
+           </div>
+           {/* Center glow to blend the rays */}
+           <div className="absolute left-1/2 top-1/2 -ml-[50%] -mt-[50%] h-[100%] w-[100%] rounded-full bg-white/60 blur-[40px]" />
         </div>
 
         <div className="relative z-10 my-auto">

@@ -170,26 +170,47 @@ function playTone(freq: number, type: OscillatorType = 'sine', duration: number 
   } catch (e) {}
 }
 
-export const playClick = () => playTone(Slendro.Ro, 'sine', 0.15, 0.15);
-export const playTypeSuccess = () => playTone(Slendro.JiHigh, 'sine', 0.2, 0.1);
-export const playTypeError = () => playTone(150, 'sawtooth', 0.2, 0.1);
+export const playClick = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
+  playTone(Slendro.Ro, 'sine', 0.15, 0.15);
+}
+
+export const playTypeSuccess = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(20);
+  playTone(Slendro.JiHigh, 'sine', 0.2, 0.1);
+}
+
+export const playTypeError = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 40, 30]);
+  playTone(150, 'sawtooth', 0.2, 0.1);
+}
 
 export const playStartGame = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 100, 40, 200, 60]);
   playTone(Slendro.Lu, 'sine', 0.2, 0.15);
   setTimeout(() => playTone(Slendro.Nem, 'sine', 0.2, 0.15), 100);
   setTimeout(() => playTone(Slendro.JiHigh, 'sine', 0.5, 0.2), 200);
 }
 
-export const playStrokeSuccess = () => playGamelanTone(Slendro.Nem, 'saron', 0.3);
-export const playStrokeError = () => playGamelanTone(0, 'error', 0.2);
+export const playStrokeSuccess = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(30);
+  playGamelanTone(Slendro.Nem, 'saron', 0.3);
+}
+
+export const playStrokeError = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([40, 60, 40]);
+  playGamelanTone(0, 'error', 0.2);
+}
 
 export const playQuestionDone = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([30, 150, 40, 300, 50]);
   playGamelanTone(Slendro.Lu, 'saron', 0.2);
   setTimeout(() => playGamelanTone(Slendro.Ma, 'saron', 0.3), 150);
   setTimeout(() => playGamelanTone(Slendro.Nem, 'saron', 0.4), 300);
 }
 
 export const playLevelDone = () => {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate([50, 150, 50, 150, 50, 150, 100, 150, 200]);
   // Majestic Gamelan Arpeggio + Final Gong
   playGamelanTone(Slendro.Ji, 'saron', 0.3);
   setTimeout(() => playGamelanTone(Slendro.Ro, 'saron', 0.3), 150);
