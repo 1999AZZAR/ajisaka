@@ -83,7 +83,8 @@ const resources = {
         "language_id": "Indonesia",
         "language_en": "English",
         "language_jv": "Bahasa Jawa (Krama)",
-        "back": "Kembali"
+        "back": "Kembali",
+        "volume": "Volume Suara"
       },
       "level": {
         "completed": "Selesai",
@@ -263,7 +264,8 @@ const resources = {
         "language_id": "Bahasa Indonesia",
         "language_en": "English",
         "language_jv": "Javanese (Krama)",
-        "back": "Back"
+        "back": "Back",
+        "volume": "Sound Volume"
       },
       "level": {
         "completed": "Completed",
@@ -443,7 +445,8 @@ const resources = {
         "language_id": "Indonesia",
         "language_en": "English",
         "language_jv": "Basa Jawa (Krama)",
-        "back": "Wangsul"
+        "back": "Wangsul",
+        "volume": "Agenging Swara"
       },
       "level": {
         "completed": "Rampung",

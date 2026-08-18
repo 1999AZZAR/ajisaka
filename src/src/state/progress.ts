@@ -8,7 +8,7 @@ export interface ProgressState {
   bestByQuestion: Record<string, number>
   currentLevel?: number
   unfinished: string[]
-  settings: { sound: boolean; dark: boolean }
+  settings: { sound: boolean; dark: boolean; volume?: number }
   completeLevel: (level: number, reward?: string) => void
   completePhase: (phaseId: string) => void
   setCurrentLevel: (level: number) => void
@@ -16,6 +16,7 @@ export interface ProgressState {
   savedSessions?: Record<string, number>
   saveSession: (id: string, qIndex: number) => void
   clearSession: (id: string) => void
+  updateSettings: (s: Partial<ProgressState['settings']>) => void
 }
 
 export const useProgress = create<ProgressState>()(
@@ -26,7 +27,7 @@ export const useProgress = create<ProgressState>()(
       rewards: [],
       bestByQuestion: {},
       unfinished: [],
-      settings: { sound: true, dark: false },
+      settings: { sound: true, dark: false, volume: 1 },
       savedSessions: {},
       saveSession: (id, qIndex) =>
         set((s) => ({
@@ -56,6 +57,10 @@ export const useProgress = create<ProgressState>()(
             ...s.bestByQuestion,
             [questionId]: Math.max(s.bestByQuestion[questionId] ?? 0, score),
           },
+        })),
+      updateSettings: (newSettings) =>
+        set((s) => ({
+          settings: { ...s.settings, ...newSettings },
         })),
     }),
     { name: 'ajisaka-progress' },

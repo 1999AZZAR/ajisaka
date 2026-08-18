@@ -1,3 +1,5 @@
+import { useProgress } from '../state/progress'
+
 const Slendro = {
   JiLow: 130.81,
   RoLow: 146.83,
@@ -38,6 +40,15 @@ function getContext() {
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
+  
+  // Apply dynamic volume setting (0 to 1) from state, smoothly transitioning to avoid clicks
+  if (masterGain) {
+    const state = useProgress.getState().settings;
+    const isMuted = state.sound === false;
+    const volSetting = state.volume ?? 1;
+    masterGain.gain.setTargetAtTime(isMuted ? 0 : 0.6 * volSetting, audioCtx.currentTime, 0.05);
+  }
+
   return { ctx: audioCtx, out: masterGain! };
 }
 
