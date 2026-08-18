@@ -101,7 +101,8 @@ Prioritas berdasarkan `DESIGN_AND_DEV.md` §5 & `TIMELINE.md` W1–W11.
 - [ ] Statistik per latihan tambahan (skor, waktu, coba lagi)
 - [ ] Kuis pengetahuan cepat (bukan hanya menulis) sebagai penguat
 - [ ] Mode bantuan ekstra anak kecil (petunjuk lebih besar, warna kontras tinggi)
-- [ ] Pengaturan lanjutan (volume, mode kontras tinggi, ukuran teks)
+- [x] Pengaturan volume dan bungkam (mute) terintegrasi pada layar Pengaturan
+- [ ] Pengaturan lanjutan (mode kontras tinggi, ukuran teks)
 
 ---
 
