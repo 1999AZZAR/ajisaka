@@ -23,7 +23,7 @@ function getContext() {
     
     // Master Bus for anti-clipping
     masterGain = audioCtx.createGain();
-    masterGain.gain.value = 0.9;
+    masterGain.gain.value = 0.6; // Reduced to prevent clipping when chords play
     
     masterCompressor = audioCtx.createDynamicsCompressor();
     masterCompressor.threshold.value = -5; // db
@@ -46,7 +46,8 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
     const audioState = getContext();
     if (!audioState) return;
     const { ctx, out } = audioState;
-    const t = ctx.currentTime + 0.01;
+    // Increased lookahead to 50ms to prevent main-thread lag from causing envelope clicks
+    const t = ctx.currentTime + 0.05;
 
     if (type === 'error') {
       const osc1 = ctx.createOscillator();
@@ -61,7 +62,7 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
       gain.gain.linearRampToValueAtTime(0, t + 0.2);
       osc1.connect(gain); osc2.connect(gain); gain.connect(out);
-      osc1.start(t); osc1.stop(t + 0.2); osc2.start(t); osc2.stop(t + 0.2);
+      osc1.start(t); osc1.stop(t + 0.3); osc2.start(t); osc2.stop(t + 0.3);
       return;
     }
 
@@ -76,7 +77,7 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
       gain.gain.linearRampToValueAtTime(0, t + 0.08);
       osc.connect(gain); gain.connect(out);
-      osc.start(t); osc.stop(t + 0.08);
+      osc.start(t); osc.stop(t + 0.2);
       return;
     }
 
@@ -95,13 +96,14 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
     const strikeDuration = type === 'gong' ? 0.1 : 0.05;
     strikeGain.gain.setValueAtTime(0, t);
     strikeGain.gain.linearRampToValueAtTime(vol * (type === 'gong' ? 0.3 : 0.15), t + 0.005);
-    strikeGain.gain.exponentialRampToValueAtTime(0.001, t + strikeDuration - 0.01);
-    strikeGain.gain.linearRampToValueAtTime(0, t + strikeDuration);
+    const strikeDecayEnd = t + 0.005 + Math.max(0.01, strikeDuration - 0.01);
+    strikeGain.gain.exponentialRampToValueAtTime(0.001, strikeDecayEnd);
+    strikeGain.gain.linearRampToValueAtTime(0, strikeDecayEnd + 0.01);
     
     strikeOsc.connect(strikeFilter);
     strikeFilter.connect(strikeGain);
     strikeGain.connect(out);
-    strikeOsc.start(t); strikeOsc.stop(t + strikeDuration);
+    strikeOsc.start(t); strikeOsc.stop(strikeDecayEnd + 0.1);
 
     // 2. Bronze Resonance (Body) - Inharmonic partials with Ombak
     // Saron has very strong bright partials. Gong has massive deep resonance.
@@ -128,23 +130,26 @@ function playGamelanTone(freq: number, type: 'saron' | 'gong' | 'click' | 'error
       // Lowpass filter that closes over time: High frequencies decay much faster in physical bronze
       pFilter.type = 'lowpass';
       pFilter.frequency.setValueAtTime(Math.min(freq * p.r * 2 + 1000, 20000), t);
-      pFilter.frequency.exponentialRampToValueAtTime(Math.max(freq * p.r, 100), t + p.d);
+      pFilter.frequency.exponentialRampToValueAtTime(Math.max(freq * p.r, 100), t + Math.max(0.1, p.d));
       
       // Envelope
       pGain.gain.setValueAtTime(0, t);
       const attack = type === 'gong' ? 0.05 : 0.015;
-      pGain.gain.linearRampToValueAtTime(vol * p.a * 0.4, t + attack);
-      pGain.gain.exponentialRampToValueAtTime(0.001, t + attack + p.d - 0.05);
-      pGain.gain.linearRampToValueAtTime(0, t + attack + p.d);
+      const attackEnd = t + attack;
+      const peakVol = Math.max(0.002, vol * p.a * 0.4); // guarantee > 0.001
+      pGain.gain.linearRampToValueAtTime(peakVol, attackEnd);
+      
+      const decayEnd = attackEnd + Math.max(0.05, p.d - 0.05);
+      pGain.gain.exponentialRampToValueAtTime(0.001, decayEnd);
+      pGain.gain.linearRampToValueAtTime(0, decayEnd + 0.05);
 
       osc1.connect(pFilter);
       osc2.connect(pFilter);
       pFilter.connect(pGain);
       pGain.connect(out);
 
-      const totalDuration = attack + p.d;
-      osc1.start(t); osc1.stop(t + totalDuration);
-      osc2.start(t); osc2.stop(t + totalDuration);
+      osc1.start(t); osc1.stop(decayEnd + 0.2);
+      osc2.start(t); osc2.stop(decayEnd + 0.2);
     });
   } catch (e) {
     // Ignore autoplay policies
@@ -156,17 +161,23 @@ function playTone(freq: number, type: OscillatorType = 'sine', duration: number 
     const audioState = getContext();
     if (!audioState) return;
     const { ctx, out } = audioState;
-    const t = ctx.currentTime + 0.01;
+    // Increased lookahead to 50ms
+    const t = ctx.currentTime + 0.05;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = type;
     osc.frequency.setValueAtTime(freq, t);
+    
     gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(vol, t + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + duration - 0.02);
-    gain.gain.linearRampToValueAtTime(0, t + duration);
+    const peakVol = Math.max(0.002, vol);
+    gain.gain.linearRampToValueAtTime(peakVol, t + 0.02);
+    
+    const decayEnd = t + 0.02 + Math.max(0.02, duration - 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, decayEnd);
+    gain.gain.linearRampToValueAtTime(0, decayEnd + 0.02);
+    
     osc.connect(gain); gain.connect(out);
-    osc.start(t); osc.stop(t + duration);
+    osc.start(t); osc.stop(decayEnd + 0.1);
   } catch (e) {}
 }
 

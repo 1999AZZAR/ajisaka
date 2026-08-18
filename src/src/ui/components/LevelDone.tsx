@@ -78,7 +78,7 @@ export default function LevelDone() {
         
         {/* Majestic background sunburst */}
         <div className="absolute inset-0 z-0 overflow-hidden rounded-[2.5rem] pointer-events-none">
-           <div className="absolute left-1/2 top-1/2 -ml-[100%] -mt-[100%] h-[200%] w-[200%] animate-spin-slow" style={{ animationDuration: '30s' }}>
+           <div className="absolute left-1/2 top-1/2 w-[2000px] h-[2000px] -translate-x-1/2 -translate-y-1/2 animate-spin-slow" style={{ animationDuration: '30s' }}>
               <div className="h-full w-full opacity-15" style={{ background: 'repeating-conic-gradient(var(--color-accent) 0 10deg, transparent 10deg 20deg)' }} />
            </div>
            {/* Center glow to blend the rays */}
