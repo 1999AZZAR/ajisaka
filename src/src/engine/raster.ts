@@ -1,6 +1,6 @@
 import type { Point } from './geometry'
 
-type StrokeStatus = 'pass' | 'warn' | 'retry'
+type StrokeStatus = 'pass' | 'warn' | 'retry' | 'incomplete'
 
 export interface RasterMatch {
   status: StrokeStatus
@@ -91,6 +91,8 @@ export function rasterMatch(strokes: Point[][], outline: Point[][]): RasterMatch
   const maxTolerance = Math.max(0.07, targetDist * 1.5)
 
   let bestScore = 0
+  let bestPrecision = 0
+  let bestOutlierPenalty = 0
   const scales = [0.95, 1, 1.05]
   const shifts = [-0.03, 0, 0.03]
   
@@ -132,12 +134,18 @@ export function rasterMatch(strokes: Point[][], outline: Point[][]): RasterMatch
         
         const score = recallScore * precisionScore * lengthPenalty * outlierPenalty
         
-        if (score > bestScore) bestScore = score
+        if (score >= bestScore) {
+          bestScore = score
+          bestPrecision = precisionScore
+          bestOutlierPenalty = outlierPenalty
+        }
       }
     }
   }
 
   const status: StrokeStatus =
-    bestScore >= COVERAGE_PASS ? 'pass' : bestScore >= COVERAGE_WARN ? 'warn' : 'retry'
+    bestScore >= COVERAGE_PASS ? 'pass' : 
+    bestScore >= COVERAGE_WARN ? 'warn' : 
+    (bestPrecision > 0.7 && bestOutlierPenalty > 0.8) ? 'incomplete' : 'retry'
   return { status, score: bestScore, coverage: bestScore }
 }

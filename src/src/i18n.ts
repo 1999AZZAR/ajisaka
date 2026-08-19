@@ -127,6 +127,7 @@ const resources = {
           "pass": "Bagus, bentukmu tepat!",
           "warn": "Hampir pas, coba sedikit lagi.",
           "retry": "Belum pas — coba lagi, dekati bentuknya.",
+          "incomplete": "Lanjutkan, masih ada bagian yang kurang.",
           "empty": "Gambar aksara di bidang kosong, contoh di atas."
         }
       },
@@ -308,6 +309,7 @@ const resources = {
           "pass": "Great, correct shape!",
           "warn": "Almost there, try again.",
           "retry": "Not quite — try matching the shape.",
+          "incomplete": "Keep going, you're not done yet.",
           "empty": "Draw the character in the empty space, example above."
         }
       },
@@ -489,6 +491,7 @@ const resources = {
           "pass": "Sae, wujudipun leres!",
           "warn": "Meh leres, cobi sekedhik malih.",
           "retry": "Dereng leres — cobi malih, samikaken wujudipun.",
+          "incomplete": "Lajengaken, taksih wonten perangan ingkang kirang.",
           "empty": "Srat aksara ing papan kothong, tuladhanipun wonten ing nginggil."
         }
       },

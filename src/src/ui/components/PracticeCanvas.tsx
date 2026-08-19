@@ -5,7 +5,7 @@ import { useCanvasCapture, type LiveStrokeRef } from '../../hooks/useCanvasCaptu
 import { rasterMatch } from '../../engine/raster'
 import { useTranslation } from 'react-i18next'
 
-export type StrokeFeedback = ReturnType<typeof rasterMatch> & { points: Point[] }
+export type StrokeFeedback = ReturnType<typeof rasterMatch> & { points: Point[][] }
 
 export interface PracticeCanvasProps {
   glyph: AksaraGlyph
@@ -129,8 +129,12 @@ export default function PracticeCanvas({ glyph, feedback, showArrows, onStroke, 
 
         // Last completed trace colored by status.
         if (feedback) {
-          const color = feedback.status === 'pass' ? PASS : feedback.status === 'warn' ? WARN : ERROR
-          drawPolyline(ctx, feedback.points.map(map), color, 4)
+          const color = feedback.status === 'pass' ? PASS : 
+                        feedback.status === 'warn' ? WARN : 
+                        feedback.status === 'incomplete' ? '#4287f5' : ERROR
+          feedback.points.forEach(pts => {
+            drawPolyline(ctx, pts.map(map), color, 4)
+          })
         }
       }
     }

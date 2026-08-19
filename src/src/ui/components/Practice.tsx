@@ -87,7 +87,7 @@ export default function Practice() {
       const all = [...strokes, raw]
       setStrokes(all)
       const m = rasterMatch(all, glyph.contour)
-      setFeedback({ ...m, points: all.flat() })
+      setFeedback({ ...m, points: all })
       
       import('../../engine/audio').then(a => {
         if (m.status === 'pass') {
@@ -95,7 +95,7 @@ export default function Practice() {
         }
         else if (m.status === 'warn') a.playStrokeError()
         else if (m.status === 'retry') a.playStrokeError()
-        else a.playStrokeSuccess() // Sub-stroke valid
+        else if (m.status === 'incomplete') a.playStrokeSuccess() // Sub-stroke valid
       })
     },
     [strokes, glyph],
@@ -113,7 +113,9 @@ export default function Practice() {
         ? 'bg-warn/20 text-[oklch(0.4_0.08_60)] border-warn/40'
         : feedback?.status === 'retry'
           ? 'bg-error/15 text-[oklch(0.4_0.12_27)] border-error/40'
-          : 'border-transparent text-text-2'
+          : feedback?.status === 'incomplete'
+            ? 'bg-accent/10 text-accent-deep border-accent/30'
+            : 'border-transparent text-text-2'
 
   return (
     <main className="mx-auto flex h-full w-full max-w-3xl flex-col px-5 pb-5 pt-6 overflow-hidden">
@@ -194,6 +196,12 @@ export default function Practice() {
           <>
             <span aria-hidden="true" className="text-lg">🔄</span>
             {t('practice.feedback.retry')}
+          </>
+        )}
+        {feedback?.status === 'incomplete' && (
+          <>
+            <span aria-hidden="true" className="text-lg">✍️</span>
+            {t('practice.feedback.incomplete', { defaultValue: 'Lanjutkan...' })}
           </>
         )}
         {!feedback && (
