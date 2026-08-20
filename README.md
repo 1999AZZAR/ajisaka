@@ -1,4 +1,4 @@
-# Petualangan Ajisaka 👑
+# Petualangan Ajisaka
 
 ![Ilustrasi Ajisaka Blotcat](public/assets/ajisaka-blotcat.jpg)
 
