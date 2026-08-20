@@ -58,6 +58,15 @@ Jika Anda lebih suka menggunakan Docker, Anda dapat membangun dan menjalankan ci
    ```
 Aplikasi akan tersedia di `http://localhost:8080`.
 
+## Dokumentasi
+
+Untuk memahami proyek ini lebih dalam, Anda dapat membaca dokumen-dokumen berikut yang berada di dalam folder `docs/`:
+
+- [**Desain & Pengembangan**](docs/DESIGN_AND_DEV.md) - Panduan komprehensif mengenai arsitektur, UI/UX, dan keputusan teknis.
+- [**Naskah Cerita & Lore**](docs/NASKAH_AJISAKA.md) - Naskah cerita petualangan, dialog karakter, dan latar belakang dunia.
+- [**Garis Waktu Proyek**](docs/TIMELINE.md) - Catatan perjalanan dan log harian selama proses pengembangan proyek.
+- [**Daftar Tugas (TODO)**](docs/TODO.md) - Daftar perbaikan bug, penyempurnaan UI, dan fitur masa depan.
+
 ## Tata Letak Repositori
 
 - `src/engine/` - Logika matematis untuk geometri guratan kanvas (`raster.ts`, `geometry.ts`) dan penyintesis audio pemodelan fisik (`audio.ts`).
