@@ -67,4 +67,5 @@ Aplikasi akan tersedia di `http://localhost:8080`.
 - `docs/` - Dokumen perencanaan, skrip, dan pelacakan tugas.
 
 ## Lisensi
-Repositori Pribadi. Hak Cipta © 2026 Azzar. Hak Cipta Dilindungi Undang-Undang.
+
+Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).
